@@ -1,0 +1,681 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Week -4 - Electronics Production</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3da2565a-bc3c-4fd5-9787-422a209191eb" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1562408590-e32931084e23?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><h1 class="page-title">Week -4 - Electronics Production</h1><p class="page-description"></p></header><div class="page-body"><p id="105a03a2-cd13-4653-a950-f1d959feedb6" class="">Assignment Objectives for the week:<br/>Group assignment:<br/></p><p id="2fc901db-787f-4777-9bbf-c7f9e73a11fe" class=""><br/>- To characterize the design rules for your in-house PCB production process<br/>- To send a PCB out to a board house<br/>Individual assignment:<br/></p><ul id="7e1657e0-9e7b-4371-bfe4-259fda26497f" class="bulleted-list"><li style="list-style-type:disc">To make an in-circuit programmer by milling and stuffing the PCB, test it, then optionally try other PCB fabrication process.</li></ul><ul id="23c06165-818e-4a34-84c5-6bacbb7776c3" class="bulleted-list"><li style="list-style-type:disc">To make and test a microcontroller development board<br/>extra credit: personalize the board<br/>extra credit: make it with another process<br/></li></ul><p id="2ca81df7-433e-4d12-a1c2-146795328327" class=""><strong>Learning outcomes</strong></p><ul id="c2b9bdfc-3628-40f0-8583-c5777a449bec" class="bulleted-list"><li style="list-style-type:disc">Described the process of milling, stuffing, de-bugging and programming</li></ul><ul id="7edbcd7a-9908-48bd-bd24-4b7fbb5cc8cc" class="bulleted-list"><li style="list-style-type:disc">Demonstrate correct workflows and identify areas for improvement if required</li></ul><p id="fcf41a30-aecf-4d40-9ced-e3cfa00feea5" class="">
+</p><p id="272747c2-42a2-421f-82a7-ed3b1b5ae387" class="">Personal Checklist:</p><p id="db1d6dc2-eb7b-4315-bd17-a52282b94aa7" class=""><strong>Have you</strong></p><ul id="eb346d7d-c694-441c-93e2-d94451075f04" class="bulleted-list"><li style="list-style-type:disc">linked to the group assignment page</li></ul><ul id="4fec5d7a-cf11-4ccc-80b2-62dd77b6d7a4" class="bulleted-list"><li style="list-style-type:disc">Documented how you made (mill, stuff, solder) the board</li></ul><ul id="d6690ff5-cac7-4e27-a19b-277111bda767" class="bulleted-list"><li style="list-style-type:disc">Documented that your board is functional</li></ul><ul id="4b628563-8e60-42a1-8635-722f6791c5e5" class="bulleted-list"><li style="list-style-type:disc">Explained any problems and how you fixed them</li></ul><ul id="8f50c532-9679-40be-80ed-b58ed7309444" class="bulleted-list"><li style="list-style-type:disc">Included a ‘hero shot’ of your board</li></ul><h2 id="4e46cb9a-3edf-4a72-b661-15740878e0c0" class="">PCB (Printed Circuit Board) fabrication:</h2><p id="24eb84f1-9317-45de-aae3-fe57d93d05d8" class="">Dead bug:</p><p id="0f6a7be6-bc78-4559-bc48-36f584dd8760" class="">Dead bug prototyping and freeform electronics are a way of building working electronic circuits, by soldering the parts directly together, or through wires instead of the traditional way of using a printed circuit board (PCB.)</p><p id="b9fed917-1c5b-46d6-b99e-936c78d801fe" class="">The neat thing about building circuits without boards is that it removes the need for everything to be on a plane, making for more interesting looking 3D circuits, rather than 2D circuits. Geometry comes more into play this way, and the way parts are manufactured, the number of leads, how they are organized all limit, and shape the way the parts can fit together.</p><p id="d2eb6828-a17c-451b-9f2c-daf976eff6c0" class="">
+</p><h3 id="a0f0a22c-5e31-4005-8a0f-38aaf683963e" class="">Etching:</h3><p id="348316ff-e0f8-4ff1-91e4-b966c2461377" class=""><strong>PCB etching process</strong> is one of the major steps in the chemical processing of subtractive printed circuit board. It is the removal of <a href="https://www.allpcb.com/copper_foil.html">copper</a>, to achieve the desired circuit patterns. In PCB etching process, all copper is removed except the circuitry that is protected by the tin plating applied during the previous treatment in PCB manufacture. The tin is then stripped and the copper is cleaned and the newly prepared circuit is ready for <a href="https://www.allpcb.com/soldermask/">solder mask</a>.</p><figure id="61457177-710f-4d80-b8ce-1679325cdd6e" class="image"><a href="https://jpfile1.oss-cn-shenzhen.aliyuncs.com/allpcb/web/image/20190604/6369525557587424175936292.jpg"><img style="width:547px" src="https://jpfile1.oss-cn-shenzhen.aliyuncs.com/allpcb/web/image/20190604/6369525557587424175936292.jpg"/></a></figure><p id="a504e634-1786-4319-b38d-76e190d794d7" class="">PCB Etching Process</p><p id="60efe93d-9ad6-4f27-84af-9221c5fa7140" class="">It is easy and fun to etch small number of simple pcb boards by yourself at home.</p><p id="ba423fcd-9186-4e07-85f4-593eafb72fa7" class=""><strong>1. The Benefits of Etch a PCB by Yourself:</strong></p><ul id="2cd23606-156c-4b0b-b358-550c2f09da1e" class="bulleted-list"><li style="list-style-type:disc">No MOQ - You can make no matter how many pieces pcb boars you want</li></ul><ul id="1d8e7523-6b5d-4ae4-be99-adb924c6d5f6" class="bulleted-list"><li style="list-style-type:disc">It takes less time than to order from a pcb manufacturer</li></ul><ul id="db3e6e7b-bd06-444a-bf23-9a11888ec2c0" class="bulleted-list"><li style="list-style-type:disc">It is really fun and rewarding for hobbyists</li></ul><p id="437fb0d8-bf0d-4989-b0c0-e04d79555ade" class="">However, it may occur some issues during the pcb etching process, and because of dangerous chemicals and power tools, you should protect yourself by some methods.</p><p id="82f1b32d-0f8b-403f-9989-cfc9a5ec2034" class=""><strong>2. Some Issues While Etching:</strong></p><ul id="d3229063-9a0e-413e-ada9-5cdc44aee60d" class="bulleted-list"><li style="list-style-type:disc">There is a risk of injuries due to the chemicals involved</li></ul><ul id="670dfa7a-9866-4484-ba88-7f9961c58b37" class="bulleted-list"><li style="list-style-type:disc">The quality may not be as good as expected at the first time, such as over-etching</li></ul><ul id="f94381b1-2dd8-4b92-9d35-56b7eb1e52d3" class="bulleted-list"><li style="list-style-type:disc">You may be a problem of toxic chemicals waste disposal</li></ul><p id="8688c0f8-1e5a-4d8d-b0e7-d0dd9ae5298f" class=""><strong>3. Protect Yourself While Etching:</strong></p><ul id="36997445-82b8-449f-a0f1-a0c99426fe0d" class="bulleted-list"><li style="list-style-type:disc">Wear gloves, protection glasses, and an apron during the whole process</li></ul><ul id="727b761b-be83-4c5f-9c44-be89f0882333" class="bulleted-list"><li style="list-style-type:disc">Work near an emergency eyewash station</li></ul><ul id="311f5170-6274-405a-9174-bc2fd3fca4f2" class="bulleted-list"><li style="list-style-type:disc">Prepare a first aid box and a phone in advance</li></ul><p id="b620d53a-36ef-4f26-a391-200dc8d69f18" class="">
+</p><p id="a806299b-4a64-4b59-b50d-d3dbb80e805f" class="">Lithography:</p><p id="5ef70f4f-96e9-4a57-a048-3336f0ad1d68" class="">I went through a nicely prepared presentation <a href="https://www.4pcb.com/media/presentation-how-to-build-pcb.pdf">here</a></p><p id="a9620418-02ef-47de-b711-907df1a34a41" class="">Roland MDX PCB:</p><p id="fba4ccdf-c6bc-48a7-bc63-944b69dc0809" class="">The Roland MDX series of milling machines, such as the MDX-40A or MDX-50,  out of which we used MDX-20, capable of milling various materials, including PCB (Printed Circuit Board) materials. Here are the features of the Roland MDX mill PCB and the steps for creating traces and cutting the PCB:</p><p id="f77cb4f3-0de6-482f-889e-895dbfce4f7c" class="">Features of Roland MDX Mill PCB:</p><ol type="1" id="bff5043c-d8c9-43b4-a8e3-390b1aa4cf1c" class="numbered-list" start="1"><li><strong>High Precision Milling</strong>: The Roland MDX series offers high precision milling capabilities, allowing for precise milling of intricate PCB designs with tight tolerances.</li></ol><ol type="1" id="5151245d-e195-4059-bd35-b92a46421722" class="numbered-list" start="2"><li><strong>User-Friendly Interface</strong>: These machines feature user-friendly software interfaces, making it easy to import designs and set up milling jobs.</li></ol><ol type="1" id="6203341a-c30e-4f40-8c52-ab49ef64f1a4" class="numbered-list" start="3"><li><strong>Versatile Material Compatibility</strong>: The Roland MDX mill PCB is compatible with various PCB materials, including FR-4, copper-clad laminates, and other substrate materials commonly used in PCB manufacturing.</li></ol><ol type="1" id="8b0fdf8d-57c9-4d46-a86f-56644f8878ba" class="numbered-list" start="4"><li><strong>Integrated Spindle</strong>: The machines come with an integrated spindle motor capable of milling PCBs with high accuracy and surface finish.</li></ol><ol type="1" id="0363f0f5-38b7-4bab-a434-e5375b521dcc" class="numbered-list" start="5"><li><strong>Automatic Tool Changer (Optional)</strong>: Some models may come with an automatic tool changer, allowing for automated tool changes during the milling process, enhancing efficiency and flexibility.</li></ol><p id="bb67fcea-ef03-4566-ac49-0867ec8b3667" class="">Steps for Creating Traces and Cutting the PCB using Roland MDX Mill PCB:</p><ol type="1" id="8a45c54b-b1bd-4b91-ad26-6e1e1db595db" class="numbered-list" start="1"><li><strong>Design PCB Layout</strong>: Using PCB design software, we can design the layout of your PCB including traces, pads, vias, and other necessary elements. For this activity, we used the file from QuenTorres Board from the link provided</li></ol><ol type="1" id="aafacd62-0517-4755-aa4d-11e28aa1a104" class="numbered-list" start="2"><li><strong>Import Design into Roland CAM Software</strong>: The design was cutomised with my initials and imported to the machine using MODS interface through the following steps:</li></ol><figure id="1c8a7632-7684-4c6f-982b-a7fb305b6210" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled.png"><img style="width:1919px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled.png"/></a></figure><ol type="1" id="df528b29-bddf-4c69-a711-78e649dd7892" class="numbered-list" start="1"><li><strong>Set Milling Parameters</strong>: Configure the milling parameters such as cutting depth, spindle speed, and tool diameter based on the material and design requirements.</li></ol><figure id="61dd2f72-b1db-42ae-8ed2-6d1e0f6d627d" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%201.png"><img style="width:243px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%201.png"/></a></figure><figure id="6593ae81-20a9-4657-8f19-0976a8f06258" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%202.png"><img style="width:462px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%202.png"/></a></figure><ol type="1" id="550931c5-e4cd-4ab7-bb33-9afd5d59bf99" class="numbered-list" start="1"><li><strong>Tool Path Generation</strong>: Generate the tool paths for milling the traces and cutting the PCB from the imported Gerber files. The CAM software will automatically generate the tool paths based on the design specifications. Origin can be set and tool path will be generated as follows:</li></ol><figure id="f8f78e57-056b-4632-b93c-b767f272aa78" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%203.png"><img style="width:445px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%203.png"/></a></figure><figure id="fe2d3a5f-9a95-4632-a8a7-865f6d4e31f9" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%204.png"><img style="width:977px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%204.png"/></a></figure><ol type="1" id="c9b93f6a-5c10-4800-8670-a6603b57e25a" class="numbered-list" start="1"><li><strong>Material Setup</strong>: Secure the PCB material to the milling bed of the Roland MDX machine using double-sided tape or clamps, ensuring it is firmly held in place.</li></ol><ol type="1" id="df48c638-4136-42c5-a30e-4175d633a92f" class="numbered-list" start="2"><li><strong>Tool Installation</strong>: Install the appropriate milling and cutting tool (typically a small diameter end mill) into the spindle of the Roland MDX machine. We have tried the tool with 10 mill and 16 mill for creating traces. </li></ol><ol type="1" id="630bf819-aafb-43e9-b365-3611be0cb5ac" class="numbered-list" start="3"><li><strong>Run Milling Job</strong>: Load the generated tool paths into the Roland MDX machine and initiate the milling job. The machine will automatically mill the traces and cut the PCB according to the programmed tool paths.</li></ol><ol type="1" id="c7ec5e57-7189-4852-82eb-a4b9ef142dff" class="numbered-list" start="4"><li><strong>Post-Processing</strong>: After the milling process is complete, remove the milled PCB from the machine and perform any necessary post-processing steps such as cleaning, inspection, and soldering components.</li></ol><p id="0ff2998a-19ee-415e-ac9e-a02e4207da3f" class="">
+</p><p id="bd46a9f6-8c9b-4e5c-8da4-02072bc1e152" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
