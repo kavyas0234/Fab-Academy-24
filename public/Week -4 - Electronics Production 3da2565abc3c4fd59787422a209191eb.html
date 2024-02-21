@@ -710,4 +710,67 @@ Now load the Blink program so that the LED built in blinks. When we upload it, a
 </p><a href="#" class="image"><img src="images/blink1.png" alt="" /></a>
 In this short video you can see the operation of a Blink on pin GPIO 26 (26 in Arduino) where the LED is integrated.The board has an integrated LED and a button.  The LED is integrated on GPIO Pin 26 and we have added LED controls to 26, 0 and 1 pins.</p><p id="66deb951-62ec-4107-a66a-2d125ca201e9" class="">On setting up the Arduino IDE interface adding Seeed Xiao RP2040 board, the following codes can be used to program the blink program to the board.</p><figure id="4e6954e5-7823-458e-b6a2-8c248596ae6c" class="image"><a href="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%206.png"><img style="width:1919px" src="Week%20-4%20-%20Electronics%20Production%203da2565abc3c4fd59787422a209191eb/Untitled%206.png"/></a></figure><p id="3a0d1960-532b-4612-bffa-a720701dc0f4" class="">The output of the board is displayed in the following gif:</p><video width="500px" height="500px" controls="controls">
         <source src="images/blink.mp4" type="video/mp4" />
-       </video></div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
+       </video></div></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em">
+		Creating a flexible PCB (Printable Circuit Board) with conducting tape and a vinyl cutter:
+I followed the following steps to get an experience on the basic steps to develop the flexible PCB using conducting tape and here are the steps I followed:
+		 1. Identify the Circuit
+		- Simplify Design: Since you're using conducting tape and vinyl cutter, for first time I chose a simple design from Fab Programmer's page and chose Hello T412 board as the design was quite small I removed the font Hello T412 as the size would be difficult to cut using vinyl cutter. You can find the design I chose as shown below:
+	</p><a href="#" class="image"><img src="images/Flex.png" alt="" /></a>
+		 2. Prepare the Vinyl Cutter
+		- Material Selection: Choose a flexible substrate material that your vinyl cutter can handle, such as thin vinyl sheets. The material should be durable enough to support the conductive tape and withstand the intended application's environment. Hence, to make it durable I mounted the conductive tape onto transfer tape for additional strength and placed it on the vinyl cutter for cutting.
+		- Test Cuts: Perform test cuts to adjust the blade depth, pressure, and speed settings. This ensures that the cutter will precisely cut your design without damaging the substrate.
+	
+		3. Cut the Design
+		- Convert and Import: Convert your circuit design into a format compatible with your vinyl cutter's software. This might involve exporting your design as a DXF or SVG file and then importing it into the cutting software.
+		- Perform the Cut: Load your substrate material into the vinyl cutter and run the job to cut out your circuit pattern. After cutting, carefully weed out the excess material, leaving your circuit design intact on the substrate.
+	</p><a href="#" class="image"><img src="images/flex1.jpg" alt="" /></a>	
+		After carefully removing the extra fillers around the traces the resulting pcb looked something like this. I removed the extras carefully using tweezers without disturbing the circuit.
+	</p><a href="#" class="image"><img src="images/flex2.jpg" alt="" /></a>	
+</p><a href="#" class="image"><img src="images/flex3.jpg" alt="" /></a>	
+		4. Add Components
+		- Place Components: Position your electronic components onto the designated areas of your circuit. This may involve soldering, using conductive adhesive, or creating pressure contacts, depending on your design and the components' requirements.
+		- Solder Carefully: If soldering, be cautious to not overheat the conductive tape or the substrate, as this could cause lifting or damage. Some prefer low-temperature solder or conductive epoxy for this reason.
+	</p><a href="#" class="image"><img src="images/flex4.jpg" alt="" /></a>	
+	Voila! There's my flexible PCB stuck nicely on my curved water bottle after assembling all the components listed above. 
+</p><a href="#" class="image"><img src="images/flex5.jpg" alt="" /></a>	
+		5. Test and Debug
+		- Continuity Testing: Use a multimeter to check for continuity and ensure there are no short circuits in your design.
+		- Functional Testing: Power up your circuit and test its functionality. Debug any issues by checking connections, component placement, and the integrity of the conductive paths.
+		
+		7. Final Adjustments and Encapsulation
+		- Adjustments: Make any necessary adjustments to improve the circuit's performance or durability.
+		- Encapsulation: To protect your flexible PCB, consider encapsulating it in a flexible clear coat or using heat-shrink tubing. This step is particularly important for wearable electronics or applications exposed to harsh conditions.
+	</p><a href="#" class="image"><img src="images/flex6.jpg" alt="" /></a>	
+	
+Reflow Soldering:
+Reflow soldering is a process widely used in the electronics industry to solder surface mount components (SMCs) to printed circuit boards (PCBs). It involves applying solder paste (a mix of flux and solder powder) to the board, placing components on top, and then heating the assembly to melt the solder without directly applying heat to the solder itself. This method allows for the efficient and reliable soldering of many components at once, making it ideal for mass production and small, densely packed circuits found in modern electronic devices.
+
+The Reflow Soldering Process
+Apply Solder Paste: Solder paste is applied to the PCB at the locations where components will be placed. This is typically done using a stencil that matches the PCB layout, ensuring solder paste goes only where needed. The paste can be applied with a squeegee or similar tool that forces it through the openings in the stencil and onto the PCB.
+Here's our stencil arrangement to perfectly fit the breakout board "ProshPlay" designed by Saheen Palayi in our lab.
+</p><a href="#" class="image"><img src="images/rf.jpg" alt="" /></a>	
+</p><a href="#" class="image"><img src="images/rf1.jpg" alt="" /></a>	
+</p><a href="#" class="image"><img src="images/rf2.jpg" alt="" /></a>	
+Here's the solder paste we used and the temperature details of the solder paste are mentioned as follows:
+</p><a href="#" class="image"><img src="images/rf5.jpg" alt="" /></a>	
+Place Components: Components are placed on the PCB where the solder paste has been applied. In production, this is often done with a pick-and-place machine, which precisely positions each component. For DIY projects, components can be placed by hand using tweezers, though this requires patience and a steady hand.
+Here are the components chosen for this design:
+</p><a href="#" class="image"><img src="images/rf4.jpg" alt="" /></a>	
+Components were carefully placed on the solder paste appplied on to the board:
+</p><a href="#" class="image"><img src="images/rf7.jpg" alt="" /></a>	
+Reflow Soldering:
+
+Preheat Phase: The PCB assembly is gradually heated to dry the paste and activate the flux, a chemical agent in the solder paste that cleans metal surfaces to improve the solder's ability to bond.
+We did this using a reflow oven designed by a startup named "ZoidLabs" 
+</p><a href="#" class="image"><img src="images/rf6.jpg" alt="" /></a>	
+They have a mobile interface that can be accessed by connecting to taht device using WiFi and we can monitor the temperature changes during different phases mentioned below.
+Soak Phase: Temperature is further increased to allow the entire assembly to reach a uniform temperature. This helps to avoid thermal shock to components and ensures the solder melts evenly.
+Reflow Phase: The temperature is raised to above the melting point of the solder, typically around 183°C to 250°C (361°F to 482°F) for lead-free solder, causing the solder paste to melt, flow, and form solder joints.
+Cooling Phase: Finally, the assembly is cooled in a controlled manner to solidify the solder, forming strong and reliable electrical and mechanical connections.
+Inspection and Testing: Once cooled, inspect your solder joints for quality. Look for shiny, smooth joints with no bridges or cold solder spots. Use a magnifying glass or microscope if necessary. Test the circuit to ensure all connections are solid and the device functions as intended.
+
+Safety Tips
+Ventilation: Ensure good ventilation to avoid inhaling fumes from the flux.
+Personal Protective Equipment (PPE): Wear safety glasses and gloves to protect against splashes and hot surfaces.
+Avoid Overheating: Pay close attention to the temperature profile to prevent damaging components or the PCB.
+		</span></body></html>
