@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week - 6: Embedded Programming
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="37e9d0c0-f46b-41a0-ac5c-6b9cf9ec7b8a">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week - 6: Embedded Programming
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <p class="" id="6ba3b64c-8365-4fcc-8338-0dcca44add7f">
+     During Week 6, we delve into the fascinating world of embedded programming. Embedded programming refers to the process of writing code for devices other than computers. These devices, known as embedded systems, are specialized computing devices that perform specific tasks. Examples include the electronic systems in cars, airplanes, home appliances, and more. This week, we will explore the fundamentals of embedded programming, learn about the different types of microcontrollers, and begin writing code for these systems. We will also discuss the unique challenges and considerations when programming for embedded systems.
+    </p>
+    <br/>
+    <p class="" id="9723de1b-9e1b-4542-8f6d-be7cd3ec8171">
+     Objectives for the week:
+    </p>
+    <p class="" id="9cd652e5-487e-416b-a458-2a94a99833cd">
+     Individual assignment:
+    </p>
+    <ul class="bulleted-list" id="4d88eff8-f05b-47b1-bdd0-c62704fafa7c">
+     <li style="list-style-type:disc">
+      Write a program for the microcontroller development board you made. The program should be able to interact with local input and/or output devices, and communicate with remote wired or wireless devices.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6d486109-90f6-4c6b-9b62-ebbb49c451db">
+     <li style="list-style-type:disc">
+      Extra credit: Use different languages and/or development environments.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="f0b97cee-14bc-4f16-a952-2db2d7c68b7c">
+     <li style="list-style-type:disc">
+      Extra credit: Connect external components to the board.
+     </li>
+    </ul>
+    <p class="" id="04f1dc46-25fc-4547-892b-1501781aa410">
+     Group assignment:
+    </p>
+    <ul class="bulleted-list" id="b4c2c15d-b456-4b0f-84d8-7f0bdf9c3c63">
+     <li style="list-style-type:disc">
+      Browse through the data sheet for your microcontroller.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="00a2a014-bd6b-4ff6-8539-a547a826eb52">
+     <li style="list-style-type:disc">
+      Compare the performance and development workflows for other architectures.
+     </li>
+    </ul>
+    <br/>
+    <p class="" id="7d9be52d-27ca-4f44-9ad7-d04305421d6f">
+     Here are the steps to write a program on Arduino IDE to blink the LED on pin 26 of the development board:
+    </p>
+    <ol class="numbered-list" id="626a651b-cb8b-4cd8-909b-eb000b6faf80" start="1" type="1">
+     <li>
+      <strong>
+       Install the Arduino IDE:
+      </strong>
+      Download and install the Arduino Integrated Development Environment (IDE) on your computer.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ed204f50-ead7-41c3-8c09-8f71bc2bbfe8" start="2" type="1">
+     <li>
+      <strong>
+       Open the Arduino IDE:
+      </strong>
+      Once installed, open the Arduino IDE.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6d797c99-def0-44b4-8609-2040510de87c" start="3" type="1">
+     <li>
+      <strong>
+       Create a New Sketch:
+      </strong>
+      In the Arduino IDE, go to "File" &gt; "New" to create a new sketch. Using the board manager option, I selected my board as Seeed Xiao RP2040.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="9c3f693d-3ceb-423f-bc75-9d6a38312dd5" start="4" type="1">
+     <li>
+      <strong>
+       Write the Code:
+      </strong>
+      Now, you will write the code for blinking the LED. The code will look something like this:
+     </li>
+    </ol>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="e368d0de-a14d-4401-b7e6-9ccf422c8943"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">// Defines pin number
+const int LED_PIN = 26;
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pin as an output.
+  pinMode(LED_PIN, OUTPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  digitalWrite(LED_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                   // wait for a second
+  digitalWrite(LED_PIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                   // wait for a second
+}
+</code></pre>
+    <ol class="numbered-list" id="082ce62f-940b-4781-9ded-ac855c782098" start="1" type="1">
+     <li>
+      <strong>
+       Select the Board:
+      </strong>
+      Go to "Tools" &gt; "Board" &gt; and select the appropriate board from the list.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d8c77e4a-a9b0-4ce6-bf0b-ab67346117f8" start="2" type="1">
+     <li>
+      <strong>
+       Select the Port:
+      </strong>
+      Go to "Tools" &gt; "Port" &gt; and select the port where your Arduino board is connected.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ebb15ff0-36c8-478c-b59e-85e7cd7d3df5" start="3" type="1">
+     <li>
+      <strong>
+       Upload the Code:
+      </strong>
+      Click the "Upload" button in the Arduino IDE to upload your code to the Arduino board. If everything is connected correctly, the LED on pin 26 of your board should start blinking.
+     </li>
+    </ol>
+    <p class="" id="2349f06f-f8e2-4cac-b053-fd72d758f56d">
+     There are various methods to define LED pins in Arduino programming, each with its own advantages.
+    </p>
+    <p class="" id="588bebf7-be9d-4651-adb2-afb8049b32ce">
+     One common method is using
+     <code>
+      #define
+     </code>
+     preprocessor directive. This replaces all instances of the defined identifier with the defined value before the code is compiled. It doesn't use any memory in the microcontroller, making it efficient for memory-critical applications.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="218d0671-e358-41dc-a145-a7bf6ad1c5de"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#define LED_PIN 26
+</code></pre>
+    <p class="" id="d34b40ba-5f05-4118-a884-ef5d28618cc4">
+     Another method is the use of
+     <code>
+      const int
+     </code>
+     . This declares a constant integer variable, which means the value cannot be changed after it's set. This method is type-safe and makes the code easier to read.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="d45c851c-ee46-42d5-ad13-9ef71f8a379e"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">const int LED_PIN = 26;
+</code></pre>
+    <p class="" id="78a6cc64-9ca6-43f4-9e23-65da508a9e43">
+     You can also directly mention the pin number in your code. However, this method can make your code harder to read and maintain, especially for larger projects.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="cbd33271-0a8e-4232-8f82-133e4ef8fd93"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">digitalWrite(26, HIGH);
+</code></pre>
+    <p class="" id="2ee1f510-55ea-4088-b006-bd7b353fe2c2">
+     These techniques are useful because they make your code more readable and maintainable. By defining the pin number at the start of your program, you can easily change the pin number if needed without having to go through your entire code.
+    </p>
+    <br/>
+    <p class="" id="83fd0e67-6b25-4a47-b11d-27dfa804ccc5">
+     After understanding how to blink a single LED, let's now write an Arduino program to blink three LEDs simultaneously with a push button on the SEEED Xiao RP2040 board. We'll use pins 0, 1, and 26 for the LEDs and pin 27 for the push button.
+    </p>
+    <p class="" id="9600b9a8-b282-40dd-a6a5-5e5aa7667f54">
+     Here's the Arduino code to accomplish this:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="b9e88a94-04c6-472c-ab63-a1fcd06f7b41"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">// Define pin numbers
+const int LED_PIN1 = 0;
+const int LED_PIN2 = 1;
+const int LED_PIN3 = 26;
+const int BUTTON_PIN = 27;
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pins as outputs
+  pinMode(LED_PIN1, OUTPUT);
+  pinMode(LED_PIN2, OUTPUT);
+  pinMode(LED_PIN3, OUTPUT);
+
+  // initialize button pin as input
+  pinMode(BUTTON_PIN, INPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH
+  if (buttonState == HIGH) {
+    digitalWrite(LED_PIN1, HIGH);   // turn the LED on
+    digitalWrite(LED_PIN2, HIGH);   // turn the LED on
+    digitalWrite(LED_PIN3, HIGH);   // turn the LED on
+    delay(1000);                    // wait for a second
+    digitalWrite(LED_PIN1, LOW);    // turn the LED off
+    digitalWrite(LED_PIN2, LOW);    // turn the LED off
+    digitalWrite(LED_PIN3, LOW);    // turn the LED off
+    delay(1000);                    // wait for a second
+  } else {
+    // if the pushbutton isn't pressed, turn off the LEDs
+    digitalWrite(LED_PIN1, LOW);
+    digitalWrite(LED_PIN2, LOW);
+    digitalWrite(LED_PIN3, LOW);
+  }
+}
+</code></pre>
+    <p class="" id="4bbd30fc-5ea4-49f8-8291-e5e531a71ab6">
+     This program will continuously check the state of the button. When the button is pressed (HIGH state), it will turn on the LEDs, wait for a second, turn off the LEDs, and then wait for another second before repeating the cycle. If the button isn't pressed, it will keep the LEDs off.
+    </p>
+    <br/>
+    <p class="" id="d7039930-5ba7-4bd7-ae80-fd4f6d7082ac">
+     Here’s a program I explored for switching on the LEDs on pin 0, 1 and 26 are off when the push button is pressed and vice versa.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="70f45ed6-ba20-409f-9709-e3d48fc64526"><code class="language-C++">/*
+  Button
+
+  Turns on and off a light emitting diode(LED) connected to digital pin 0, 1 and 26,
+  when pressing a pushbutton attached to pin 27.
+  */
+const int buttonPin = 27;  // the number of the pushbutton pin
+const int ledPin = 1;      // the number of the LED pin
+const int ledPin1 = 0;
+const int ledPin2 = 26;
+// variables will change:
+int buttonState = 0;  // variable for reading the pushbutton status
+bool flag = false;
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  pinMode(ledPin1, OUTPUT);
+  pinMode(ledPin2, OUTPUT);
+  pinMode(buttonPin, INPUT);
+}
+
+void loop() {
+  // read the state of the pushbutton value:
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+
+
+    if (flag == true)
+
+    {
+      flag = false;
+    } else {
+      flag = true;
+    }
+  }
+
+
+
+
+  if (flag == true)
+  {  // turn LED on:
+    digitalWrite(ledPin, HIGH);
+    digitalWrite(ledPin1, HIGH);
+    digitalWrite(ledPin2, HIGH);
+  }
+  else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+    digitalWrite(ledPin1, LOW);
+    digitalWrite(ledPin2, LOW);
+  }
+}
+</code></pre>
+    <br/>
+    <p class="" id="74c61976-a78e-4412-9766-2342287a37a5">
+     Our instructor helped us to develop algorithms to understand the underlying steps followed by the code.
+    </p>
+    <p class="" id="8d72c2e5-6eca-4248-ad46-85bb03c5429d">
+     He shared an algorithm with us for the first blink program as follows:
+    </p>
+    <br/>
+    <p class="" id="2a4bbf09-eea4-4ef3-856b-fad3b16ae9a9">
+     LED blink algorithm
+    </p>
+    <p class="" id="00b30a24-341c-46cf-89d7-9f923f436d2c">
+     Step1:- set pin 26 as Output for LED 1
+    </p>
+    <p class="" id="a541ead1-ea08-4d75-8ecc-83f22eb5ff81">
+     Step2:- set LED1 On
+    </p>
+    <p class="" id="aa8757aa-eb16-4cd2-9945-f800a64bc8fe">
+     Step3:- 1 second delay
+    </p>
+    <p class="" id="86b93d06-3bdb-4f1a-9271-89e376dff07e">
+     Step4:- set LED1 Off
+    </p>
+    <p class="" id="56268d9b-e55e-425c-8bcb-22979148fcf6">
+     Step5:- 1 second delay
+    </p>
+    <p class="" id="4fea5ac8-50e9-41ec-92b5-1df4d3a27f72">
+     Step6:- go to step 2
+    </p>
+    <br/>
+    <p class="" id="e1dd83d0-2bfc-44dc-9030-7dff6cb9b974">
+     Using this example, I developed the algorithm for the button program for toggling on and off the LED as follows:
+    </p>
+    <p class="" id="e8981cb9-ac63-44c2-aec2-cdbd9a6a79c0">
+     Step 1: Set pin 27 as input pin for the tactile push button
+    </p>
+    <p class="" id="eac17466-93f4-4af4-80e1-42e1337e40a9">
+     Step 2: Set pins 0, 1, and 26 as outputs for LEDs.
+    </p>
+    <p class="" id="11350cb4-df79-4f9f-805d-79942ec372dc">
+     Step 3: LED on when push button is pressed and go to step 5
+    </p>
+    <p class="" id="69be21c1-6cec-41ef-8f6d-308cbbdda7d3">
+     Step 4: LED off.
+    </p>
+    <p class="" id="c0498398-f26f-4594-a11f-0d11e43e554a">
+     Step 5: Go to step 3.
+    </p>
+    <br/>
+    <p class="" id="c62c17cd-31b2-4da8-9676-7d86afe95d61">
+     Using this example, I developed the algorithm for the button program as follows:
+    </p>
+    <p class="" id="847172a4-659d-4b47-9a6a-1fd4492f2d1c">
+     Step 1: Set pin 27 as input pin for the tactile push button and set pins 0, 1, and 26 as outputs for LEDs.
+    </p>
+    <p class="" id="2fb88cd5-a342-41ed-b181-6bbc0d787cda">
+     Step 2: If button is pressed, LED ON
+    </p>
+    <p class="" id="3ca3e312-4956-4ca9-9e09-a55a099c34e0">
+     Step 3: Update the flag to true only if the LED is ON.
+    </p>
+    <p class="" id="ab8f733f-d45f-4f3b-a0c7-2731c4e6e2e2">
+     Step 4: If the flag is true when button is pressed, LED OFF.
+    </p>
+    <p class="" id="accc03de-768b-43c7-8f14-a1b3b21c7ba3">
+     Step 5: Go to step 2.
+    </p>
+    <br/>
+    <p class="" id="2c6b05f9-999d-4e22-8b87-760729184459">
+     Alternate:
+    </p>
+    <p class="" id="24178bdd-7de3-4c42-8eff-08536f654e0f">
+     Step 1: Set pin 27 as input pin for the tactile push button and set pins 0, 1, and 26 as outputs for LEDs.
+    </p>
+    <p class="" id="549cf93c-7442-47a5-9138-08300f85c57f">
+     Step 2: If button is pressed, LED ON
+    </p>
+    <p class="" id="8c185fa3-705d-4faa-bf79-26704a55aa46">
+     Step 3: If LED ON, turn off LED when button is pressed again
+    </p>
+    <p class="" id="a9bf8e0d-fd09-41a3-831f-99db0497a04e">
+     Step 4: Go to step 2.
+    </p>
+    <br/>
+    <p class="" id="0137ec3a-7d8c-47fe-b6b8-fb18f2b28ca6">
+     We were asked to write our own program using the above algorithm and the program I wrote is as follows:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="24a5b758-4f6a-4480-b00f-dae83cecabfe"><code class="language-C++">// Define the pin numbers
+const int buttonPin = 27;
+const int ledPin1 = 0;
+const int ledPin2 = 1;
+const int ledPin3 = 26;
+bool ledState = false; // false means LEDs are OFF, true means LEDs are ON
+bool buttonState = false;
+bool pressed = false;
+void setup() {
+  // Initialize the button pin as an input with an internal pull-up resistor
+  pinMode(buttonPin, INPUT);
+  
+  // Initialize the LED pins as outputs
+  {
+    pinMode(ledPin1, OUTPUT);
+    digitalWrite(ledPin1, LOW);
+    pinMode(ledPin2, OUTPUT);
+    digitalWrite(ledPin1, LOW); 
+    pinMode(ledPin3, OUTPUT);
+    digitalWrite(ledPin3, LOW);// Make sure LEDs are OFF at the start
+  }
+}
+
+void loop() 
+{
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH) 
+  {
+      if (digitalRead(ledPin3) == HIGH)
+    {digitalWrite (ledPin3, LOW);}
+  else
+  {digitalWrite(ledPin3, HIGH);}
+  
+  }
+}</code></pre>
+    <p class="" id="f2385a10-e1ec-4cfa-abaa-94a9b685b00f">
+     However, this code had some bouncing issues so our instructor recommended that we develop a code with a delay and with pressed condition of the button as a filter to resolve the blinking issue when the button is long pressed. The code we developed is as follows:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="a07d16b7-adfa-4f3f-968f-7d8902634a21"><code class="language-C++">// Define the pin numbers
+const int buttonPin = 27;
+const int ledPin1 = 0;
+const int ledPin2 = 1;
+const int ledPin3 = 26;
+bool ledState = false; // false means LEDs are OFF, true means LEDs are ON
+bool buttonState = false;
+bool pressed = false;
+void setup() {
+  // Initialize the button pin as an input with an internal pull-up resistor
+  pinMode(buttonPin, INPUT);
+  
+  // Initialize the LED pins as outputs
+  {
+    pinMode(ledPin1, OUTPUT);
+    digitalWrite(ledPin1, LOW);
+    pinMode(ledPin2, OUTPUT);
+    digitalWrite(ledPin1, LOW); 
+    pinMode(ledPin3, OUTPUT);
+    digitalWrite(ledPin3, LOW);// Make sure LEDs are OFF at the start
+  }
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH) 
+  {
+    if (pressed == false)
+    
+    {
+      pressed = true;
+      if (digitalRead(ledPin3) == HIGH)
+    {digitalWrite (ledPin3, LOW);}
+  else
+  {digitalWrite(ledPin3, HIGH);}
+  
+  }
+  }
+  else {pressed = false;
+  delay(100);  }
+    
+     
+  
+  }
+</code></pre>
+    <br/>
+    <p class="" id="32b98006-2fc4-4381-b569-ca64f2e73ca4">
+     So what is this bouncing issue and what is debouncing?
+    </p>
+    <p class="" id="f3116362-5110-4937-96b8-e89db5d54cd5">
+     "Bouncing" is a common issue that occurs with physical switches and buttons. When you press or release a button, instead of the electrical signal cleanly transitioning from off to on or vice versa, it can rapidly "bounce" between the two states before settling. This can be interpreted by the microcontroller as multiple button presses, which can cause problems in your program.
+    </p>
+    <p class="" id="fd22863f-a01c-449b-9976-72fb1175ebfb">
+     "Debouncing" is the process of mitigating this issue. There are many methods to debounce a button, but one common method is to add a delay after the button state changes. During this delay, any additional changes in the button state are ignored. This gives the signal time to stop bouncing before it is read again. This technique is demonstrated in the latter code example given in the document.
+    </p>
+    <br/>
+    <p class="" id="861bd01c-989b-439a-aeac-3c3561124b20">
+     Using a Serial Monitor for displaying the messages related to the operations we perform by communicating with the board.
+    </p>
+    <p class="" id="a0340dc2-ba29-47a8-bf19-d05701a2b575">
+     What is a serial monitor in Arduino IDE and why is it used?
+    </p>
+    <p class="" id="bde321e1-d8de-4691-8924-d4ac4b07323a">
+     The Serial Monitor in the Arduino IDE is a feature that allows you to communicate with your Arduino board using serial communication. It is used for two main purposes:
+    </p>
+    <ol class="numbered-list" id="7075d2c3-d5a2-4863-8cc5-b8add99f30b0" start="1" type="1">
+     <li>
+      Debugging: You can print messages from your Arduino board to the Serial Monitor. This is useful for debugging, as you can print out variable values, program execution steps, or other information to help identify any issues with your code.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="af5e9e73-58df-4306-8583-87487b6aa6ee" start="2" type="1">
+     <li>
+      Interaction: You can send messages (such as commands or data) from the Serial Monitor to your Arduino board. This allows you to interact with your program while it's running. For example, you could send different commands to control the behavior of the board, or send data for the board to process.
+     </li>
+    </ol>
+    <p class="" id="2688c672-0be4-4688-8cd2-e2d06cc69680">
+     Using this feature, I printed the message to indicate the initialization of the board with the Serial monitor, indicate the status the button is pressed; LED is ON and Button is pressed; LED is OFF using the following code.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="30cd92db-ab00-43ab-b101-4d3a6bdd8185"><code class="language-C++">// Define the pin numbers
+const int buttonPin = 27;
+const int ledPin1 = 0;
+const int ledPin2 = 1;
+const int ledPin3 = 26;
+bool ledState = false;  // false means LEDs are OFF, true means LEDs are ON
+bool buttonState = false;
+bool pressed = false;
+void setup() {
+  Serial.begin(115200);  // Initialize the button pin as an input with an internal pull-up resistor
+  pinMode(buttonPin, INPUT);
+
+  // Initialize the LED pins as outputs
+  {
+    pinMode(ledPin1, OUTPUT);
+    digitalWrite(ledPin1, LOW);
+    pinMode(ledPin2, OUTPUT);
+    digitalWrite(ledPin1, LOW);
+    pinMode(ledPin3, OUTPUT);
+    digitalWrite(ledPin3, LOW);  // Make sure LEDs are OFF at the start
+  }
+  delay(2000);
+  Serial.println("LED_CHECK_FAB'24 - KS");
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH) {
+    if (pressed == false) {
+      Serial.println("button is pressed");
+
+      {
+        pressed = true;
+        if (digitalRead(ledPin3) == HIGH) {
+          digitalWrite(ledPin3, LOW);
+          Serial.println("LED is OFF");
+
+        } else {
+          digitalWrite(ledPin3, HIGH);
+          Serial.println("LED is ON");
+        }
+      }
+    }
+  } else {
+    pressed = false;
+
+    delay(100);
+  }
+}</code></pre>
+    <br/>
+    <p class="" id="f361d053-3c24-4983-a5b2-187083d19534">
+     The output on the Serial Monitor is displayed as follows:
+    </p>
+    <p class="" id="60d34da3-6aee-4230-91b5-d63657ed61b5">
+     When button is pressed and LED is ON,  the output is as follows:
+    </p>
+    <figure class="image" id="1a842cea-191a-454c-a6d5-d623afd5e729">
+     <a href="Week - 6 Embedded Programming/Untitled.png">
+      <img src="Week - 6 Embedded Programming/Untitled.png" style="width:1915px"/>
+     </a>
+    </figure>
+    <p class="" id="5a3c90a8-f8d2-4fbf-acfa-b3bdc6c6daf2">
+     When button is pressed and LED is OFF,  the output is as follows:
+    </p>
+    <figure class="image" id="755579c3-b2d4-4e08-9fd4-26e5ebf97b2e">
+     <a href="Week - 6 Embedded Programming/Untitled%201.png">
+      <img src="Week - 6 Embedded Programming/Untitled%201.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="2741b06a-e938-48d0-9b50-76c034a7778d">
+     Our instructor was helping us understand the concept of recursive functions and taught us how to call recursive functions. To try this in our current program, he asked us to write a code to toggle between the three LEDs on pins 26, 0, and 1 each time the button is pressed.
+    </p>
+    <p class="" id="7fbd5861-346a-4cac-823c-0ae93541cd77">
+     The code is given as follows:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="c68b77ad-d3fd-42f6-8584-2e64abc8a7f8"><code class="language-C++">const int buttonPin = 27;
+const int ledPins[] = {26, 0, 1};
+const int numLeds = sizeof(ledPins) / sizeof(ledPins[0]);
+int currentLed = 0; // Index of the currently active LED
+bool lastButtonState = HIGH; // Assume button is released initially
+
+void setup() {
+  pinMode(buttonPin, INPUT_PULLUP); // Button pin set as input with pull-up
+  
+  for (int i = 0; i &lt; numLeds; i++) {
+    pinMode(ledPins[i], OUTPUT); // LED pins set as output
+    digitalWrite(ledPins[i], LOW); // Ensure all LEDs are off initially
+  }
+}
+
+void loop() {
+  bool currentButtonState = digitalRead(buttonPin);
+  
+  // Check if button state transitioned from HIGH to LOW (button press)
+  if (lastButtonState == HIGH &amp;&amp; currentButtonState == LOW) {
+    toggleLed(); // Function to handle LED toggling
+    
+    // Debounce delay
+    delay(50);
+  }
+  
+  lastButtonState = currentButtonState; // Update the last button state
+  delay(10); // Small delay to prevent reading too fast
+}
+
+void toggleLed() {
+  // Turn off the current LED
+  digitalWrite(ledPins[currentLed], LOW);
+  
+  // Move to the next LED, wrapping around if necessary
+  currentLed = (currentLed + 1) % numLeds;
+  
+  // Turn on the next LED
+  digitalWrite(ledPins[currentLed], HIGH);
+}</code></pre>
+    <br/>
+    <p class="" id="8c8b3330-41a0-4d41-bd49-b54e33889c4d">
+     Furthermore, I tried to integrate the serial monitor output to the previous program and indicate the pin number of the LED that is ON. The code is as follows:
+    </p>
+    <br/>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="b418eb57-4d9e-4072-b8fc-9dc310aef956"><code class="language-C++">const int buttonPin = 27;
+const int ledPins[] = {26, 0, 1};
+const int numLeds = sizeof(ledPins) / sizeof(ledPins[0]);
+int currentLed = 0; // Index of the currently active LED
+bool lastButtonState = HIGH; // Assume button is released initially
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication at 9600 baud rate
+  pinMode(buttonPin, INPUT_PULLUP); // Button pin set as input with pull-up
+  
+  for (int i = 0; i &lt; numLeds; i++) {
+    pinMode(ledPins[i], OUTPUT); // LED pins set as output
+    digitalWrite(ledPins[i], LOW); // Ensure all LEDs are off initially
+  }
+}
+
+void loop() {
+  bool currentButtonState = digitalRead(buttonPin);
+  
+  // Check if button state transitioned from HIGH to LOW (button press)
+  if (lastButtonState == HIGH &amp;&amp; currentButtonState == LOW) {
+    toggleLed(); // Function to handle LED toggling
+    
+    // Debounce delay
+    delay(50);
+  }
+  
+  lastButtonState = currentButtonState; // Update the last button state
+  delay(10); // Small delay to prevent reading too fast
+}
+
+void toggleLed() {
+  // Turn off the current LED
+  digitalWrite(ledPins[currentLed], LOW);
+  
+  // Move to the next LED, wrapping around if necessary
+  currentLed = (currentLed + 1) % numLeds;
+  
+  // Turn on the next LED
+  digitalWrite(ledPins[currentLed], HIGH);
+
+  // Print the pin number of the currently active LED to the Serial Monitor
+  Serial.print("LED on pin ");
+  Serial.print(ledPins[currentLed]);
+  Serial.println(" is now ON.");
+}</code></pre>
+    <br/>
+    <p class="" id="ce01cec8-4c9b-41ab-b58e-cefb47bc31aa">
+     The output of the serial monitor when LED on pin 0 glows on pressing the button is as follows:
+    </p>
+    <figure class="image" id="8e1e7c78-9c7e-4b7b-b0d8-da2961fedd10">
+     <a href="Week - 6 Embedded Programming/Untitled%202.png">
+      <img src="Week - 6 Embedded Programming/Untitled%202.png" style="width:1253px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="68028551-c4e9-4871-86e9-dee35d3d8c94">
+     The output of the serial monitor when LED on pin 1 glows on pressing the button is as follows:
+    </p>
+    <figure class="image" id="063b7848-50f8-4e7c-8ae5-0befbc1396a9">
+     <a href="Week - 6 Embedded Programming/Untitled%203.png">
+      <img src="Week - 6 Embedded Programming/Untitled%203.png" style="width:1252px"/>
+     </a>
+    </figure>
+    <p class="" id="57dc9ad1-f06e-4ed8-bf11-02da54d85c03">
+     The output of the serial monitor when LED on pin 26 glows on pressing the button is as follows:
+    </p>
+    <figure class="image" id="aa5ce1a8-1df1-47fe-b79e-958147206f50">
+     <a href="Week - 6 Embedded Programming/Untitled%204.png">
+      <img src="Week - 6 Embedded Programming/Untitled%204.png" style="width:1251px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="7a99b4b7-41b0-469b-a78b-d1ee12fb9af4">
+     For extra credits, I was trying a different environment of Micropython using Thonny editor. I installed the Thonny editor using the steps mentioned in the following
+     <a href="https://wiki.seeedstudio.com/XIAO-RP2040-with-MicroPython/">
+      documentation
+     </a>
+     .
+    </p>
+    <p class="" id="fdad92b1-9fb7-4418-a1e2-c39a31d6c19c">
+     I installed Thonny Editor 3.10 for Windows 64 Bit from the following site:
+    </p>
+    <figure class="image" id="ee346d0a-4f86-460e-bd1e-f2e091040cf8">
+     <a href="Week - 6 Embedded Programming/Untitled%205.png">
+      <img src="Week - 6 Embedded Programming/Untitled%205.png" style="width:1915px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="4b5cd3a6-9cfa-4331-a806-2b0140d55321">
+     I installed it using the setup wizard and the interface displayed as follows:
+    </p>
+    <figure class="image" id="1d9d7cf5-d4cb-4764-991e-e3f191d42757">
+     <a href="Week - 6 Embedded Programming/Untitled%206.png">
+      <img src="Week - 6 Embedded Programming/Untitled%206.png" style="width:794px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="09d5c499-075b-431e-b3f7-caf96b559558">
+     As shown above, our instructor helped me test a sample counter program and I noticed the difference between Micropython and Arduino. My instructor mentioned that’s because the former is an interpreter and the latter is a compiler.
+    </p>
+    <br/>
+    <p class="" id="d14340c8-e7c6-4e93-b400-094da13d27bc">
+     A compiler and an interpreter both translate source code written in a high-level programming language to machine code that a computer can execute. However, they do this in different ways:
+    </p>
+    <ul class="bulleted-list" id="a04a8f12-15c2-438f-85d3-8bc9f13e706d">
+     <li style="list-style-type:disc">
+      A compiler translates the entire program into machine code before it is executed. This process generates an executable file that can be run independently of the original source code.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="13adc8be-4386-4a61-9fe3-9ade42d63b69">
+     <li style="list-style-type:disc">
+      An interpreter, on the other hand, translates and executes the source code line by line while the program is running. It does not create an executable file.
+     </li>
+    </ul>
+    <p class="" id="caf62644-e4c4-4ef9-853a-fc0865f2ee9b">
+     Because of these differences, compiled programs generally run faster than interpreted ones. However, interpreted languages can provide more flexibility and ease of development, as they allow for dynamic typing, interactive use, and the ability to execute code on the fly.
+    </p>
+    <br/>
+    <br/>
+    <p class="" id="d0884e76-d78a-47ff-b2f4-4693503c4e26">
+     Here’s the code on Micropython for blinking LED on pin 26.
+    </p>
+    <p class="" id="2ffd3d30-38e7-4d45-afd9-27a8f6fe84f2">
+     from machine import Pin
+     <br>
+      import time
+      <br/>
+     </br>
+    </p>
+    <p class="" id="f8a645ee-1795-4b44-a6eb-693702d14eb3">
+     Initialize GPIO 1 as an output pin for the LED
+    </p>
+    <p class="" id="275f3db9-7689-4d93-b412-1c6cd165838a">
+     led = Pin(26, Pin.OUT)
+    </p>
+    <p class="" id="9ab00ee3-4695-45e1-9498-0a76a01139bd">
+     while True:
+     <br>
+      led.value(1)  # Turn the LED on (HIGH is the voltage level)
+      <br>
+       time.sleep(1)  # Wait for a second
+       <br>
+        led.value(0)  # Turn the LED off
+        <br>
+         time.sleep(1)  # Wait for a second
+         <br>
+          print("LED 26 is blinking")
+          <br/>
+         </br>
+        </br>
+       </br>
+      </br>
+     </br>
+    </p>
+    <br/>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
