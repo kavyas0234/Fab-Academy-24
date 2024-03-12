@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week -7: Computer Controlled Machining
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="ae39d605-299e-48a4-aaaf-40d85e7b84f6">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1563520240533-66480a3916fe?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week -7: Computer Controlled Machining
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <p class="" id="4b26b2fd-5488-4b9f-8e0d-5f7eeeddb593">
+     During week -7, the focus is on computer controlled machining. This involves understanding the principles of Computer Numerical Control (CNC) and how it applies to various machining techniques. Students will get hands-on experience with a range of CNC machines, allowing them to turn digital designs into physical objects. They will also learn about the safety procedures necessary when working with these machines. By the end of the week, students should be comfortable with operating a CNC machine and be familiar with the process of taking a design from concept to completed product.
+    </p>
+    <br/>
+    <p class="" id="80c65ae6-19b3-4ffd-8b0f-5e497be1e38e">
+     Group Assignment:
+    </p>
+    <ul class="bulleted-list" id="823f7586-ef21-4ccb-9791-48545daf71e8">
+     <li style="list-style-type:disc">
+      Complete your lab's safety training
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6c172e27-1cb5-4e21-93bb-74fd0677aa0e">
+     <li style="list-style-type:disc">
+      Test runout, alignment, fixturing, speeds, feeds, materials, and toolpaths for your machine
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7cad50ff-a13d-4578-bf1c-9d857f191af4">
+     <li style="list-style-type:disc">
+      Link for group Assignment -
+      <a href="https://fabacademy.org/2024/labs/kochi/Group_Assignments/week7/">
+       Link
+      </a>
+     </li>
+    </ul>
+    <p class="" id="69d2dee1-73e2-43a1-b037-de125432fbb8">
+     Individual Assignment:
+    </p>
+    <ul class="bulleted-list" id="a03ab1dc-fc05-42a4-95b8-eda9f401d8c2">
+     <li style="list-style-type:disc">
+      Design, mill, and assemble something large (~meter-scale)
+     </li>
+    </ul>
+    <p class="" id="24eb5401-15b4-497c-809a-37f9bd296008">
+     Extra Credit:
+    </p>
+    <ul class="bulleted-list" id="8a5c2549-5c59-47a6-aaae-ae2fc3cab134">
+     <li style="list-style-type:disc">
+      Don't use fasteners or glue
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="798b68e0-9ed7-4738-989e-2f9affd19582">
+     <li style="list-style-type:disc">
+      Include curved surfaces
+     </li>
+    </ul>
+    <br/>
+    <p class="" id="a5b95475-281d-4846-bba7-26550bcd5f7c">
+     <strong>
+      Concept Sketch:
+     </strong>
+    </p>
+    <figure class="image" id="7bf2db51-24f2-419f-9eb6-3c602f2ffee3">
+     <a href="Week -7 Computer Controlled Machining/Untitled.jpeg">
+      <img src="Week -7 Computer Controlled Machining/Untitled.jpeg" style="width:960px"/>
+     </a>
+    </figure>
+    <p class="" id="32868f86-e354-4820-97ed-3226a9e3852e">
+     <strong>
+      Description:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="f3c4cf15-509f-4711-9e72-08d5eb2c6c03" start="1" type="1">
+     <li>
+      <strong>
+       Triangle Table Design
+      </strong>
+      : The table is designed in a triangular shape to accommodate three chairs, promoting equal participation and interaction among users.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a075c3e3-6f5c-4cab-973f-bc217e238e37" start="2" type="1">
+     <li>
+      <strong>
+       Convergent Placement
+      </strong>
+      : The chairs are positioned facing each other, encouraging collaboration and discussion. This arrangement fosters brainstorming sessions, group meetings, or casual conversations.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d9709e75-9c27-4706-9840-e6b49d33e98f" start="3" type="1">
+     <li>
+      <strong>
+       Compact Design
+      </strong>
+      : The compact size of the furniture ensures that it occupies minimal space in the room. When not in use, the chairs can be tucked neatly under the table, saving floor space and maintaining a clutter-free environment.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="cd3b5366-f173-455f-b253-b54043cf119c" start="4" type="1">
+     <li>
+      <strong>
+       Functional Tabletop
+      </strong>
+      : The tabletop provides ample space for placing laptops, documents, or other work materials, catering to the needs of collaborative and individual tasks.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="526b934c-0627-4bf4-b634-b7fa88e63f6a" start="5" type="1">
+     <li>
+      <strong>
+       Comfortable Seating
+      </strong>
+      : The chairs are ergonomically designed to ensure comfort during extended periods of sitting, enhancing productivity during collaborative or focused work sessions.
+     </li>
+    </ol>
+    <p class="" id="35eae9b1-7653-4675-addc-1da1488c8280">
+     <strong>
+      Benefits of Space-Efficient Furniture:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="12e8e811-e19f-4e3d-99bd-ffb7ed0633ce" start="1" type="1">
+     <li>
+      <strong>
+       Maximizes Floor Space
+      </strong>
+      : In environments where space is limited, such as small offices or coworking spaces, compact furniture helps maximize available floor space. This allows for better utilization of the area without overcrowding.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="92f31c95-a789-491d-bb0b-0f45498fe8d8" start="2" type="1">
+     <li>
+      <strong>
+       Enhances Mobility
+      </strong>
+      : Lightweight and easily movable furniture enable users to rearrange the layout according to their needs. Whether it's reconfiguring for a group activity or creating individual workstations, space-efficient furniture offers flexibility.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d7930e42-6eb1-4ace-9593-c4a7016c5ef9" start="3" type="1">
+     <li>
+      <strong>
+       Promotes Organization
+      </strong>
+      : By reducing clutter and optimizing space, compact furniture contributes to a more organized and visually appealing environment. This, in turn, can positively impact productivity and creativity.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="59ab492f-94e0-4612-9bc7-ceacf74a616f" start="4" type="1">
+     <li>
+      <strong>
+       Adaptable to Changing Needs
+      </strong>
+      : As work dynamics evolve, versatile furniture adapts to varying requirements. Whether it's accommodating a team meeting or providing quiet space for focused work, adaptable designs cater to diverse needs effectively.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6f966cc5-bdbb-4612-b836-4452668a69dd" start="5" type="1">
+     <li>
+      <strong>
+       Cost-Effective Solution
+      </strong>
+      : Investing in space-efficient furniture can be a cost-effective solution for businesses and individuals alike. With its ability to serve multiple functions and optimize space usage, it offers long-term value and efficiency.
+     </li>
+    </ol>
+    <p class="" id="3598da20-ff45-4021-ad8a-d6769a479ae4">
+     By integrating convergent and divergent placement principles into furniture design, along with prioritizing space efficiency, this concept promotes a dynamic and adaptable workspace conducive to both collaborative endeavors and individual productivity.
+    </p>
+    <br/>
+    <h2 class="" id="58023073-8841-44c1-8e08-569c4c6553d3">
+     Steps used for designing table and chair using fusion 360:
+    </h2>
+    <p class="" id="49bb2e3e-adb9-46c7-a170-e1533691fdc1">
+     <strong>
+      Step 1: Set Up the Project:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="21234343-e1af-494c-8d52-e33b1a32aa59" start="1" type="1">
+     <li>
+      Launch Fusion 360 and create a new project.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="1180cbe6-7c3f-4ec8-a713-be5cad015675" start="2" type="1">
+     <li>
+      Create a new design and save it with an appropriate name.
+     </li>
+    </ol>
+    <p class="" id="34385189-2278-486e-ab63-c0cb8bc9bf31">
+     <strong>
+      Step 2: Create the Table:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="1db3b762-4da4-44db-9221-bc0968f83aa8" start="1" type="1">
+     <li>
+      Start by creating a new sketch on the XY plane.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d2f6a642-16ea-4e5b-885d-b857115cc040" start="2" type="1">
+     <li>
+      Use the Polygon tool to draw a triangle, specifying the dimensions of the sides according to your desired table size.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e771ae4c-7355-4adc-939c-59b0b0b63a04" start="3" type="1">
+     <li>
+      Extrude the sketch to create the table's top surface to the desired thickness.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="74184554-187a-4f63-974f-479260fc632b" start="4" type="1">
+     <li>
+      Create another sketch on one of the triangular faces of the table.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="703343ad-e51e-412b-b509-85657f0c0a6d" start="5" type="1">
+     <li>
+      Use the Offset tool to create a smaller triangle inside the previous one, representing the space for the stools to fit.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="814c5ac0-0dc7-4bd0-b184-0917857c9ac2" start="6" type="1">
+     <li>
+      Extrude the inner triangle downwards to create a cavity inside the table.
+     </li>
+    </ol>
+    <figure class="image" id="a04dabe5-e2e3-4363-8841-4d7afc00121e">
+     <a href="Week -7 Computer Controlled Machining/Untitled.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <figure class="image" id="20d20efe-9a1c-497e-a084-e6e3c7f4904f">
+     <a href="Week -7 Computer Controlled Machining/Untitled%201.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled%201.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <p class="" id="435fce6a-b6f8-4f53-b0b6-61a9554dce29">
+     <strong>
+      Step 3: Create the Stools:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="8549a23f-3aef-4449-8c67-d3d20ff0c26a" start="1" type="1">
+     <li>
+      Start a new sketch on the XY plane.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="182ad8eb-e880-47c4-82a7-1a6f3191923a" start="2" type="1">
+     <li>
+      Draw a triangle representing the stool's seat, ensuring it fits inside the cavity of the table.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6bd2c322-e924-4207-9f53-f15e1086dad9" start="3" type="1">
+     <li>
+      Extrude the sketch to create the seat thickness.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="4e6e47a8-f325-4af5-9ad1-1d8340c24b82" start="4" type="1">
+     <li>
+      Create another sketch on one of the stool's triangular faces.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3a776124-5991-44ba-9733-7074130861ed" start="5" type="1">
+     <li>
+      Draw a smaller triangle inside the previous one, representing the legs of the stool.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3cbf35f2-694a-4edd-867d-1a843ff6dd14" start="6" type="1">
+     <li>
+      Extrude the inner triangle downwards to create the stool's legs.
+     </li>
+    </ol>
+    <figure class="image" id="313b2053-2d36-427d-8297-1b8f9cf22f63">
+     <a href="Week -7 Computer Controlled Machining/Untitled%202.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled%202.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <figure class="image" id="aa2be936-4b5c-4e60-ae52-a4f5cf97dcf0">
+     <a href="Week -7 Computer Controlled Machining/Untitled%203.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled%203.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <p class="" id="f3d36e3d-8647-448e-a417-565a8f83fafa">
+     <strong>
+      Step 4: Stackable Design:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="432d399a-89c6-4c34-b91b-9847389e7ad2" start="1" type="1">
+     <li>
+      Ensure the dimensions of the stools allow them to stack neatly inside the table's cavity.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="95d84acf-d885-4d1f-97e8-4ec0dbf85c82" start="2" type="1">
+     <li>
+      Adjust the height of the stools if necessary to ensure they fit without interference.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b38a0b82-06ff-496f-9f7e-5c8257ce920e" start="3" type="1">
+     <li>
+      Ensure that the top of the stools is flush with the table's surface when stacked inside.
+     </li>
+    </ol>
+    <figure class="image" id="96688ae1-6d29-414d-87f8-f941bf4fbdf5">
+     <a href="Week -7 Computer Controlled Machining/Untitled%204.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled%204.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <p class="" id="69d28d31-084b-4690-9f74-9edc8a48bfd8">
+     <strong>
+      Step 5: Final Touches:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="583d1c11-b657-406b-8cca-33e4c1d1a111" start="1" type="1">
+     <li>
+      Add any additional features or details to the table and stools, such as chamfers or fillets, to improve aesthetics and functionality. Here, I have added dogbones using the plugin.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b5d195e0-ae43-41cc-b49b-8fd465218739" start="2" type="1">
+     <li>
+      Verify the design for any errors or interferences.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="59aee546-bdec-4173-8c26-d658bc722ec4" start="3" type="1">
+     <li>
+      Save the project and export it as needed for further use or fabrication.
+     </li>
+    </ol>
+    <p class="" id="09fb6b82-14db-488f-854b-a292d5ce0a0f">
+     <strong>
+      Step 6: Assembly:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="f47d3049-5ea3-460a-a25b-a444478642ca" start="1" type="1">
+     <li>
+      Use the Assemble tool to bring together the table and stools within the Fusion 360 environment.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3a962c5d-cca1-4813-8186-1d861b883e1b" start="2" type="1">
+     <li>
+      Position the stools inside the table's cavity to ensure they fit properly and are aligned correctly.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="1034ac26-77a0-41ad-b095-6202625858c0" start="3" type="1">
+     <li>
+      Check for any interference or overlapping parts and make adjustments as necessary.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0a66440f-3caf-4919-a735-e3060a5afee9" start="4" type="1">
+     <li>
+      Once satisfied with the assembly, save the final design.
+     </li>
+    </ol>
+    <p class="" id="14c66b79-a55b-4585-85b3-56b2be80fd96">
+     <strong>
+      Step 7: Documentation:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="0a467543-2a8d-459c-9a85-dd7ca283886b" start="1" type="1">
+     <li>
+      Create 2D drawings or renderings of the final design to document and communicate the project.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3715a3dc-ee89-4b13-9431-9c6733b4c032" start="2" type="1">
+     <li>
+      Include dimensions, materials, and any other relevant information in the documentation.
+     </li>
+    </ol>
+    <p class="" id="dcbbe704-1613-4806-99b5-83994fb4f230">
+     I created a sketch of a triangular table top of 3 ft and extensions to connect as small circular patterns and a chair using the same procedure.
+    </p>
+    <figure class="image" id="b849784e-c8a1-4ed4-9eda-ee2bb5917f08">
+     <a href="Week -7 Computer Controlled Machining/Untitled%205.png">
+      <img src="Week -7 Computer Controlled Machining/Untitled%205.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <h2 class="" id="08712593-c29a-4590-9dcc-7d27f56857af">
+     Using Zund Machine for carboard model scaled down to 1/6th of the original size:
+    </h2>
+    <p class="" id="c771832d-1b79-41a2-9122-355824ee69b4">
+     <strong>
+      Step 1: Prepare the DXF File:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="72f861a0-fcc6-4f7e-8d52-dad9b2f0b2c5" start="1" type="1">
+     <li>
+      Open your DXF file in a CAD software to review and ensure it is correctly scaled and ready for cutting.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="82a54218-a03f-47ca-a07b-e63694d1676b" start="2" type="1">
+     <li>
+      Save the file in a location accessible to the Zund machine's software.
+     </li>
+    </ol>
+    <p class="" id="a9ff0e34-365d-47ca-b762-c07da2f4dcee">
+     <strong>
+      Step 2: Load Material onto the Zund Machine:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="b068f6aa-44a0-4b17-a3de-4cd0ef4def90" start="1" type="1">
+     <li>
+      Place the B-flute cardboard sheet onto the Zund machine's cutting bed. Make sure the sheet is aligned straight with the edges of the bed.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="58989813-bd12-4b4c-8fd4-a239ec2f62d5" start="2" type="1">
+     <li>
+      Use the vacuum function if available to secure the cardboard to the bed.
+     </li>
+    </ol>
+    <p class="" id="fe71eaef-19e5-49ea-8c98-d1b7ffc407b9">
+     <strong>
+      Step 3: Set Up the Machine:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="345228ba-6393-4d93-847b-6daacb7f35da" start="1" type="1">
+     <li>
+      Turn on the Zund machine and open the Zund Cut Center software.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="be8831f3-3f15-4e1e-8c56-7c1455af0199" start="2" type="1">
+     <li>
+      Select the correct cutting tool (knife) for B-flute cardboard. Consult the machine's manual or seek professional advice if unsure.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="20f82502-c8c9-4738-9fbd-93c18b38477e" start="3" type="1">
+     <li>
+      Perform a test cut if necessary to ensure the knife is sharp and the cutting pressure is correct.
+     </li>
+    </ol>
+    <p class="" id="c7ab12ac-40a3-464a-89b9-b45ac281f6c1">
+     <strong>
+      Step 4: Import the DXF File:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="d815c508-cb28-4915-b53f-cd0d38836549" start="1" type="1">
+     <li>
+      In the Zund Cut Center software, click on the "Import" button and navigate to the location of your saved DXF file.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="db5a79c5-bbc9-4850-bf4f-e28c4a951b23" start="2" type="1">
+     <li>
+      Select your file and click "Open". The file should now appear in the software.
+     </li>
+    </ol>
+    <p class="" id="3539edf6-ac4c-468a-b0ee-50bc290fba33">
+     <strong>
+      Step 5: Set Cutting Parameters:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="c5a14c16-e597-4b3f-9a97-aea2f76e37fb" start="1" type="1">
+     <li>
+      Select the file in the Zund Cut Center software and open the cutting parameters dialog.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6fd34991-ee88-4f6a-968e-8dd1669b0b8b" start="2" type="1">
+     <li>
+      Set the cutting speed, pressure, and tool type according to the specifications for B-flute cardboard. This information may be available in the Zund machine's manual or can be obtained from a professional.
+     </li>
+    </ol>
+    <p class="" id="9a2064a3-884c-47c8-a289-175e44950da7">
+     <strong>
+      Step 6: Start Cutting:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="06f575d6-2f38-4911-852d-9952e19d0aab" start="1" type="1">
+     <li>
+      Once the cutting parameters are set, click on the "Start" button in the Zund Cut Center software.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b6967888-f0b4-4b77-a90c-6163b8e1d5ed" start="2" type="1">
+     <li>
+      Monitor the machine while it is cutting to ensure it is operating correctly and safely.
+     </li>
+    </ol>
+    <p class="" id="18b25fff-8f52-4669-bc33-7b5db66269f6">
+     <strong>
+      Step 7: Unload the Cut Cardboard:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="275ce799-392f-4442-ab98-0b1880c9f4c3" start="1" type="1">
+     <li>
+      Once the machine has finished cutting, turn off the vacuum function (if used) and carefully remove the cut cardboard from the machine's bed.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="c3fd57c1-bef7-4264-a118-f09cedc10445" start="2" type="1">
+     <li>
+      Check the cut pieces for accuracy and quality.
+     </li>
+    </ol>
+    <p class="" id="e9521275-1c2f-4dc9-bc4f-09f196b3e51e">
+     <strong>
+      Step 8: Clean Up:
+     </strong>
+    </p>
+    <ol class="numbered-list" id="e91005ca-d983-4e74-955d-9f562a9f5db2" start="1" type="1">
+     <li>
+      Dispose of any waste material properly.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3e5417aa-441e-48cb-a213-04195b7a71ca" start="2" type="1">
+     <li>
+      Clean the Zund machine and cutting bed according to the manufacturer's instructions.
+     </li>
+    </ol>
+    <figure class="image" id="3905e0a8-61a5-4642-8891-f9ececc052ea">
+     <a href="Week -7 Computer Controlled Machining/Untitled%201.jpeg">
+      <img src="Week -7 Computer Controlled Machining/Untitled%201.jpeg" style="width:1280px"/>
+     </a>
+    </figure>
+    <br/>
+    <h2 class="" id="de854024-8139-474d-b4c8-121008a00d35">
+     Assembled model:
+    </h2>
+    <div class="column-list" id="6a4f178a-186f-4152-86a4-dce658912689">
+     <div class="column" id="5635a105-f228-4e60-aae7-63dda2515005" style="width:50%">
+      <figure class="image" id="db2c59ba-416c-4254-ae4c-d226a1dc6b03">
+       <a href="Week -7 Computer Controlled Machining/c1.jpg">
+        <img src="Week -7 Computer Controlled Machining/c1.jpg" style="width:1280px"/>
+       </a>
+      </figure>
+     </div>
+     <div class="column" id="54efc300-8c6d-4e34-901c-6d72d51d2200" style="width:50%">
+      <figure class="image" id="19655412-cf56-4a9e-86ed-b5c0bb584ed2">
+       <a href="Week -7 Computer Controlled Machining/c2.jpg">
+        <img src="Week -7 Computer Controlled Machining/c2.jpg" style="width:1280px"/>
+       </a>
+      </figure>
+     </div>
+    </div>
+    <div class="column-list" id="75d4d9a1-33f8-4d6c-b50c-d547f966403e">
+     <div class="column" id="c686e7fd-41bf-4be0-b6da-aaba0b01955b" style="width:50%">
+      <figure class="image" id="75cf6188-4f33-4378-b7b7-c065029086a4">
+       <a href="Week -7 Computer Controlled Machining/c3.jpg">
+        <img src="Week -7 Computer Controlled Machining/c3.jpg" style="width:1280px"/>
+       </a>
+      </figure>
+     </div>
+     <div class="column" id="ed0e5d74-8083-42f2-a871-0b2880374fa9" style="width:50%">
+      <figure class="image" id="6d5c0d68-d954-455d-894f-15ea4c2205db">
+       <a href="Week -7 Computer Controlled Machining/c4.jpg">
+        <img src="Week -7 Computer Controlled Machining/c4.jpg" style="width:1280px"/>
+       </a>
+      </figure>
+     </div>
+    </div>
+    <p class="" id="8f6cce27-8071-4db2-87d2-8982b1db976d">
+     Here’s the assembly of the donut party I had set up for our 3D printed designs on my table.
+    </p>
+    <figure class="image" id="56c0206d-ca43-460e-9b5d-1e35e7782821">
+     <a href="Week -7 Computer Controlled Machining/c5.jpg">
+      <img src="Week -7 Computer Controlled Machining/c5.jpg" style="width:1280px"/>
+     </a>
+    </figure>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
