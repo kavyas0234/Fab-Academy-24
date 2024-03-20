@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week - 8: Electronics Production
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="a3ae8600-f3ff-445d-b39e-62453c4ec6d8">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1592659762303-90081d34b277?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week - 8: Electronics Production
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <br/>
+    <p class="" id="ab749291-ed66-492e-9a2e-def55a14d6a6">
+     Week 8 of the Electronics Production course includes:
+    </p>
+    <p class="" id="babe0f3c-e3f4-47fa-9df5-7aff86d18cf4">
+     Group Assignment:
+    </p>
+    <ul class="bulleted-list" id="5d91d549-9f0d-43a8-89a3-b26cf3ef7579">
+     <li style="list-style-type:disc">
+      Use the test equipment in your lab to observe the operation of a microcontroller circuit board.
+     </li>
+    </ul>
+    <p class="" id="5bc81dee-a1db-47eb-b519-65c5ebdeb4d6">
+     <a href="https://fabacademy.org/2024/labs/kochi/Group_Assignments/week8/">
+      Link for assignment
+     </a>
+    </p>
+    <ul class="bulleted-list" id="2a5f86b2-8c33-483c-ae2f-e04e87c71693">
+     <li style="list-style-type:disc">
+      Send a PCB out to a board house.
+     </li>
+    </ul>
+    <p class="" id="892df2b1-1d39-4707-b7b2-7a6c39d6122e">
+     Individual Assignment:
+    </p>
+    <ul class="bulleted-list" id="48f8bcf9-41d1-476a-8f3e-872e8a83e3de">
+     <li style="list-style-type:disc">
+      Use an EDA tool to design a development board that can interact and communicate with an embedded microcontroller.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a4f9c055-4de0-43f2-b1a4-d7da58ef9373">
+     <li style="list-style-type:disc">
+      Produce and test the board.
+     </li>
+    </ul>
+    <p class="" id="fc61cc15-1722-47a3-9c8e-405501a4effb">
+     Extra Credit Opportunities:
+    </p>
+    <ul class="bulleted-list" id="96417e2e-aaee-47f6-8f7a-6cc57199db7f">
+     <li style="list-style-type:disc">
+      Try another design workflow.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="613d7158-860d-4b35-a0c6-0b18e0d1cbc6">
+     <li style="list-style-type:disc">
+      Design a case for the board.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="49d62f42-69c5-4c59-a2d0-aa001629de12">
+     <li style="list-style-type:disc">
+      Simulate the board's operation.
+     </li>
+    </ul>
+    <br/>
+    <h2 class="" id="10fa2267-37af-4afe-a892-0671112ee8e1">
+     Multimeter for testing:
+    </h2>
+    <p class="" id="a323548d-be30-476f-b7be-f2e36eb19a73">
+     Multimeters are versatile instruments used in electrical engineering and electronics to measure various electrical parameters such as voltage, current, and resistance. They can also test continuity, diodes, and sometimes temperature, frequency, and capacitance, depending on the model. Multimeters are essential tools in designing, testing, and troubleshooting circuits, including those on printed circuit boards (PCBs).
+    </p>
+    <h3 class="" id="514a903c-0550-4461-bda5-a563439dc163">
+     Types of Multimeters
+    </h3>
+    <ul class="bulleted-list" id="6fd84016-12a1-46a7-85e4-0452fbc9d7bc">
+     <li style="list-style-type:disc">
+      <strong>
+       Analog Multimeters:
+      </strong>
+      Use a moving-coil meter and a pointer to display readings on a scale. They're less common now but useful for observing changes or trends over time.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a906dceb-3ab1-46ed-951c-2a34ce466abc">
+     <li style="list-style-type:disc">
+      <strong>
+       Digital Multimeters (DMMs):
+      </strong>
+      Provide numerical displays and higher accuracy. They often include additional features like auto-ranging, which automatically selects the appropriate measurement range.
+     </li>
+    </ul>
+    <h3 class="" id="026d21b5-d570-4d01-82b7-73dc874b4e5e">
+     Basic Steps for Using a Multimeter
+    </h3>
+    <h3 class="" id="ecbab96c-5347-44a9-be8f-a074c7f08545">
+     1. Safety First
+    </h3>
+    <p class="" id="f85e599d-db07-4f55-9979-eaf6063e5109">
+     Ensure the multimeter and its probes are rated for the voltages and currents you plan to measure. Always start measuring at the highest range to prevent damage to the multimeter if the current or voltage is higher than expected.
+    </p>
+    <h3 class="" id="90447c55-ee64-48b5-aa52-3d35837c34d7">
+     2. Selecting the Measurement Type
+    </h3>
+    <p class="" id="9897145e-1356-420d-a07b-de6fcbb287d3">
+     Choose the type of measurement (e.g., voltage, current, resistance) you need. This often involves turning a dial or selecting a mode on the multimeter.
+    </p>
+    <ul class="bulleted-list" id="e8a31c58-9a1e-4223-8368-3ef01015cd88">
+     <li style="list-style-type:disc">
+      <strong>
+       Voltage:
+      </strong>
+      When measuring voltage, connect the probes across the component or section of the circuit you're interested in. For PCB work, ensure you're measuring the correct points to avoid short circuits.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="82497417-ef29-43c3-88ba-1de8094ecd2b">
+     <li style="list-style-type:disc">
+      <strong>
+       Current:
+      </strong>
+      To measure current, the circuit must be opened, and the multimeter placed in series with the circuit. This is more intrusive and requires careful planning on a PCB to avoid damage.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7cbe0afb-8020-4b46-bac8-fb9b628bbf20">
+     <li style="list-style-type:disc">
+      <strong>
+       Resistance:
+      </strong>
+      To measure resistance, ensure the circuit power is off and discharged. Measure across the component of interest.
+     </li>
+    </ul>
+    <h3 class="" id="7fa5ddc0-c37d-4b3d-908a-f8319acaec8e">
+     3. Choosing the Range
+    </h3>
+    <p class="" id="320c1f92-e9fc-482a-a7fb-4c0347b6676a">
+     If the multimeter is not auto-ranging, select the range that is just above the expected value. If unsure of the value, start higher and work your way down.
+    </p>
+    <h3 class="" id="509beb85-e38b-4e16-bf52-4514f58bcc4f">
+     4. Connecting the Probes
+    </h3>
+    <ul class="bulleted-list" id="970f33e7-0f26-41b6-90eb-e411c960e428">
+     <li style="list-style-type:disc">
+      <strong>
+       COM (Common) Jack:
+      </strong>
+      Almost always connects to the black probe.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2585f8ca-56be-457a-b9eb-a7ad51cb15be">
+     <li style="list-style-type:disc">
+      <strong>
+       Voltage/Ohm/Current Jack:
+      </strong>
+      The red probe connects here. For high current measurements, some multimeters have a separate jack.
+     </li>
+    </ul>
+    <h3 class="" id="35c5df69-53be-4f18-8639-1d071bbf7080">
+     5. Taking the Measurement
+    </h3>
+    <ul class="bulleted-list" id="f8bcc301-588e-47dd-ae3f-625757680776">
+     <li style="list-style-type:disc">
+      Apply the probes to the circuit or component. For PCB testing, use fine-tipped probes for accuracy.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d79a4257-c2ca-4055-95ec-24ca5f4b9087">
+     <li style="list-style-type:disc">
+      Read the value on the display. Ensure proper contact and stable readings.
+     </li>
+    </ul>
+    <h3 class="" id="444dc406-2344-4b25-8d85-70a702931cba">
+     6. Interpreting the Results
+    </h3>
+    <p class="" id="432412e7-17d0-4173-a657-89e4d69cc639">
+     Understand the meaning of the measurement in the context of your circuit or device. For example, a very high resistance might indicate an open circuit, while a low one could suggest a short circuit.
+    </p>
+    <h3 class="" id="9434dc91-a131-4b00-b1da-7798e034557d">
+     7. Powering Down and Storage
+    </h3>
+    <p class="" id="b9379106-919b-491d-8d40-3d8928bc78b8">
+     After use, turn the multimeter off to preserve battery life and store it safely to avoid damage to the probes or the unit itself.
+    </p>
+    <br/>
+    <p class="" id="5a417b41-df01-4caa-b8cd-bb81245cf7e5">
+     In the interest of developing a better understanding of the components we have to design and test a microcontroller board, I have briefly describe the function of all the components mentioned in the academy’s page in the schedule for this week along with examples describing where and how to use them.
+    </p>
+    <h3 class="" id="3335c9d9-5d60-47f5-b992-0a25fc8c8925">
+     Ribbon Cable
+    </h3>
+    <ul class="bulleted-list" id="060faa6e-87be-463f-be5f-f9d1a0d271bb">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Connects multiple signals or power connections between different parts of a device, often used to connect PCBs to each other or to peripherals.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5f2253c9-da50-4e06-afbb-5745ade6cb28">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Connecting a motherboard to a front panel in a computer case.
+     </li>
+    </ul>
+    <h3 class="" id="32fc3b9f-bf47-4a9c-b852-b5eca4bb3327">
+     IDC Connector
+    </h3>
+    <ul class="bulleted-list" id="c64514b7-60d3-431b-98f9-8198da0f735a">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      (Insulation-Displacement Connector) Connects ribbon cables to a PCB without stripping insulation, useful for making quick and reliable connections.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d3bb4e30-38b5-4caa-aee6-71aa04cfedf1">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Connecting a flat ribbon cable to a header on a PCB for a display interface.
+     </li>
+    </ul>
+    <h3 class="" id="91b0fdf3-6dc3-47b8-b119-8e7c310444f2">
+     Button
+    </h3>
+    <ul class="bulleted-list" id="48a8ce49-4be4-4351-89d8-f5cbe25c12bf">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Provides user input, acting as a simple switch.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="3a0c19b5-f9f3-4669-abda-928bcff8c5a6">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Reset or power button on a device, requiring a debouncing circuit or software.
+     </li>
+    </ul>
+    <h3 class="" id="927d0722-49d4-45bf-b91c-d5a0bd03e084">
+     Switch
+    </h3>
+    <ul class="bulleted-list" id="bc50a3eb-e5c2-407d-9872-a7ccdfee4da0">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Changes the electrical path within a circuit manually.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="cc5181d6-256e-4ab3-838e-0d25e851c606">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A power switch to connect or disconnect the device from the power supply.
+     </li>
+    </ul>
+    <h3 class="" id="9179ff81-0400-430d-878d-da38f86303cf">
+     Resistor (I=V/R)
+    </h3>
+    <ul class="bulleted-list" id="c3087059-f311-4056-8cfd-db2965a48928">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Limits current, divides voltage, or sets biasing points in a circuit.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ca714290-35bf-4463-a76e-8b5665515b41">
+     <li style="list-style-type:disc">
+      <strong>
+       Values:
+      </strong>
+      Chosen based on needed resistance to achieve desired current/voltage.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="e0f22905-605c-4044-8be7-8e3b864ac710">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Pull-up or pull-down resistors for a microcontroller input pin.
+     </li>
+    </ul>
+    <h3 class="" id="51dcbcfe-7237-4bf9-ab2e-1396963ea56d">
+     Capacitor (C = Q/V, I = C dV/dt)
+    </h3>
+    <ul class="bulleted-list" id="56f9ac96-6ea2-49e7-92c3-20aab838451c">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Stores electrical charge, filters noise, and provides power supply smoothing.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="686da80f-a0ff-4bc2-8c55-1490f01d9c4b">
+     <li style="list-style-type:disc">
+      <strong>
+       Unpolarized:
+      </strong>
+      Can be connected in any orientation. Used for filtering high frequencies or coupling audio signals.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ffa40fc2-eb15-457a-a55d-7ef7a0490147">
+     <li style="list-style-type:disc">
+      <strong>
+       Polarized:
+      </strong>
+      Has positive and negative leads, used for larger values in power supplies.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1754eff4-d60a-41c2-9bf7-2c687709ca21">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Decoupling capacitors near IC power pins to smooth out voltage.
+     </li>
+    </ul>
+    <h3 class="" id="63a7586c-63eb-4841-b7e9-f77270647c9d">
+     Crystal, Resonator
+    </h3>
+    <ul class="bulleted-list" id="2ac6a056-071f-4ce8-a921-7371615d2c1b">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Provides precise clock signals for microcontrollers and digital circuits.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="e10f777c-01ce-4e1f-b073-7e4bfa649cc0">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A 16 MHz crystal used to provide the clock signal for a microcontroller.
+     </li>
+    </ul>
+    <h3 class="" id="0ebce3fe-a234-4e0d-a389-b8b44de8b56a">
+     Inductor (V = L dI/dt)
+    </h3>
+    <ul class="bulleted-list" id="c7fa4fc4-3e43-4b61-b82b-eeff053960ce">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Stores energy in a magnetic field, used in filters, oscillators, and power conversion.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a69795a1-dea8-44ca-a666-058fbea549a1">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      An inductor in a buck converter for stepping down voltage efficiently.
+     </li>
+    </ul>
+    <h3 class="" id="e12adfed-f4e1-42e2-8ccc-1ec1f41c536c">
+     Diode (Current from anode to cathode)
+    </h3>
+    <ul class="bulleted-list" id="190932bd-79a2-4fea-abd2-c8b76758a34f">
+     <li style="list-style-type:disc">
+      <strong>
+       PN:
+      </strong>
+      Standard diode, allows current in one direction.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="9cfc94ca-bf0a-4eac-ba91-fde60e56020c">
+     <li style="list-style-type:disc">
+      <strong>
+       Schottky:
+      </strong>
+      Low forward voltage drop, used for power rectification.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7364ea02-cd10-47e4-9668-cf45adaf5d68">
+     <li style="list-style-type:disc">
+      <strong>
+       Zener:
+      </strong>
+      Allows current in reverse direction when voltage exceeds a certain value, used for voltage regulation.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7aea121d-7494-42ff-a22f-5d13a7a845fe">
+     <li style="list-style-type:disc">
+      <strong>
+       LED:
+      </strong>
+      Emits light when forward biased.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4f7d573c-1af6-4c58-ada1-687f620706e3">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A Schottky diode in a power supply to prevent reverse current.
+     </li>
+    </ul>
+    <h3 class="" id="a719aaaa-0f8b-41b5-a46f-dda347bf43a9">
+     Transistor
+    </h3>
+    <ul class="bulleted-list" id="2af3bc1a-557b-4b15-80f4-d5e318eb3ed7">
+     <li style="list-style-type:disc">
+      <strong>
+       Bipolar:
+      </strong>
+      Controls large currents with a small base current.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="c855a090-25c5-4621-affd-36652647433c">
+     <li style="list-style-type:disc">
+      <strong>
+       MOSFET:
+      </strong>
+      Controls current flow between source and drain with gate voltage.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="77ed5c0c-3926-44c4-97a3-699769b17b7e">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A MOSFET used as a switch to control high-power LEDs.
+     </li>
+    </ul>
+    <h3 class="" id="3c2a0d07-7804-4e15-94b2-dd4d0945a1a4">
+     Battery, Regulator, DC-DC Converter
+    </h3>
+    <ul class="bulleted-list" id="16e3ce53-c8b0-490f-969d-f7bbb0b42a47">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Provide, regulate, and convert power within a circuit.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ba86732b-69fa-4fde-8700-14554ef0f1a7">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A battery provides power, a regulator ensures stable voltage, and a DC-DC converter adjusts voltage levels efficiently.
+     </li>
+    </ul>
+    <h3 class="" id="0d83f6e7-aedb-4563-9317-87fea562c08e">
+     Op-amp (Differential gain, negative feedback)
+    </h3>
+    <ul class="bulleted-list" id="7107e08c-7ad2-4849-886f-0cc92a6646b3">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Amplifies signals, used in filters, oscillators, and signal conditioning.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2c0d08f9-8f68-4b30-bae0-ded6f6112a79">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      An op-amp configured as a non-inverting amplifier to increase sensor signal strength.
+     </li>
+    </ul>
+    <h3 class="" id="e816ccb5-826c-4712-8b0f-f1b7880d698c">
+     Microcontroller
+    </h3>
+    <ul class="bulleted-list" id="49b29922-9de7-42c5-82d7-7867b13fcbe3">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Acts as the brain of many electronic devices, programmable to perform specific tasks.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a68f8518-8c6e-475f-b150-8c243a76c8f8">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A microcontroller reading sensor data, processing it, and controlling actuators.
+     </li>
+    </ul>
+    <h3 class="" id="a624ced1-a22b-4f93-88fa-652afab4ce32">
+     Sensors
+    </h3>
+    <ul class="bulleted-list" id="fa929159-4da1-4fda-aa9c-6de7e9942b6c">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Detect environmental changes or user input.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2aef57da-352b-40a8-824b-d0953d89e22f">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      Temperature sensor in a smart thermostat.
+     </li>
+    </ul>
+    <h3 class="" id="dbb11225-ba39-40ac-9d73-78381787a421">
+     Actuators
+    </h3>
+    <ul class="bulleted-list" id="69188f5c-43e9-4631-abc0-3d7a20e0a835">
+     <li style="list-style-type:disc">
+      <strong>
+       Use:
+      </strong>
+      Convert electrical signals into physical action.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="98c3be64-e4cf-4b4f-b405-b072f46f718a">
+     <li style="list-style-type:disc">
+      <strong>
+       Example:
+      </strong>
+      A motor controlled by a PCB to adjust the position of a device.
+     </li>
+    </ul>
+    <br/>
+    <h2 class="" id="7086d6a5-ef8b-4c1d-929c-084f31f5c86c">
+     About Electronic Design Automation:
+    </h2>
+    <p class="" id="41d39625-bc32-429b-9cb5-8c8c98410b15">
+     Electronic Design Automation (EDA) tools are crucial in modern PCB design, streamlining and automating various stages of the design process. EDA software enables designers to create complex circuits efficiently, simulate their behavior under different conditions, and prepare designs for manufacturing. Here's an overview of key concepts and stages in PCB design using EDA tools:
+    </p>
+    <h3 class="" id="1719de5d-0fd6-433d-a53a-bed4b9216222">
+     Sketch and Schematic Entry
+    </h3>
+    <ul class="bulleted-list" id="ad3c842b-58dc-4014-a04d-0dc493ae842b">
+     <li style="list-style-type:disc">
+      <strong>
+       Sketch:
+      </strong>
+      The initial conceptual phase where the basic functionality and design requirements are outlined.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5c0272d2-df6c-4096-bf4e-c3f6c948b915">
+     <li style="list-style-type:disc">
+      <strong>
+       Schematic Entry:
+      </strong>
+      Using EDA software to create a detailed schematic diagram. This is a symbolic representation of the circuit, showing how components are connected without focusing on their physical placement.
+     </li>
+    </ul>
+    <h3 class="" id="4d1d3d7f-dcde-4a09-affd-3f4ee3bfc30c">
+     Component Placement
+    </h3>
+    <p class="" id="8dccfcde-b3be-474f-a49f-def86629d78f">
+     After the schematic is complete, the design moves to the PCB layout phase, where components are placed on a virtual board. EDA tools help in optimizing the placement to minimize noise, reduce signal path lengths, and ensure adherence to thermal management and mechanical constraints.
+    </p>
+    <h3 class="" id="46e25cbe-5e2c-4ef8-843b-078bc0f9396b">
+     (Auto)Routing
+    </h3>
+    <ul class="bulleted-list" id="74482593-1ab0-4b01-a787-c76bce4ac40c">
+     <li style="list-style-type:disc">
+      <strong>
+       Routing:
+      </strong>
+      Involves connecting the pins of the placed components according to the schematic connections using copper traces. EDA tools can automate this process (autorouting) or allow manual routing for critical signals.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="36cf2e83-35b5-4a01-8c80-faae4ae7d2d9">
+     <li style="list-style-type:disc">
+      <strong>
+       Simulation:
+      </strong>
+      Before finalizing the design, simulation tools within the EDA software can predict how the circuit will perform, helping identify and correct issues early in the design process.
+     </li>
+    </ul>
+    <h3 class="" id="258bb3a5-95fc-4aea-8cec-83d80aed15ae">
+     Fabrication
+    </h3>
+    <p class="" id="cb962e89-d71f-439a-8126-188971baae1c">
+     Once the design and simulations are satisfactory, the EDA tool can generate files (such as Gerber files) required by PCB manufacturers to fabricate the physical board.
+    </p>
+    <h3 class="" id="4d7180bc-16e1-49cf-9697-27129640978c">
+     Layers
+    </h3>
+    <p class="" id="78fa6ed2-6580-4c6d-a8ed-7f64d28f95e6">
+     Modern PCBs are often multi-layered, containing several layers of copper for signals, power, and ground. These are essential for managing space, signal integrity, and power distribution in complex designs.
+    </p>
+    <h3 class="" id="51f3b473-abcf-46ee-b097-e7c74cdcd094">
+     Angles, Vias, Power Planes, and Ground Pours
+    </h3>
+    <ul class="bulleted-list" id="3b63394c-bdd3-4e34-8452-8da8a148fd0e">
+     <li style="list-style-type:disc">
+      <strong>
+       Angles:
+      </strong>
+      The paths of traces are usually routed at specific angles (often 45°) to minimize electromagnetic interference and improve manufacturability.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1f8c3d8a-459f-482f-8328-d36e31f81c2c">
+     <li style="list-style-type:disc">
+      <strong>
+       Vias:
+      </strong>
+      Conductive pathways that connect traces between different layers of a PCB.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d3599e45-db88-435b-9758-9884c25bc13e">
+     <li style="list-style-type:disc">
+      <strong>
+       Power Planes and Ground Pours:
+      </strong>
+      Dedicated layers or areas for power distribution and grounding, crucial for reducing noise and improving the electrical performance of the circuit.
+     </li>
+    </ul>
+    <h3 class="" id="5bbc8d45-c8c0-464c-b4d7-551ca4696d1e">
+     Design Rules, DRC (Design Rule Check), and ERC (Electrical Rule Check)
+    </h3>
+    <ul class="bulleted-list" id="716d300c-93d0-4da7-8736-31f3a4977b56">
+     <li style="list-style-type:disc">
+      <strong>
+       Design Rules:
+      </strong>
+      Guidelines set by PCB manufacturers or standards, including minimum trace widths, spacing, and via sizes. These ensure the PCB can be manufactured reliably.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="0837f415-594a-4b6c-9239-17b610979676">
+     <li style="list-style-type:disc">
+      <strong>
+       DRC:
+      </strong>
+      An automated check performed by the EDA software to identify violations of the design rules, such as traces that are too close together.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="b4dc11ea-7bf1-47b4-9b09-1336d5714145">
+     <li style="list-style-type:disc">
+      <strong>
+       ERC:
+      </strong>
+      Verifies the electrical correctness of the circuit, such as ensuring there are no short circuits or mismatched impedances.
+     </li>
+    </ul>
+    <br/>
+    <h3 class="" id="d9e68172-c3c5-42b3-9c32-3348527084e6">
+     Design Rules
+    </h3>
+    <p class="" id="98842015-501d-4f43-a86e-1e86f6df71b1">
+     Design rules are specific guidelines set to ensure that a PCB design can be manufactured reliably and will function as intended. These rules cover a broad spectrum of design aspects, including but not limited to:
+    </p>
+    <ul class="bulleted-list" id="70d6d800-0437-495a-8431-a95460f8960e">
+     <li style="list-style-type:disc">
+      <strong>
+       Trace Width and Spacing:
+      </strong>
+      Minimum width of the conductive tracks and the minimum distance between them to prevent short circuits and ensure adequate current carrying capacity.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="729576b8-17cf-4d85-923a-9317e3d7b152">
+     <li style="list-style-type:disc">
+      <strong>
+       Via Sizes and Annular Rings:
+      </strong>
+      Specifications for the drill sizes of vias (holes that connect different layers) and the copper ring around them, ensuring reliable layer-to-layer connections.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d593a0a9-9ec9-49cd-8e36-18d58a5d8083">
+     <li style="list-style-type:disc">
+      <strong>
+       Component Placement:
+      </strong>
+      Guidelines for the minimum distance between components to allow for soldering and heat dissipation, and to avoid physical overlap.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7141c820-b2bb-47c3-a2a7-0ba24296d71d">
+     <li style="list-style-type:disc">
+      <strong>
+       Solder Mask and Paste Clearances:
+      </strong>
+      Clearance sizes for solder masks (protective layer over the copper traces) and solder paste (used for surface mount assembly) applications.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ee23a86c-cbc5-436c-972e-036c02535ef5">
+     <li style="list-style-type:disc">
+      <strong>
+       Power and Ground Planes:
+      </strong>
+      Specifications for the design of power and ground layers, including thickness and separation, to ensure adequate power distribution and grounding.
+     </li>
+    </ul>
+    <h3 class="" id="61cfa0c7-049b-47b4-90c8-901bc4eee178">
+     DRC (Design Rule Check)
+    </h3>
+    <p class="" id="0d3e7c4c-5c1c-4559-8110-49c8f8963105">
+     DRC is an automated process used within Electronic Design Automation (EDA) tools to verify that the PCB design adheres to the predefined design rules. It checks for physical and manufacturing constraints, including:
+    </p>
+    <ul class="bulleted-list" id="6d77d2e2-1f96-4a70-b902-9033ab1e4332">
+     <li style="list-style-type:disc">
+      <strong>
+       Trace Widths and Spacing Violations:
+      </strong>
+      Ensures that all traces meet the minimum width and spacing requirements.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="aa5b6478-85aa-4526-824c-56bcbde215ae">
+     <li style="list-style-type:disc">
+      <strong>
+       Via and Pad Standards:
+      </strong>
+      Verifies that via sizes and annular rings are within acceptable limits.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ed5f7137-277a-4a65-a332-12a7cf3fdf44">
+     <li style="list-style-type:disc">
+      <strong>
+       Overlap Errors:
+      </strong>
+      Checks for components or traces that improperly overlap or violate placement guidelines.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="746c6ced-d6d1-4bb5-a259-97b52d0d6265">
+     <li style="list-style-type:disc">
+      <strong>
+       Solder Mask Expansions:
+      </strong>
+      Confirms that solder mask expansions are correct to prevent solder bridging during assembly.
+     </li>
+    </ul>
+    <p class="" id="87c3b125-1915-423b-bdb8-31701b8a4ae3">
+     DRC helps identify errors that could lead to manufacturing defects or functional issues, allowing designers to correct problems before production.
+    </p>
+    <h3 class="" id="1307640b-875c-4184-aa44-7d129952d79c">
+     ERC (Electrical Rule Check)
+    </h3>
+    <p class="" id="e942bf55-3320-4520-a98f-9f88b2c6c2ca">
+     ERC goes beyond the physical layout to assess the electrical correctness of the design. It examines the schematic and the PCB layout to identify potential electrical issues, including:
+    </p>
+    <ul class="bulleted-list" id="0b13ff8e-7ecd-40fe-a238-52ab4f825711">
+     <li style="list-style-type:disc">
+      <strong>
+       Unconnected Pins or Nets:
+      </strong>
+      Verifies that all components are correctly connected and there are no floating pins or nets.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="12bb77e0-ab51-427d-bd21-d357129ed0c5">
+     <li style="list-style-type:disc">
+      <strong>
+       Short Circuits:
+      </strong>
+      Checks for unintended direct connections between nets that should not be connected.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="c1ccaca4-3ddd-437c-a90a-1f65544d30da">
+     <li style="list-style-type:disc">
+      <strong>
+       Incorrect Component Values:
+      </strong>
+      Identifies mismatches between the schematic and layout, such as wrong resistor values or capacitor ratings.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="299540a0-d627-4931-b2b8-90038cf955ec">
+     <li style="list-style-type:disc">
+      <strong>
+       Power Supply Issues:
+      </strong>
+      Ensures that all components receive the correct supply voltage and that power and ground connections are properly implemented.
+     </li>
+    </ul>
+    <p class="" id="aa3bcd97-1aeb-406d-9f73-ea7db1fd0a97">
+     ERC is crucial for preventing functional failures and ensuring that the PCB will operate as intended under various conditions.
+    </p>
+    <h2 class="" id="1c3e1193-c7af-4689-92a1-3cba10781d04">
+     PCB Design with KiCAD
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#pcb-design-with-kicad">
+      ¶
+     </a>
+    </h2>
+    <p class="" id="1dd858f2-f80f-430b-bb7d-6e9557409ead">
+     I have followed the KiCAD tutorial available at:
+     <a href="https://docs.kicad.org/7.0/en/getting_started_in_kicad/getting_started_in_kicad.html">
+      KiCAD 7.0 Tutorial
+     </a>
+     . Below are my shorter version of the basic steps for the PCB design.
+    </p>
+    <p class="" id="36d3225d-0d7a-407f-a573-ad4469aae244">
+     <strong>
+      The typical workflow in KiCad consists of two main tasks: drawing a schematic and laying out a circuit board.
+     </strong>
+     A KiCad project is a folder with a project file, a schematic, a board layout, and optionally other associated files such as symbol and footprint libraries, simulation data, purchasing information, etc.
+    </p>
+    <ol class="numbered-list" id="3dcb6286-a6a1-4433-964a-b39b4d62f406" start="1" type="1">
+     <li>
+      Typically, the schematic is drawn first.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="749ec044-5628-4ef0-8c3a-a69622d00e29" start="2" type="1">
+     <li>
+      When the schematic is complete and the design has passed an electrical rules check (ERC), the design information in the schematic is transferred to the board editor and layout begins. Often the schematic will need to be updated after layout has begun.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e12e1d04-7cef-4212-b149-ba625e68f2b4" start="3" type="1">
+     <li>
+      Laying out a circuit board.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="38f013cf-aae5-4fef-9ee1-2a93d678cc8c" start="4" type="1">
+     <li>
+      When the board layout is complete and the board has passed the Design Rules Check (DRC), fabrication outputs are generated so that the board can be manufactured by a PCB fabricator.
+     </li>
+    </ol>
+    <h3 class="" id="940befe5-c2b2-4373-be59-57e44d29ab86">
+     Getting Started with KiCad
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#getting-started-with-kicad">
+      ¶
+     </a>
+    </h3>
+    <ol class="numbered-list" id="9d134210-1043-4a4c-97fc-15a41cfdfe71" start="1" type="1">
+     <li>
+      Starting new project: File → New Project, create new folder, Save.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="9515a202-9646-4b29-a709-905405e1a3c0" start="2" type="1">
+     <li>
+      Setting up -backup directory: Preferences → Preferences → Common → Project Backup.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6a7dea85-fc39-4c0d-abb2-5c5fb28f055e" start="3" type="1">
+     <li>
+      Openning Schematic Design: Choose: Copy default global symbol library table (recommended).
+     </li>
+    </ol>
+    <ol class="numbered-list" id="f375dfe4-393e-4145-8edf-0a1769ab5f20" start="4" type="1">
+     <li>
+      The mouse controls are configurable in Preferences → Preferences… → Mouse and Touchpad.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="9b14efb7-de9a-471d-a008-9ea54e5e6af1" start="5" type="1">
+     <li>
+      Hotkeys can be changed in Preferences → Preferences… → Hotkeys.
+     </li>
+    </ol>
+    <h3 class="" id="bc7adf21-d112-47b1-9731-ce706c57b57d">
+     Schematic Design
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#schematic-design">
+      ¶
+     </a>
+    </h3>
+    <ol class="numbered-list" id="e42d52dc-3e7b-4a14-bbfa-9ae9de2f99f6" start="1" type="1">
+     <li>
+      Schematic Sheet Setup: File → Page Settings.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6e2cf20c-ea07-4beb-86e8-da448e558c2b" start="2" type="1">
+     <li>
+      Adding Symbols to the Schematic: Add a Symbol button or press “a” you can add elements e.g. LED - Led, R - Resistor, Battery_Cell - battery.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="4e30753c-22d9-4e96-82e0-94eac6dd512c" start="3" type="1">
+     <li>
+      Additional objects can be added to the selection with Shift+click, or removed with Ctrl+Shift+click. You can toggle an item’s selection state with Ctrl+click.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="01d5e4d4-164c-40cb-8ae3-c70c718317cb" start="4" type="1">
+     <li>
+      M - move, R - rotate , G - drag, del - delate objects. For moving unconnected symbols, G and M behave identically, but for symbols with wires attached, G moves the symbol and keeps the wires attached, while M moves the symbol and leaves the wires behind.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="32e37278-0ed5-4248-bae3-615f357f5488" start="5" type="1">
+     <li>
+      Add power and ground symbols to the schematic: Add a Power Symbol button or use the P hotkey. Add a VCC symbol and GND symbol and then connect them to the circuit with wires.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="336772d7-eea0-4573-b609-c3af9bb51119" start="6" type="1">
+     <li>
+      Labeling wires: Net Label button in the right toolbar (L), type a label name (led), and place the label into the schematic so that the square attachment point overlaps with the wire. Rotate and align the label as necessary.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="289a487b-2192-4401-b038-ce90035360ca" start="7" type="1">
+     <li>
+      Annotation, Symbol Properties, and Footprints:
+      <ul class="bulleted-list" id="84e79d8d-77d9-4bdc-b436-17e587c88b82">
+       <li style="list-style-type:disc">
+        Annotation:By default in KiCad 7.0, symbols are automatically annotated when they are added to the schematic. Automatic annotation can be enabled or disabled using the annotate button in the left toolbar.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="1ce0f9b1-be61-431b-8db5-04020c0fdadf">
+       <li style="list-style-type:disc">
+        Symbol Properties: Select the LED, right-click, and select Properties… (E)
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="6eadd08e-e328-4db2-aef2-5f32846da4d7">
+       <li style="list-style-type:disc">
+        Footprint Assignment:use the footprint assignment tool by clicking the icon button in the top toolbar. Footprints can be previewed by right-clicking a footprint and selecting View selected footprint.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="996bc3f1-d7a5-4884-8595-b320f3963cfe" start="8" type="1">
+     <li>
+      Electrical Rules Check (ERC): full list of electrical rules and to adjust their severity: File → Schematic Setup… → Electrical Rules → Violation Severity, to run the check: clicking the ERC button (erc 24) in the top toolbar and then clicking Run ERC.
+      <ul class="bulleted-list" id="6567de7b-cabd-4f3f-9248-1b151fd09362">
+       <li style="list-style-type:disc">
+        common KiCad ERC errors: “Input Power pin not driven by any Output Power pins”. Power symbols are set up to require a power output pin, such as the output of a voltage regulator, on the same net; otherwise KiCad thinks the net is undriven.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="61fe6ddc-1c9e-4588-84b5-dffd145c47fa" start="9" type="1">
+     <li>
+      Bill of Materials:Tools → Generate BOM.
+     </li>
+    </ol>
+    <h3 class="" id="0d24c670-5359-4c80-a5f4-e2799b53d422">
+     Circuit Board
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#circuit-board">
+      ¶
+     </a>
+    </h3>
+    <ol class="numbered-list" id="719efe6d-856d-4438-8a4b-de576e7b54a9" start="1" type="1">
+     <li>
+      PCB Editor Basics: pan by dragging with the middle mouse button or right mouse button, and zoom with the scrollwheel or F1/F2.The toolbar on the left side has various display options for the board, including units and toggles for outline/filled display modes for tracks, vias, pads, and zones. The toolbar just to the right of the canvas contains tools for designing the PCB.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="bd64876e-aac5-4147-abda-8756f08731ff" start="2" type="1">
+     <li>
+      Board Setup and Stackup:File → Page Settings…
+     </li>
+    </ol>
+    <ol class="numbered-list" id="03a5bd43-8e35-4d79-8e3f-9d0761dd5860" start="3" type="1">
+     <li>
+      File → Board Setup… to define how the PCB will be manufactured. The most important settings are the stackup, i.e. what copper and dielectric layers the PCB will have (and their thicknesses), and the design rules, e.g. sizes and spacing for tracks and vias. To set the stackup, open the Board Stackup → Physical Stackup page of the Board Setup window. For this guide, leave the number of copper layers at 2, but more complicated projects might require more layers.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="44dab16e-4b45-4352-8335-b54d3daeb4f1" start="4" type="1">
+     <li>
+      Next, go to the Design Rules → Constraints page.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="12716808-c823-4cca-8a6b-60d9167b1daa" start="5" type="1">
+     <li>
+      Finally, open the Design Rules → Net Classes page. A net class is a set of design rules associated with a specific group of nets. This page lists the design rules for each net class in the design and allows assigning nets to each net class.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="256ec612-4f45-4251-8364-cbc9b3c50635" start="6" type="1">
+     <li>
+      Importing Changes From Schematic: Tools → Update PCB from Schematic…, or press F8. Read through the messages in the Changes To Be Applied window, which will say that the three components in the schematic will be added to the board. Click Update PCB, Close.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="c407173b-869e-4b4a-b59b-719656183636" start="7" type="1">
+     <li>
+      Drawing A Board Outline:
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a1b4207d-492a-47e0-81cf-a0489a584a1b" start="8" type="1">
+     <li>
+      The board is defined by drawing a board outline on the Edge.Cuts layer.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0f583fa3-94e6-43ba-b51a-25cfbcf4c0c0" start="9" type="1">
+     <li>
+      Switch to a coarse grid by selecting 1mm in the Grid dropdown menu above the canvas.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a8a70c2d-5bce-4d2d-b396-ffb3e9a09c2c" start="10" type="1">
+     <li>
+      To draw on the Edge.Cuts layer, click Edge.Cuts in the Layers tab of the Appearance panel at right
+     </li>
+    </ol>
+    <ol class="numbered-list" id="02a36c29-d68d-4024-83c7-d659a1682501" start="11" type="1">
+     <li>
+      Placing Footprints: Click it to select it, then press M to move it. Press F to flip it to the opposite side; Plaacing Rules: Some footprints may have exact requirements for their locations, such as connectors, indicators, or buttons and switches.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="72d11a5c-9565-44f4-9e79-65fbcb668311" start="12" type="1">
+     <li>
+      Some components may need to be placed according to electrical considerations. Bypass capacitors should be close to the power pins of the associated IC and sensitive analog components should be far from digital interference.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e9a9afab-c56b-4936-911b-c5b302562b05" start="13" type="1">
+     <li>
+      Almost all components have a “Courtyard” (or two if both Front and Back are defined). Generally Courtyards should not intersect.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ef931f05-f046-4081-8d91-8e8c39913d7e" start="14" type="1">
+     <li>
+      Otherwise components should be positioned for ease of routing. Connected components should generally be close together, and arranged to minimize routing complexity. The ratsnest (the thin lines indicating connections between pads) is useful for determining how best position footprints relative to other footprints.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e606dabe-aad9-4cc7-bbeb-a0e221fcc2ab" start="15" type="1">
+     <li>
+      Routing Tracks: The first trace will be drawn on the front of the board, so change the active layer to F.Cu in the Layers tab of the Appearance panel.Click Route Tracks add tracks 24 in the right-hand toolbar or press X. Another way to make a connection across layers is with a via. Start routing at the VCC pad of BT1 on the back of the board. Press V and click halfway between BT1 and R1 to insert a via, which also switches the active layer to F.Cu. Complete the track on the top side of the board by clicking on the VCC pad of R1.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="4909ed9b-02ae-41c2-be2e-a5e58fa23a1c" start="16" type="1">
+     <li>
+      Placing Copper Zones: Add a GND zone on the bottom of the board by switching to the bottom copper layer and clicking the Add a filled zone button add zone 24 in the right toolbar. Click on the PCB to place the first corner of the zone. Fill the zone with Edit → Fill All Zones (B).
+     </li>
+    </ol>
+    <ol class="numbered-list" id="4967df0f-1664-400a-9604-07f86206aec2" start="17" type="1">
+     <li>
+      Design Rule Checking
+      <ul class="bulleted-list" id="cf5d1213-a9ed-4dd6-ac44-536d4f364793">
+       <li style="list-style-type:disc">
+        File → Board Setup… → Design Rules → Violation Severity
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="64ed34eb-a22c-4329-ac8b-3a96e1541cac">
+       <li style="list-style-type:disc">
+        Run a DRC check with Inspect → Design Rules Checker, or use the button erc 24 in the top toolbar. Click Run DRC. When the checks are complete, no errors or warnings should be reported. Close the DRC window.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0db98edf-0e30-463d-9bf1-c4c7e6358f87" start="18" type="1">
+     <li>
+      Open the 3D viewer with View → 3D Viewer.
+     </li>
+    </ol>
+    <h3 class="" id="27c878e8-5591-417e-9336-c1b5d7f9d804">
+     Adding FabAcadmy Libraries for KiCAD
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#adding-fabacadmy-libraries-for-kicad">
+      ¶
+     </a>
+    </h3>
+    <p class="" id="f1938bc0-7e84-4059-a2e1-14cf7b31af99">
+     Download the KiCAD library from Gitlab:
+    </p>
+    <p class="" id="8d3eb399-4f46-4b3e-8bf0-b26ab5c9a3e3">
+     <a href="https://gitlab.fabcloud.org/pub/libraries/electronics/kicad">
+      Gitlab:KiCAD library
+     </a>
+    </p>
+    <p class="" id="0c64995b-2ba8-4afb-9f26-b541f19ff017">
+     and follow readme.md file for instruction how to intall library. I copied the whole folder downloaded from gitlab to: C:\Program Files\KiCad\7.0\lib.
+    </p>
+    <p class="" id="1286a7c1-af26-4d23-88ea-e159b8fb6f29">
+     <strong>
+      Remember to instal libraries when you open project (not in the schematic or pcb project file)!
+     </strong>
+    </p>
+    <figure class="image" id="dd431d24-3e48-4c88-bea7-e2676a9752f4">
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/images/week06/Screenshot%202023-03-07%20221536.png">
+      <img src="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/images/week06/Screenshot%202023-03-07%20221536.png"/>
+     </a>
+    </figure>
+    <h2 class="" id="0c29219e-b93f-45fc-a16b-5c1f1f27f054">
+     PCB with SAMD11C
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#pcb-with-samd11c">
+      ¶
+     </a>
+    </h2>
+    <p class="" id="7fdfe457-4dcf-46ec-bb62-8fc9e98c0d06">
+     First, I revised the pin layout provided by the producer.
+    </p>
+    <figure class="image" id="a5760527-2091-44dc-9c24-b51686c68dc5">
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/images/week06/Screenshot%202023-03-07%20223230.png">
+      <img src="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/images/week06/Screenshot%202023-03-07%20223230.png"/>
+     </a>
+    </figure>
+    <p class="" id="b2afbbfb-52bc-491f-8ec5-ab11d5af56a5">
+     I prepared the schematic design reviewing
+     <a href="http://fabacademy.org/2020/labs/leon/students/adrian-torres/fabxiao.html">
+      Samdino
+     </a>
+     . I started preparing my first board design using KiCAD.
+    </p>
+    <figure class="image" id="2d9958ac-2381-44e0-80b7-f087408d1d42">
+     <a href="Week - 8 Electronics Production/Untitled.png">
+      <img src="Week - 8 Electronics Production/Untitled.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="1c91dd64-b863-422f-99b3-6293fb6c4da3">
+     The design was prepared using default Design Rules and passed Design Rules Checker. The following parameters were shared by our instructor.
+    </p>
+    <figure class="image" id="45ab5fef-9565-4f67-b7ce-b55e69c55454">
+     <a href="Week - 8 Electronics Production/Untitled%201.png">
+      <img src="Week - 8 Electronics Production/Untitled%201.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="75597913-9514-40dc-93ec-0a14394df4f8">
+     The design of the board is presented below. I designed a compact board with the measurement of 32 mm X 40 mm.
+    </p>
+    <figure class="image" id="459960a0-18a4-414d-aff2-a8e1e70f09bf">
+     <a href="Week - 8 Electronics Production/Untitled%202.png">
+      <img src="Week - 8 Electronics Production/Untitled%202.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="821a9761-0aa9-4d17-aa53-d4c862314c48">
+     For integrating the C-type connector I used a proshplay board for which the footprint was shared with us by our instructor.
+    </p>
+    <p class="" id="08f1104c-e903-48ea-9854-478496e36a0c">
+     Super Fablab Kerala has designed a tool named
+     <a href="https://gerber2png.fablabkerala.in/">
+      Gerber to PNG
+     </a>
+     which helps us to get a PNG file of traces and outline that can be milled using Roland MDX PCB Mill. Here’s a screenshot of the same.
+    </p>
+    <figure class="image" id="edc7300e-4c07-4919-99ce-14ade4de00fc">
+     <a href="Week - 8 Electronics Production/Untitled%203.png">
+      <img src="Week - 8 Electronics Production/Untitled%203.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="276eddb3-ff80-4de8-a01f-47076b3329c4">
+     When the gerber files were uploaded, we got the png files for traces and outline as follows:
+    </p>
+    <figure class="image" id="2418b8de-7f24-4822-9ecd-02d145751719">
+     <a href="Week - 8 Electronics Production/Untitled%204.png">
+      <img src="Week - 8 Electronics Production/Untitled%204.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="579c0c7a-31a6-4ccf-9406-23255023f3e5">
+     I milled my PCB and soldered all the components mentioned in the list.
+    </p>
+    <figure class="image" id="d03e31f1-9fe2-4bb3-8331-67c1ede6f3a1">
+     <a href="Week - 8 Electronics Production/Untitled.jpeg">
+      <img src="Week - 8 Electronics Production/Untitled.jpeg" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="8b605900-c757-417c-b696-47e897c523d7">
+     <a href="Week - 8 Electronics Production/Untitled%201.jpeg">
+      <img src="Week - 8 Electronics Production/Untitled%201.jpeg" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="c19204e1-a5c1-471b-9d0d-0cde775dea12">
+     Then I added the additional board manager board from this
+     <a href="https://github.com/qbolsee/ArduinoCore-fab-sam">
+      link
+     </a>
+     following the steps. Once done I selected the following board and programmer and burnt the bootloader.
+    </p>
+    <br/>
+    <figure class="image" id="a33fa2f2-3663-47d5-b4e6-2d71dc6cb370">
+     <a href="Week - 8 Electronics Production/Untitled%205.png">
+      <img src="Week - 8 Electronics Production/Untitled%205.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="d5c10342-1d16-4a8d-b227-c14eafa1bfe1">
+     <a href="Week - 8 Electronics Production/Untitled%206.png">
+      <img src="Week - 8 Electronics Production/Untitled%206.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="97af2fe1-af0a-4ef8-b53d-1233fb344f85">
+     I am troubleshooting the board to load them for programs as the port is not getting displayed.
+    </p>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
