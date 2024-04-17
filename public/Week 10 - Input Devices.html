@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 10 - Input Devices
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="84391970-9fef-4771-a1a8-ea0039e71367">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 10 - Input Devices
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <table class="simple-table" id="d3cf8fe2-bb56-49a1-9767-1bb9ed21f0d1">
+     <tbody>
+      <tr id="dc278cc1-7408-400b-be25-40bedb3ab4a9">
+       <td class="" id="dK&gt;H">
+        <strong>
+         Assignment
+        </strong>
+       </td>
+       <td class="" id="XFlM">
+       </td>
+      </tr>
+      <tr id="155115b6-636d-4b32-91d2-36a738eedc93">
+       <td class="" id="dK&gt;H">
+        <em>
+         group
+        </em>
+       </td>
+       <td class="" id="XFlM">
+        • To probe an input device's analog levels and digital signals
+        <br/>
+        <br/>
+        <a href="https://fabacademy.org/2024/labs/kochi/Group_Assignments/week11/">
+         Link to group assignment
+        </a>
+       </td>
+      </tr>
+      <tr id="0c9bb5b9-d352-4f10-9fcc-f37123789638">
+       <td class="" id="dK&gt;H">
+        <em>
+         individual
+        </em>
+       </td>
+       <td class="" id="XFlM">
+        - To measure something: add a sensor to a microcontroller board that you have designed and read it
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <h2 class="" id="e5387ee5-85ee-4aa2-ba97-da6d2a3232df">
+     <strong>
+      Overview
+     </strong>
+    </h2>
+    <p class="" id="d8bee340-6cf6-44dd-8eba-734a66d8f6ba">
+     Week 11 of the Fab Academy course focuses on input devices, which are essential for enabling interaction between users and machines. This week, students will learn about various types of sensors and how to integrate them into their projects to sense and respond to physical inputs. The objective is to familiarize students with the principles of operation, interfacing techniques, and the practical integration of input devices into microcontroller-based systems.
+    </p>
+    <h2 class="" id="44455a94-a914-49b6-b143-08b7083eaa9e">
+     <strong>
+      Objectives
+     </strong>
+    </h2>
+    <p class="" id="101fedc3-69dc-4643-9489-290df40daebe">
+     By the end of this week, students should be able to:
+    </p>
+    <ol class="numbered-list" id="480743cf-9c01-45dd-a35b-d2ca0bcfb8cf" start="1" type="1">
+     <li>
+      Understand the working principles of various input devices.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="41586ff7-837b-47c5-aea3-6034341423f1" start="2" type="1">
+     <li>
+      Interface input devices with microcontrollers.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="40d4c868-9a98-41bd-ba6e-dc9bbd5f3d52" start="3" type="1">
+     <li>
+      Read and process sensor data through programming.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a9e5918c-428f-41bc-92d4-7308d66bbf6f" start="4" type="1">
+     <li>
+      Integrate sensors into a simple embedded system project.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="63a9571a-baee-49a6-a5f2-a17904479e35" start="5" type="1">
+     <li>
+      Document their projects comprehensively, demonstrating their learning process and outcomes.
+     </li>
+    </ol>
+    <h2 class="" id="f106df8d-3e62-44d1-b5f1-94adc88cf5d6">
+     <strong>
+      Learning Outcomes
+     </strong>
+    </h2>
+    <ul class="bulleted-list" id="eebf27a4-bb0a-4995-b446-4c56da4cc589">
+     <li style="list-style-type:disc">
+      Select appropriate sensors for specific applications.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="b9ce6258-114a-4bf1-bbfd-9eb6d633e15a">
+     <li style="list-style-type:disc">
+      Interface sensors with microcontrollers using both digital and analog inputs.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="44fc2671-ff94-4d63-be08-f93f4a8d3ec5">
+     <li style="list-style-type:disc">
+      Write programs to read and interpret sensor data.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="82526e37-cd62-4be0-b720-ccef4212d883">
+     <li style="list-style-type:disc">
+      Troubleshoot and debug sensor integration in electronic circuits.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="633b378c-68c7-43fd-9929-15fd08c9b3de">
+     <li style="list-style-type:disc">
+      Present their work clearly and effectively in their documentation.
+     </li>
+    </ul>
+    <br/>
+    <h3 class="" id="4e5b83fa-059a-451c-8968-c9532a39bc9b">
+     Input Devices and Sensors Overview
+    </h3>
+    <p class="" id="d7907134-9f71-42d7-978c-14eb5cb1b1d8">
+     Input devices are essential components in electronic systems, enabling them to sense and respond to the physical world. Below is a detailed exploration of various types of sensors, their working principles, applications, and how they are used to measure specific effects or phenomena.
+    </p>
+    <h3 class="" id="553c25fb-9129-4c38-9c0f-0b488d097eb8">
+     1.
+     <strong>
+      Switches
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="ca87d0ef-b10c-4907-a5d5-fd76f2694210">
+     <li style="list-style-type:disc">
+      <strong>
+       Function
+      </strong>
+      : Act as binary devices, either completing or breaking an electrical circuit.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="de5ea3f2-4c44-40a9-b87d-b05d70059a6d">
+     <li style="list-style-type:disc">
+      <strong>
+       Types
+      </strong>
+      : Mechanical, magnetic (reed switches), and solid-state.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="261ef5e8-2742-43d4-ae1b-3cac7bb0d29e">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : User interfaces, limit sensing, and safety devices.
+     </li>
+    </ul>
+    <h3 class="" id="8a8c1491-b764-4143-bb41-1225d276e9da">
+     2.
+     <strong>
+      Magnetic Field Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="47bf9ecf-cf29-4c28-ac95-0e816d278744">
+     <li style="list-style-type:disc">
+      <strong>
+       Hall Effect Sensors
+      </strong>
+      : Detect the presence of a magnetic field.
+      <ul class="bulleted-list" id="48668e26-6356-4c19-8a96-755833e1bd13">
+       <li style="list-style-type:circle">
+        <strong>
+         Vector Applications Simulation
+        </strong>
+        : Used in applications requiring precise measurements of the direction and magnitude of magnetic fields.
+       </li>
+      </ul>
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4214b0ce-12fc-4ca2-87ae-80e341b40b0d">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Position sensing, current sensing, and brushless DC motor control.
+     </li>
+    </ul>
+    <h3 class="" id="1551605e-e66c-4b08-b18b-0c5068359895">
+     3.
+     <strong>
+      Potentiometer
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="d67750d1-2e9d-4d84-965c-34f2c05a372e">
+     <li style="list-style-type:disc">
+      <strong>
+       Function
+      </strong>
+      : A variable resistor used to measure angular or linear position.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="792adcf0-5deb-4e04-8dc7-d067e60d8042">
+     <li style="list-style-type:disc">
+      <strong>
+       Features
+      </strong>
+      : Provides analog output proportional to the position.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="9ea98b5b-2644-45b5-b094-388c2175a8e7">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Volume control, joystick control, and mechanical position sensing.
+     </li>
+    </ul>
+    <h3 class="" id="1e8c03b6-88bf-4e1f-b18c-2b3fb0d2850a">
+     4.
+     <strong>
+      Capacitive Touch Sensors (QTouch, FreeTouch)
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="09b7393d-dc1a-4b97-89a0-c03f44356d5a">
+     <li style="list-style-type:disc">
+      <strong>
+       Function
+      </strong>
+      : Detect touch or proximity by measuring changes in capacitance.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ad5f3e17-098e-42f1-aecb-3217471d7241">
+     <li style="list-style-type:disc">
+      <strong>
+       Features
+      </strong>
+      : Supports simple touch to complex multitouch interfaces.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="63af8f89-bbad-4fd7-bae7-b0ff5b045397">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Touchscreens, user interfaces, and proximity detection.
+     </li>
+    </ul>
+    <h3 class="" id="ef768aeb-6152-4fd9-a5a6-72436110144e">
+     5.
+     <strong>
+      Temperature Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="1a8d876c-37dd-4d59-9abf-7ecf86289fb8">
+     <li style="list-style-type:disc">
+      <strong>
+       Thermistors (NTC, RTD)
+      </strong>
+      : Resistive devices whose resistance varies with temperature.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="10910f01-6218-42dd-a477-e0d45ba3f764">
+     <li style="list-style-type:disc">
+      <strong>
+       Infrared Sensors
+      </strong>
+      : Measure heat emitted by objects.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8e803e83-ca6d-4bb6-bc4f-b19f45b87a8d">
+     <li style="list-style-type:disc">
+      <strong>
+       Thermocouples
+      </strong>
+      : Generate a voltage proportional to temperature differences.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="f977e98b-02bb-49c6-9cf4-7527ca5dc2ae">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : HVAC systems, medical devices, and industrial temperature control.
+     </li>
+    </ul>
+    <h3 class="" id="46a7cac4-d5ca-48da-9c51-aeeba7988c01">
+     6.
+     <strong>
+      Light Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="811c3f50-529a-42b0-9774-e0cec077becc">
+     <li style="list-style-type:disc">
+      <strong>
+       Phototransistors and Photodiodes
+      </strong>
+      : Convert light into an electrical current.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="636e848c-168e-475b-ac65-d2770a9baf24">
+     <li style="list-style-type:disc">
+      <strong>
+       Features
+      </strong>
+      : Sensitive to specific light spectrums, including IR and visible light.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7702ea92-736f-4bf9-9a96-cbd55212e5ed">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Ambient light sensing, barcode scanners, and optical communication.
+     </li>
+    </ul>
+    <h3 class="" id="393caf0e-51f3-45a6-a51c-961bf73781e1">
+     7.
+     <strong>
+      Motion and Distance Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="8bd2b20b-a81a-49f7-b769-1ee07bd56ea4">
+     <li style="list-style-type:disc">
+      <strong>
+       Accelerometers and Gyroscopes
+      </strong>
+      : Measure acceleration and rotation, respectively.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="cfc43ac0-81ba-45f0-9ac6-d0bbe6cd536d">
+     <li style="list-style-type:disc">
+      <strong>
+       Optical, Sonar, and LIDAR
+      </strong>
+      : Measure distance using light, sound, or laser pulses.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="e45e07a9-b9f6-4016-9711-99782342af39">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Smartphones, robotics, vehicle navigation, and collision avoidance.
+     </li>
+    </ul>
+    <h3 class="" id="54f75fd3-eb85-4eb9-94a5-1e5ba546cb72">
+     8.
+     <strong>
+      Sound Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="9e8d83c3-14ff-46c0-bb53-47f7ca83fd7d">
+     <li style="list-style-type:disc">
+      <strong>
+       MEMS Microphones
+      </strong>
+      : Miniature microphones for converting sound into digital or analog signals.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4bc51d81-e897-4bb7-9851-9d2ba4136a43">
+     <li style="list-style-type:disc">
+      <strong>
+       Features
+      </strong>
+      : Compact, low power, with options for digital (I2S) or analog outputs.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="fe0f6820-ee0d-4be9-8ff4-c2b7a71d7cf7">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Smartphones, hearing aids, and acoustic monitoring.
+     </li>
+    </ul>
+    <h3 class="" id="030455cf-08cc-4986-8e21-26b15b950f2c">
+     9.
+     <strong>
+      Vibration Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="b3f6159a-530f-4947-b8a6-b34316dff770">
+     <li style="list-style-type:disc">
+      <strong>
+       Piezoelectric Sensors
+      </strong>
+      : Generate a voltage in response to mechanical deformation.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="02d862d0-391d-4120-8231-4dfb7188e62d">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Condition monitoring, security systems, and automotive sensors.
+     </li>
+    </ul>
+    <h3 class="" id="264d4003-4023-42bd-b9b2-a2cf9947116f">
+     10.
+     <strong>
+      Force, Pressure, and Strain Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="2cf5b965-1eff-471a-95e1-82109d94606d">
+     <li style="list-style-type:disc">
+      <strong>
+       Force Sensing Resistors
+      </strong>
+      : Change resistance based on the force applied.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="e45a77c2-19db-409a-8e85-cd7e108045f1">
+     <li style="list-style-type:disc">
+      <strong>
+       Strain Gauges
+      </strong>
+      : Measure deformation of an object under stress.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="16514cdb-15f6-4f6e-a20d-9231fc835621">
+     <li style="list-style-type:disc">
+      <strong>
+       Load Cells
+      </strong>
+      : Used for weighing scales and industrial load measurement.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="764a60b5-30d1-4365-809d-0448eb106614">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Weight measurement, touch interfaces, and structural health monitoring.
+     </li>
+    </ul>
+    <h3 class="" id="7fa7cdc5-b5e0-4a86-a788-9914397eb7cb">
+     11.
+     <strong>
+      Air Pollution and Gas Sensors
+     </strong>
+    </h3>
+    <ul class="bulleted-list" id="a20b05c5-45a6-4e18-9b10-3a09e6a6c098">
+     <li style="list-style-type:disc">
+      <strong>
+       Function
+      </strong>
+      : Detect concentrations of various gases in the environment.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5af6ab6a-be08-4e52-bab1-cce4dab3dbb3">
+     <li style="list-style-type:disc">
+      <strong>
+       Types
+      </strong>
+      : Semiconductor gas sensors, infrared gas sensors.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4c3523f7-0120-4919-96f1-366209605d8f">
+     <li style="list-style-type:disc">
+      <strong>
+       Applications
+      </strong>
+      : Air quality monitoring, industrial safety, and environmental monitoring.
+     </li>
+    </ul>
+    <h3 class="" id="06a5baf1-f07b-4a54-9703-b5a6e41a2db9">
+     Design Considerations for Sensors
+    </h3>
+    <ul class="bulleted-list" id="add9177b-09c0-4857-b7ab-300a823570c8">
+     <li style="list-style-type:disc">
+      <strong>
+       Accuracy and Sensitivity
+      </strong>
+      : Ensuring the sensor outputs are precise and responsive to small changes.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="36784676-308a-4890-92e9-a84a50bc3424">
+     <li style="list-style-type:disc">
+      <strong>
+       Environmental Resistance
+      </strong>
+      : Designing sensors to withstand temperature, humidity, and mechanical stresses.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ed58b4ca-67fd-442f-88d5-0094e6e60fe4">
+     <li style="list-style-type:disc">
+      <strong>
+       Interfacing and Integration
+      </strong>
+      : Facilitating easy integration with electronics, including considerations for digital and analog outputs.
+     </li>
+    </ul>
+    <br/>
+    <p class="" id="6f038d23-a18e-4b66-a7de-5f3f0c5bfee4">
+     I decided to use the DHT11 sensor this week as I am severely affected by the heatwaves in Kochi. I hardly sleep everyday and I am sleepless till 5 - 6 am in the morning because of very high temperature and humidity. Furthermore, I saw a newspaper article today from my friend at CEEW describing how the heatwave in India is for real and how NDMA is drafting heat action plans to counter the high heat and humidity this year.
+    </p>
+    <p class="" id="9165da23-1591-4cb9-a5f6-b0884aa02402">
+     Furthermore, owing to my interest to develop a breathing library for my final project that actively sequestrates carbon dioxide emissions, I had to develop a submodule that monitors the ambient temperature and humidity conditions to ensure that the optimum health is maintained for algal colony until harvest.
+    </p>
+    <figure class="image" id="8e280772-44ed-4c37-b4a3-c20f7b3c0396">
+     <a href="Week 10 - Input Devices/Untitled.png">
+      <img src="Week 10 - Input Devices/Untitled.png" style="width:1080px"/>
+     </a>
+    </figure>
+    <br/>
+    <h2 class="" id="f5b221d0-4fb3-4259-b8e2-b3666e1a6423">
+     About DHT11 Sensors:
+    </h2>
+    <p class="" id="2590b3f3-575c-44ac-a2ac-b9a4ecb60c40">
+     The DHT11 is a basic, ultra low-cost digital temperature and humidity sensor. It uses a capacitive humidity sensor and a thermistor to measure the surrounding air, and spits out a digital signal on the data pin (no analog input pins needed). Its fairly simple to use, but requires careful timing to grab data. You can get new data from it once every 2 seconds, so when using the library from Adafruit, sensor readings can be up to 2 seconds old.
+    </p>
+    <p class="" id="b057ebe1-ba49-459d-bae6-0b795c359a2f">
+     Comes with a 4.7K or 10K resistor, which you will want to use as a pullup from the data pin to VCC.
+    </p>
+    <p class="" id="30f9d7eb-c0b5-4693-82f8-9ed172656d7a">
+     Specifications:
+    </p>
+    <ul class="bulleted-list" id="d7dd60b6-e26f-4a4a-8c19-be7ae981e20e">
+     <li style="list-style-type:disc">
+      3 to 5V power and I/O
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="10d700c2-6e74-49bd-91ea-5a72e8b41087">
+     <li style="list-style-type:disc">
+      2.5mA max current use during conversion (while requesting data)
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2e646bd9-277b-4661-97ec-8813f8d2a4bc">
+     <li style="list-style-type:disc">
+      Good for 20-80% humidity readings with 5% accuracy
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2c585780-02d6-487c-aef1-08bf54c24db9">
+     <li style="list-style-type:disc">
+      Good for 0-50 °C temperature readings +-2 °C accuracy
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="59fc5586-db69-49ff-b748-0c2055a6dbc7">
+     <li style="list-style-type:disc">
+      No more than 1 Hz sampling rate (once every second)
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="0b7f4f64-f277-4477-adb8-c1bd3e489c80">
+     <li style="list-style-type:disc">
+      Body size 15.5mm x 12mm x 5.5mm
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="53e4178b-0b08-4c10-9857-b119a7d6a24e">
+     <li style="list-style-type:disc">
+      4 pins with 0.1" spacing
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1b34e824-d1c0-4c86-b972-c7d211b12be5">
+     <li style="list-style-type:disc">
+      <a href="https://learn.adafruit.com/dht">
+       Adafruit Learning Documentation for DHTxx Sensors
+      </a>
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7ec3c79a-6c09-49f4-a6e8-0fcf9fcf3a93">
+     <li style="list-style-type:disc">
+      RoHS compliant
+     </li>
+    </ul>
+    <h2 class="" id="43a1b293-ec49-4a05-8ad1-857acb6fc2e3">
+     <strong>
+      PCB WITH SAMD11C
+     </strong>
+     <a href="https://fabacademy.org/2023/labs/ciudadmexico/students/judyta-cichocka/assignments/week06/#pcb-with-samd11c">
+      <strong>
+       ¶
+      </strong>
+     </a>
+    </h2>
+    <p class="" id="c1fc9992-6a55-4c3d-a369-b834febd8a01">
+     The microcontroller development board I designed earlier has been used for carrying out the experiments and attaining the learning outcomes for this week. The details of the board and the design are attached in the documentation of previous week. It can be found in this
+     <a href="https://fabacademy.org/2024/labs/kochi/students/kavya-s/Week%20-%209%20Output%20Devices.html">
+      link
+     </a>
+     .
+    </p>
+    <figure class="image" id="c04eed44-faeb-4f03-babc-cf06902e8499">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/kavya-s/Week%20-%209%20Output%20Devices/Untitled%201.jpeg">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/kavya-s/Week%20-%209%20Output%20Devices/Untitled%201.jpeg" style="width:700px"/>
+     </a>
+    </figure>
+    <h3 class="" id="7e5ddf97-7cc6-4303-83ef-878ab1f34255">
+     Overview of the DHT11 Sensor
+    </h3>
+    <p class="" id="20b3f462-20f6-43fe-9279-d3fa47738a20">
+     The DHT11 is a popular digital temperature and humidity sensor known for its compactness and affordability, making it a preferred choice for hobbyists and DIY projects involving environmental monitoring. This sensor is capable of measuring temperature from 0 to 50 degrees Celsius with a ±2°C accuracy and relative humidity from 20 to 80% with ±5% accuracy.
+    </p>
+    <h3 class="" id="26e82e25-7607-4c62-8d9c-9f720750b1e8">
+     Features of DHT11 Sensor
+    </h3>
+    <ol class="numbered-list" id="1479e032-6703-4164-9186-37e520aad3a4" start="1" type="1">
+     <li>
+      <strong>
+       Voltage Requirements
+      </strong>
+      : Operates between 3 to 5.5 volts, making it compatible with most microcontrollers.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ef401e66-925a-4167-9565-a5b26df56792" start="2" type="1">
+     <li>
+      <strong>
+       Low Power Consumption
+      </strong>
+      : Suitable for battery-operated applications.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="2628fd0f-f776-4fe7-accf-f2bc0d560161" start="3" type="1">
+     <li>
+      <strong>
+       Digital Output
+      </strong>
+      : Offers a single-wire digital interface, simplifying connections to microcontrollers.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="2e300230-b8fb-4dc2-993c-f0501afae0fc" start="4" type="1">
+     <li>
+      <strong>
+       Calibrated
+      </strong>
+      : Comes factory-calibrated with digital output providing reliable readings without additional calibration by the user.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="94108c4d-8e6f-4755-b25c-e7fcbdd97442" start="5" type="1">
+     <li>
+      <strong>
+       Long-term Stability
+      </strong>
+      : Maintains long-term reliability and stability, with slow response time but sufficient for most applications not requiring frequent updates.
+     </li>
+    </ol>
+    <h3 class="" id="c5226787-2c04-40e5-8068-4b766892bd42">
+     Using the DHT11 in a Circuit
+    </h3>
+    <p class="" id="bdf93f46-46a1-42c2-a0e1-dcb62e13bd2e">
+     To interface a DHT11 sensor with a microcontroller like the SAMD11C, you typically need a few components:
+    </p>
+    <ul class="bulleted-list" id="f8dcb318-17f6-4291-8c44-693a5c2624d4">
+     <li style="list-style-type:disc">
+      DHT11 sensor
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="56497195-71e3-43c7-bcfd-6fafb22070cd">
+     <li style="list-style-type:disc">
+      SAMD11C microcontroller board
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="638efa9c-3f03-4ba1-97b1-23875a407411">
+     <li style="list-style-type:disc">
+      4.7k - 10k ohm resistor (pull-up on the data line)
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="42bc68a8-1e6c-4520-9b95-b4474f491a79">
+     <li style="list-style-type:disc">
+      Connecting wires
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="9105f1f3-4099-4e9e-983a-f745364fe841">
+     <li style="list-style-type:disc">
+      Breadboard (optional, for prototyping)
+     </li>
+    </ul>
+    <h3 class="" id="3a652d12-f0c9-4746-bea7-a4a378206227">
+     Steps to Interface DHT11 with SAMD11C
+    </h3>
+    <h3 class="" id="08af3128-9060-4b1e-b8b6-e9c8b4c4d626">
+     1. Circuit Connection
+    </h3>
+    <ul class="bulleted-list" id="6da6e657-7373-4148-8e85-41d00ac19382">
+     <li style="list-style-type:disc">
+      <strong>
+       VCC of DHT11
+      </strong>
+      : Connect to a 3.3V or 5V output on the SAMD11C (depending on your specific setup).
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="af14a154-3fb9-48b9-a72b-cacb7c876130">
+     <li style="list-style-type:disc">
+      <strong>
+       GND of DHT11
+      </strong>
+      : Connect to a ground pin on the SAMD11C.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4b3aea0f-1c96-4c53-a9e0-2e366f056637">
+     <li style="list-style-type:disc">
+      <strong>
+       Data Pin of DHT11
+      </strong>
+      : Connect to a digital I/O pin on the SAMD11C. A typical choice might be pin PA14. Place a pull-up resistor (4.7k ohm recommended) between the data pin of DHT11 and VCC.
+     </li>
+    </ul>
+    <h3 class="" id="53c8126b-84f6-45bb-8f49-2212c8a8721e">
+     2. Programming Environment Setup
+    </h3>
+    <ul class="bulleted-list" id="c9ec9d21-52d6-4738-992b-46066420f33d">
+     <li style="list-style-type:disc">
+      Ensure that the Arduino IDE is installed and configured for the SAMD11C. This may require installing additional board packages through the Board Manager.
+     </li>
+    </ul>
+    <h3 class="" id="a2457d63-06c8-4095-acb1-228c5d7d2302">
+     3. Code to Display Temperature and Humidity
+    </h3>
+    <p class="" id="f747f8f8-9f6c-42ee-9552-9d9cde3ee890">
+     Here’s a simple example code to read temperature and humidity from the DHT11 sensor and display the values on the serial monitor. This code assumes you are using the Arduino environment configured for the SAMD11C.
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="f3dd2f7f-0d1e-42c1-aa43-0bad9bf46bf0"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">#include "DHT.h"
+
+#define DHTPIN PA14     // Digital pin connected to the DHT sensor
+#define DHTTYPE DHT11   // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  SerialUSB.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+  delay(2000); // Wait a few seconds between measurements
+
+  // Reading temperature or humidity takes about 250 milliseconds
+  float h = dht.readHumidity();          // Read humidity (percent)
+  float t = dht.readTemperature();       // Read temperature as Celsius
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(h) || isnan(t)) {
+    SerialUSB.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+  SerialUSB.print("Humidity: ");
+  SerialUSB.print(h);
+  SerialUSB.print(" %\\t");
+  SerialUSB.print("Temperature: ");
+  SerialUSB.print(t);
+  SerialUSB.println(" *C");
+}
+</code></pre>
+    <h3 class="" id="69d742c6-6b63-4751-95bb-ff4075f4d854">
+     Explanation of Code
+    </h3>
+    <ul class="bulleted-list" id="becdf66e-158c-4a0f-9b9e-c20e42e62f81">
+     <li style="list-style-type:disc">
+      <strong>
+       Libraries
+      </strong>
+      : The
+      <code>
+       DHT.h
+      </code>
+      library is included, which facilitates communication with the DHT sensor.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1e39ebae-3d27-4330-a5d6-5023c3a0e9f8">
+     <li style="list-style-type:disc">
+      <strong>
+       Initialization
+      </strong>
+      : The sensor is initialized with the type (DHT11) and the connected digital pin.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5ece1e15-7dd7-48f7-8e31-48657d7b1a73">
+     <li style="list-style-type:disc">
+      <strong>
+       Reading Data
+      </strong>
+      : The
+      <code>
+       readHumidity()
+      </code>
+      and
+      <code>
+       readTemperature()
+      </code>
+      functions are called to fetch humidity and temperature data, respectively.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="547b5256-fb8e-4969-92a2-33070845c195">
+     <li style="list-style-type:disc">
+      <strong>
+       Serial Output
+      </strong>
+      : The data is printed to the Serial monitor, providing a simple output of temperature and humidity.
+     </li>
+    </ul>
+    <p class="" id="ce65b9a6-f04a-4cff-b42e-c72c789d2d9e">
+     I encountered the following issue as while using the above code. My instructor helped me troubleshoot the issue and told me that it was because I was using library and it can be resolved by rewriting the code without library.
+    </p>
+    <figure class="image" id="1ff50cf1-96f6-489c-bc57-464374d46919">
+     <a href="Week 10 - Input Devices/Untitled%201.png">
+      <img src="Week 10 - Input Devices/Untitled%201.png" style="width:708px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="2640b036-9865-4d39-b215-327d4e6f0160">
+     I looked for some references online to understand the logic to write a code to read temperature and humidity without using library and I have rewritten the code as follows:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="8d5c23e5-8f0a-4f27-b137-cdd5c49d5e4b"><code class="language-C++">// #include &lt;Arduino.h&gt;
+
+// Define DHT11 data pin
+#define DHT11_PIN 14
+
+// Variables to store temperature and humidity
+int humidity, temperature;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  uint8_t bits[5] = {0, 0, 0, 0, 0};
+  uint8_t cnt = 7;
+  uint8_t idx = 0;
+
+  // Start signal
+  pinMode(DHT11_PIN, OUTPUT);
+  digitalWrite(DHT11_PIN, LOW);
+  delay(18); // DHT11 requires at least 18 ms of low signal to detect start
+  digitalWrite(DHT11_PIN, HIGH);
+  delayMicroseconds(40);
+  pinMode(DHT11_PIN, INPUT);
+
+  // Wait for DHT11 response
+  while(digitalRead(DHT11_PIN) == HIGH);
+  while(digitalRead(DHT11_PIN) == LOW);
+  while(digitalRead(DHT11_PIN) == HIGH);
+
+  // Read the data
+  for (int i = 0; i &lt; 40; i++) {
+    while(digitalRead(DHT11_PIN) == LOW);
+    unsigned long duration = micros();
+
+    while(digitalRead(DHT11_PIN) == HIGH);
+    duration = micros() - duration;
+
+    if (duration &gt; 50) {
+      bits[idx] |= (1 &lt;&lt; cnt);
+    }
+    if (cnt == 0) {
+      cnt = 7;    // reset bit counter
+      idx++;      // next byte
+    } else {
+      cnt--;
+    }
+  }
+
+  // Writing to variables, assuming correct transmission in bits[0] - bits[4]
+  humidity = bits[0];
+  temperature = bits[2];
+
+  // Print temperature and humidity values
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.print("% ");
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println("°C");
+
+  delay(2000); // Delay between reads
+}
+</code></pre>
+    <p class="" id="e4ab89fb-3d6b-4bd2-94ff-c25cd90a2d79">
+     The output of the reading is as follows:
+    </p>
+    <figure class="image" id="9148436c-15b3-4441-8029-e535fd0423a9">
+     <a href="Week 10 - Input Devices/Untitled%202.png">
+      <img src="Week 10 - Input Devices/Untitled%202.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="95ed8098-fa71-4f65-87c7-ee3d6a868b2f">
+     I tried testing it further by taking the sensor close to my hot water cup to check the variations in temperature and humidity. I observed that the humidity value steadily increased.
+    </p>
+    <figure class="image" id="7770bcf9-99dc-4372-a442-8df172760ec8">
+     <a href="Week 10 - Input Devices/Untitled%203.png">
+      <img src="Week 10 - Input Devices/Untitled%203.png" style="width:708px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="928a4ea0-16ad-4d4b-b14c-7c921be9cd16">
+     Furthermore, I am interested to explore some interesting sensor fabrication techniques that were shared by my friends.
+    </p>
+    <p class="" id="8b8925a1-e029-45d3-a670-d6140d704648">
+     Hence, I am referring to the following documentation:
+     <a href="https://fabacademy.org/2020/labs/ulb/students/quentin-bolsee/projects/samd11c_flexible_capa/">
+      Link
+     </a>
+    </p>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
