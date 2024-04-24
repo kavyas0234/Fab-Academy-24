@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 11: Molding and Casting
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="97383b55-c4ad-4ec5-be13-128547b9e182">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1671625113102-fc52080cf2a3?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 11: Molding and Casting
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h1 class="" id="c8e51968-b2df-477d-8eb6-8d3cef5fc0d5">
+     Molding &amp; Casting
+    </h1>
+    <h1 class="" id="9f3a19dd-98fd-4abf-8adc-ce2331b8da11">
+     Group Assignment
+    </h1>
+    <ul class="bulleted-list" id="6a82a49f-e7f7-4d67-86ce-0cb786c61020">
+     <li style="list-style-type:disc">
+      Review the safety data sheets for each of your molding and casting materials, then make and compare test casts with each of them
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="f5ce8618-c009-4ef9-847d-a212a33577ee">
+     <li style="list-style-type:disc">
+      Compare printing vs machining molds
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a3ac41b2-aaca-4413-aa58-f7cdeda88782">
+     <li style="list-style-type:disc">
+      <a href="https://fabacademy.org/2024/labs/kochi/Group_Assignments/week12/">
+       Link for the assignment
+      </a>
+     </li>
+    </ul>
+    <h1 class="" id="e7959ee3-b5a0-48a3-a926-9896cc38d06c">
+     Individual Assignment
+    </h1>
+    <ul class="bulleted-list" id="773aedcc-dc6c-41dd-a73f-c2ba1a3d2093">
+     <li style="list-style-type:disc">
+      Design a mold around the process you'll be using, produce it with a smooth surface finish, and use it to cast parts
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4037ba30-30b2-4b73-b97a-eb4680153770">
+     <li style="list-style-type:disc">
+      Extra credit: Use more then two mold parts
+     </li>
+    </ul>
+    <br/>
+    <h2 class="" id="de9f4e58-6fcf-4c2c-b68e-fe83565d734d">
+     CAD Design for the part:
+    </h2>
+    <p class="" id="c9025b7d-eab2-482a-9664-7b0b9d6774e7">
+     I started designing the snowflake on the Autodesk Fusion interface. I first parametrically sketched the first arm of the snowflake.
+    </p>
+    <figure class="image" id="f261e65e-23ef-4c53-8190-8cdfbf9a2776">
+     <a href="Week 11 Molding and Casting/Untitled.png">
+      <img src="Week 11 Molding and Casting/Untitled.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="b7ade15c-efdd-4588-96c3-150dd3e9b840">
+     Then, I converted each attribute of the sketch to a square pipe of 3 mm dia and combined it.
+    </p>
+    <figure class="image" id="db6f1207-ac72-4013-807c-23a68cea3d01">
+     <a href="Week 11 Molding and Casting/Untitled%201.png">
+      <img src="Week 11 Molding and Casting/Untitled%201.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="4caab95b-aec1-43d3-a5b5-a4c684181b32">
+     <a href="Week 11 Molding and Casting/Untitled%202.png">
+      <img src="Week 11 Molding and Casting/Untitled%202.png" style="width:1318px"/>
+     </a>
+    </figure>
+    <p class="" id="61066a87-16f1-4465-83e3-06d171ca6ec2">
+     I made circular pattern with 6 numbers and combined it.
+    </p>
+    <figure class="image" id="ac961726-a4a2-4b46-affa-9794fe5689ed">
+     <a href="Week 11 Molding and Casting/Untitled%203.png">
+      <img src="Week 11 Molding and Casting/Untitled%203.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="279843c3-ba5f-46ef-a0be-4af47830bc11">
+     <a href="Week 11 Molding and Casting/Untitled%204.png">
+      <img src="Week 11 Molding and Casting/Untitled%204.png" style="width:1318px"/>
+     </a>
+    </figure>
+    <p class="" id="19d868c3-87d0-4e02-947c-ae3da76da4f9">
+     I decided to try 3D printing my mould to pour the silicone and prepare my mold as I wanted to reduce the step of making a box to pour silicone. Hence, I made a polygonal base and a wall of height 8 mm in the design.
+    </p>
+    <figure class="image" id="5a4a545e-6b0e-42f2-9c09-15e34b399770">
+     <a href="Week 11 Molding and Casting/Untitled%205.png">
+      <img src="Week 11 Molding and Casting/Untitled%205.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="fc9ea780-6727-4dff-9251-fc15d6edd6d5">
+     <a href="Week 11 Molding and Casting/Untitled%206.png">
+      <img src="Week 11 Molding and Casting/Untitled%206.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h2 class="" id="be121fb6-577b-44db-8c95-5ad29ca5433f">
+     3D printing the Mold:
+    </h2>
+    <p class="" id="3cc61aef-a12f-4345-b89e-f54e0b57611b">
+     I sliced the design in Prusa and with the settings of 0.15 mm Quality settings.
+    </p>
+    <figure class="image" id="76b84a08-c076-4eaa-b5b4-373202ae4b82">
+     <a href="Week 11 Molding and Casting/Untitled%207.png">
+      <img src="Week 11 Molding and Casting/Untitled%207.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <p class="" id="478f20c6-41f3-4112-9869-852627092ef3">
+     The sliced output looked as follows:
+    </p>
+    <figure class="image" id="ebe53ebe-5e98-427f-aec3-c9186ea43633">
+     <a href="Week 11 Molding and Casting/Untitled%208.png">
+      <img src="Week 11 Molding and Casting/Untitled%208.png" style="width:1917px"/>
+     </a>
+    </figure>
+    <p class="" id="8f7960d9-fb8c-4156-9051-c91f5c9bbd1d">
+     After 3.5 hours, I obtained the following output:
+    </p>
+    <figure class="image" id="32f27a58-19c2-44dd-9426-2dd7d803b29c">
+     <a href="Week 11 Molding and Casting/Untitled%209.png">
+      <img src="Week 11 Molding and Casting/Untitled%209.png" style="width:319px"/>
+     </a>
+    </figure>
+    <h2 class="" id="e9556293-a47c-414c-885e-92317e9cc8e5">
+     Preparing the silicone for molding:
+    </h2>
+    <h3 class="" id="50424ae6-6cc4-4d9a-91c8-447713bd9ada">
+     Materials I Used:
+    </h3>
+    <ol class="numbered-list" id="618318b7-65dc-47bc-b0e2-9893106ff1fa" start="1" type="1">
+     <li>
+      <strong>
+       Silicone rubber
+      </strong>
+      - I chose a silicone rubber that’s great for mold making.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="2ade9b4e-4dc1-431f-bdf0-f5d62d1e2d74" start="2" type="1">
+     <li>
+      <strong>
+       Curing agent
+      </strong>
+      - This is mixed with the silicone to set the mold.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="bf429eea-3ba8-41aa-be02-ad4d04b63a7e" start="3" type="1">
+     <li>
+      <strong>
+       3D-printed snowflake
+      </strong>
+      - I used this as the master model for the mold.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ab984559-2a64-4c23-8ceb-77e37d6693c2" start="4" type="1">
+     <li>
+      <strong>
+       Mixing cup
+      </strong>
+      and
+      <strong>
+       stirring sticks
+      </strong>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3f571fe8-a6cb-425f-aa2a-c5e259130137" start="5" type="1">
+     <li>
+      <strong>
+       Gloves
+      </strong>
+      and
+      <strong>
+       safety glasses
+      </strong>
+      - To protect my hands and eyes.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a58fda98-74bf-4d15-a0fd-53d6ca7258b7" start="6" type="1">
+     <li>
+      <strong>
+       Scale
+      </strong>
+      - For accurately measuring the silicone and curing agent.
+     </li>
+    </ol>
+    <h3 class="" id="8fd224e8-c2e5-4b35-8f4c-ae7bfd4ab3dc">
+     Steps Followed:
+    </h3>
+    <h3 class="" id="5c60a8b9-a36b-4d27-8bc7-1e6749608e36">
+     Step 1: Preparing My Workspace
+    </h3>
+    <p class="" id="9b1db459-97fe-4ad5-b0b8-dfbd1fc9a4c1">
+     Firstly, I made sure my workspace was clean and well-ventilated. I laid out all my materials and tools so everything was within reach. Safety is crucial, so I put on gloves and safety glasses to protect myself from the chemicals.
+    </p>
+    <h3 class="" id="cacfbd67-bc46-4148-a6bd-173bd0618f13">
+     Step 2: Setting Up the 3D printed mold
+    </h3>
+    <p class="" id="4b1b0113-5013-424c-855c-8ade0139d2a4">
+     I placed my 3D-printed  snowflake mold. The mold was made from PLA.
+    </p>
+    <h3 class="" id="5a4c4044-ee42-48db-b778-fa61bfa904cf">
+     Step 3: Measuring the Silicone and Curing Agent
+    </h3>
+    <p class="" id="f269d8dd-1e96-47ad-9985-cb3b3b0503d7">
+     Using the scale, I carefully measured the parts of silicone rubber and the curing agent according to the manufacturer’s ratio, usually around 40:1. It’s important to get this ratio correct for the silicone to cure properly.
+    </p>
+    <h3 class="" id="b184f520-a621-4c0a-93e7-437f1f753f71">
+     Step 4: Mixing the Silicone and Curing Agent
+    </h3>
+    <p class="" id="0eb41c94-74aa-4cac-9eb5-990304a7bb7b">
+     In a mixing cup, I combined the silicone and curing agent. I stirred the mixture slowly and thoroughly to avoid introducing too many air bubbles. The mixing process took a few minutes to ensure everything was completely blended.
+    </p>
+    <h3 class="" id="2c6cacd0-ce5a-4a19-b01b-9a7419be24f4">
+     Step 5: Pouring the Silicone into the Mold
+    </h3>
+    <p class="" id="75f138db-59f8-4530-b36e-e5c679a82dd6">
+     Slowly, I poured the mixed silicone over the 3D-printed snowflake mold. I poured from one corner and let the silicone flow naturally to avoid trapping air. I made sure the snowflake was completely covered by the silicone.
+    </p>
+    <h3 class="" id="7990056f-49dd-401d-8675-b2e14f81e985">
+     Step 6: Curing the Silicone
+    </h3>
+    <p class="" id="0dbdf2d4-061f-49de-810e-c4f688c0478c">
+     I let the silicone sit undisturbed in a well-ventilated area to cure. The curing time can vary, but I left it for about 24 hours to ensure it was fully set.
+    </p>
+    <h3 class="" id="3b7fc204-d78a-4ce8-b2b4-a260d6bf2b36">
+     Step 7: Removing the Mold
+    </h3>
+    <p class="" id="eca61747-a271-4f59-855d-13c6382e3b2e">
+     Once the silicone had cured, I will gently remove the snowflake mold from the master mold.
+    </p>
+    <h3 class="" id="184f79a5-60eb-45f4-8abc-2e1383562752">
+     Step 8: Safety Cleanup
+    </h3>
+    <p class="" id="4bfe2d6e-8a0f-45bc-a8f2-960412ba38a0">
+     After completing the mold, I cleaned my workspace. I disposed of the gloves and cleaned all tools with soapy water. Ensuring no silicone or curing agent residues remained is important for maintaining a safe and clean working environment.
+    </p>
+    <h3 class="" id="56524899-f78d-4603-bbf7-7db9b43a5197">
+     Safety Procedures:
+    </h3>
+    <ul class="bulleted-list" id="a615be3e-4fd9-46cc-a01f-a8b5639a7fda">
+     <li style="list-style-type:disc">
+      <strong>
+       Wear protective gear
+      </strong>
+      : Always wear gloves and safety glasses when handling silicone and curing agents.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6c79d14d-901c-4e8b-b04a-a03bdd046f4d">
+     <li style="list-style-type:disc">
+      <strong>
+       Ventilation
+      </strong>
+      : Work in a well-ventilated area to avoid inhaling fumes.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="87e2e366-a860-4fb0-afff-182b010d667d">
+     <li style="list-style-type:disc">
+      <strong>
+       Avoid skin contact
+      </strong>
+      : Silicone and curing agents can be irritants, so avoid skin contact.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="2c33ea12-96e8-42b8-a007-1de7bdb52152">
+     <li style="list-style-type:disc">
+      <strong>
+       Proper disposal
+      </strong>
+      : Dispose of any waste materials properly according to local regulations.
+     </li>
+    </ul>
+    <p class="" id="9056507a-9971-4010-b417-efda7bbc9e1b">
+     Would you like to see images illustrating each of these steps? Let me know if you prefer generated images or photos from sources like Unsplash.
+    </p>
+    <p class="" id="a68c9597-a4b2-42dd-8733-c7ce68df3732">
+     I prepared the silicone  mixture by adding one part of curing agent to 40 parts of silicone. I measured the weight of the silicone and curing agent using the weighing scale and prepared the same.
+    </p>
+    <figure class="image" id="d7a21bc8-8e5a-4334-a42c-e70bc825b674">
+     <a href="Week 11 Molding and Casting/Untitled%2010.png">
+      <img src="Week 11 Molding and Casting/Untitled%2010.png" style="width:459px"/>
+     </a>
+    </figure>
+    <p class="" id="7b1621f0-5482-44c2-8bee-c5b8d2d8c564">
+     I carefully mixed without bubbles in the back and fro movement suggested and I carefully poured the silicone to the mold.
+    </p>
+    <figure class="image" id="380e8289-0867-48a7-a3a4-e5c2a9e0159d">
+     <a href="Week 11 Molding and Casting/Untitled%2011.png">
+      <img src="Week 11 Molding and Casting/Untitled%2011.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="977bcd32-d3c3-47e5-be85-af814aef844d">
+     <a href="Week 11 Molding and Casting/Untitled%2012.png">
+      <img src="Week 11 Molding and Casting/Untitled%2012.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="3895bae3-a53a-4391-9f13-7dc6bc774f7d">
+     This is the final output of my silicone which is kept for setting. My instructor told me that it will take 20 h for curing. So I have set it aside.
+    </p>
+    <figure class="image" id="07357c76-be13-42ce-9536-372bdc846d6b">
+     <a href="Week 11 Molding and Casting/Untitled%2013.png">
+      <img src="Week 11 Molding and Casting/Untitled%2013.png" style="width:463px"/>
+     </a>
+    </figure>
+    <h2 class="" id="e98c677e-0106-4e0c-9ec8-374ccc538049">
+     Casting the shape using Epoxy Resin:
+    </h2>
+    <p class="" id="3725e2e3-d30a-4f6b-8f4e-a6d8288bfbfd">
+     Once the mold is set, I will be using the following materials to cast my snowflake. I will add the steps as I perform them.
+    </p>
+    <h3 class="" id="aeedc000-1003-4824-870a-b8457b25dfca">
+     Materials Used:
+    </h3>
+    <ol class="numbered-list" id="4773ab71-0027-4fa8-a73f-6d334a6e128c" start="1" type="1">
+     <li>
+      <strong>
+       Silicone snowflake mold
+      </strong>
+      - The mold that I have desgined.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3093e144-65e9-48b3-8f10-02bef7683e5f" start="2" type="1">
+     <li>
+      <strong>
+       Epoxy resin
+      </strong>
+      - I used a clear resin for a glass-like finish.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="504ea4bc-f60d-4d5a-adf6-5aaa1093a81b" start="3" type="1">
+     <li>
+      <strong>
+       Resin hardener
+      </strong>
+      - Necessary for setting the resin.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0d1e3525-ff27-425a-8391-b2838c1bf332" start="4" type="1">
+     <li>
+      <strong>
+       Mixing cup
+      </strong>
+      and
+      <strong>
+       stirring sticks
+      </strong>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="9643bb2f-9636-4f83-8bad-4fa629fe984c" start="5" type="1">
+     <li>
+      <strong>
+       Gloves
+      </strong>
+      and
+      <strong>
+       eye protection
+      </strong>
+      - Safety first!
+     </li>
+    </ol>
+    <ol class="numbered-list" id="dd70d8d3-8e36-4876-b671-8a9a4c087c72" start="6" type="1">
+     <li>
+      <strong>
+       Colorants or glitter
+      </strong>
+      (optional) - Some red glitter and a violet colorant for a sparkly effect.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="48565452-6304-4d3a-890a-3547e338b616" start="7" type="1">
+     <li>
+      <strong>
+       A drop cloth or newspaper
+      </strong>
+      - To keep my workspace clean.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b699f878-7a21-46c1-ac8f-f4e3e4bb722f" start="8" type="1">
+     <li>
+      <strong>
+       Torch or heat gun
+      </strong>
+      (optional) - For bubble removal.
+     </li>
+    </ol>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
