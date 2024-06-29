@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 14: Interface and Application Programming
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="69c04bbf-3e6e-46c0-9ba4-8dd1ca55a363">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1609921141835-710b7fa6e438?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 14: Interface and Application Programming
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <p class="" id="6527f09d-9d83-4e76-8d75-6ddd1712bc41">
+     ➡️
+     <strong>
+      Step 1
+     </strong>
+     : Develop a GUI or web app using HTML and Firebase.
+    </p>
+    <p class="" id="03fb477b-6f63-45b9-b717-96e7fde9ee43">
+     ➡️
+     <strong>
+      Step 2
+     </strong>
+     : Implement JavaScript for Web Serial APIs.
+    </p>
+    <p class="" id="fce1a263-364c-43d4-8a79-7bfcd1ab06fd">
+     ➡️
+     <strong>
+      Step 3
+     </strong>
+     : Program the board to receive data from the Web Serial API.
+    </p>
+    <p class="" id="725c8c11-5115-41ce-bc24-99f341b34241">
+     ➡️
+     <strong>
+      Step 4
+     </strong>
+     : Test and debug the code.
+    </p>
+    <br/>
+    <h2 class="" id="71eb5158-043d-41ca-bd9a-ab31c8520137">
+     Simple Web interface to display photodiode readings using ESP8266 Wroom 02D:
+    </h2>
+    <p class="" id="815997d4-cb8f-416e-9fef-d7678eda33b2">
+     To display light readings from a photodiode connected to the A0 pin of an ESP8266 Wroom 02 D on a web UI, follow these step-by-step instructions:
+    </p>
+    <h3 class="" id="d6245a61-9d8b-4303-af46-8a59b0315d83">
+     Materials Needed:
+    </h3>
+    <ul class="bulleted-list" id="431916ee-f8dc-4073-9fb8-c19343ecaf06">
+     <li style="list-style-type:disc">
+      ESP8266 Wroom 02 D
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a2a9cbdf-58e9-4222-a36f-5fc8a9dfd21b">
+     <li style="list-style-type:disc">
+      Photodiode
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="07c564c0-3e89-4065-8fcc-9613f541421e">
+     <li style="list-style-type:disc">
+      Resistor (appropriate value to form a voltage divider with the photodiode)
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="3f4b2bdb-9ef9-4448-8f8b-dc796a727b27">
+     <li style="list-style-type:disc">
+      Breadboard and jumper wires
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1e06828b-0c6a-4b10-be9e-b955e85e5913">
+     <li style="list-style-type:disc">
+      USB cable to program the ESP8266
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4e8a2b84-576a-408c-b517-84caefffb3e7">
+     <li style="list-style-type:disc">
+      Computer with Arduino IDE installed.
+     </li>
+    </ul>
+    <h3 class="" id="69802953-a290-435c-ad79-2a4839a2bc46">
+     Step 1: Setting Up the Hardware
+    </h3>
+    <ol class="numbered-list" id="824abfd3-ca8a-4231-8cdd-823043724faf" start="1" type="1">
+     <li>
+      <strong>
+       Connect the Photodiode:
+      </strong>
+      <ul class="bulleted-list" id="b5159c65-9e68-4a10-9bbe-fa06ee71f352">
+       <li style="list-style-type:disc">
+        Connect the anode of the photodiode to 3.3V.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="833090a9-86fb-4cd7-a96a-07ad9c99fd3a">
+       <li style="list-style-type:disc">
+        Connect the cathode of the photodiode to one end of the resistor.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="c8552512-7179-4fc5-b1f2-8bec1d504aaf">
+       <li style="list-style-type:disc">
+        Connect the other end of the resistor to GND.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="a92df76e-2bb3-487f-8691-d3dfbbdf94cc">
+       <li style="list-style-type:disc">
+        Connect the junction between the photodiode and the resistor to the A0 pin of the ESP8266.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="00645580-eb3e-4089-ab16-d31a161a13c2" start="2" type="1">
+     <li>
+      <strong>
+       Connect the ESP8266 to Your Computer:
+      </strong>
+      <ul class="bulleted-list" id="76097d2d-f86c-4661-8dcf-8104c42e3ac2">
+       <li style="list-style-type:disc">
+        Use the USB cable to connect the ESP8266 to your computer for programming.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <h3 class="" id="8492172c-2970-4a2a-860e-bb9c7cb654af">
+     Step 2: Install the ESP8266 Board Package in Arduino IDE
+    </h3>
+    <ol class="numbered-list" id="99bb967a-7bd5-4143-a0f6-478aa806d520" start="1" type="1">
+     <li>
+      Open the Arduino IDE.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="2efa0852-dbf0-4bdc-a114-9ba6a6b6b673" start="2" type="1">
+     <li>
+      Go to
+      <code>
+       File &gt; Preferences
+      </code>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="cd593b4c-9293-4bee-8119-dbcc94447780" start="3" type="1">
+     <li>
+      In the "Additional Board Manager URLs" field, add the following URL:
+      <code>
+       http://arduino.esp8266.com/stable/package_esp8266com_index.json
+      </code>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="38908c98-68f5-476e-a638-b741c7c1eacd" start="4" type="1">
+     <li>
+      Go to
+      <code>
+       Tools &gt; Board &gt; Board Manager
+      </code>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ee86a944-7a26-41ad-bc77-7a1b34169704" start="5" type="1">
+     <li>
+      Search for
+      <code>
+       ESP8266
+      </code>
+      and install the latest version.
+     </li>
+    </ol>
+    <p class="" id="7c24e1b3-0810-4033-996d-a3d125070551">
+     To extend the previous code to include converting the analog value from the photodiode to a percentage and displaying it on a web interface hosted by the ESP8266, you can follow this approach. We'll use the ESP8266WebServer library to create a simple web server that shows the percentage value:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="4553408d-434a-4827-be8f-a1df946119f2"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#include &lt;ESP8266WiFi.h&gt;
+#include &lt;ESP8266WebServer.h&gt;
+
+const char* ssid = "Vinci";
+const char* password = "Vinci2017!";
+
+const int analogPin = A0;
+const int maxAnalogValue = 1023; // Maximum value from ADC (10-bit resolution)
+const int referenceVoltage = 3.3; // Reference voltage for ADC
+
+ESP8266WebServer server(80);
+
+void setup() {
+  Serial.begin(115200);
+  delay(100);
+
+  // Connect to Wi-Fi
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+
+  // Print the IP address
+  Serial.println(WiFi.localIP());
+
+  // Setup web server routes
+  server.on("/", handleRoot);
+
+  // Start web server
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void loop() {
+  // Handle client requests
+  server.handleClient();
+
+  // Read analog value from photodiode
+  int sensorValue = analogRead(analogPin);
+
+  // Convert analog value to percentage
+  float percentage = (sensorValue / float(maxAnalogValue)) * 100.0;
+
+  // Print the sensor value and percentage to serial monitor
+  Serial.print("Sensor value: ");
+  Serial.print(sensorValue);
+  Serial.print(", Percentage: ");
+  Serial.println(percentage);
+
+  // Wait for a second
+  delay(1000);
+}
+
+void handleRoot() {
+  // Create HTML page with the percentage value
+  String html = "&lt;html&gt;&lt;body&gt;";
+  html += "&lt;h1&gt;Photodiode Reading&lt;/h1&gt;";
+  html += "&lt;p&gt;Percentage: ";
+  html += getPercentage();
+  html += "%&lt;/p&gt;";
+  html += "&lt;/body&gt;&lt;/html&gt;";
+
+  // Send HTML response to client
+  server.send(200, "text/html", html);
+}
+
+String getPercentage() {
+  // Read analog value from photodiode
+  int sensorValue = analogRead(analogPin);
+
+  // Convert analog value to percentage
+  float percentage = (sensorValue / float(maxAnalogValue)) * 100.0;
+
+  // Format percentage as string
+  return String(percentage, 2); // Round to 2 decimal places
+}
+</code></pre>
+    <ul class="bulleted-list" id="f7f55033-b4cc-43dd-b00e-a493b65e6268">
+     <li style="list-style-type:disc">
+      After opening the serial monitor, i got this message
+     </li>
+    </ul>
+    <figure class="image" id="5e42303d-b168-4a3a-b286-2ea28477a9d5">
+     <a href="Week 14 Interface and Application Programming/Untitled.png">
+      <img src="Week 14 Interface and Application Programming/Untitled.png" style="width:708px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="ce55cdcf-e2f8-4d14-a095-bd924a889096">
+     <li style="list-style-type:disc">
+      Copied this IP and opened it in a browser
+     </li>
+    </ul>
+    <figure class="image" id="fbe4d774-c2da-4501-95be-0cd6b1e771cf">
+     <a href="Week 14 Interface and Application Programming/Untitled%201.png">
+      <img src="Week 14 Interface and Application Programming/Untitled%201.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="a8005e84-ace4-4674-bd1e-de4496a1163b">
+     Final Project - Web Application
+    </h3>
+    <p class="" id="e98649f8-545d-4115-a272-261eb5f255dc">
+     I have explored how to set up and deploy a web application on Firebase to collect and display data from an Arduino device. The setup uses Firebase Realtime Database, an ESP32 microcontroller, and various sensors (MQ135, DHT11, WS2812B).
+    </p>
+    <br/>
+    <h3 class="" id="35ae98bb-42e8-4096-9e53-52d7598674ed">
+     Prerequisites
+    </h3>
+    <ol class="numbered-list" id="4bad47d6-90b0-45ae-889d-8c63ccd7dcfb" start="1" type="1">
+     <li>
+      <strong>
+       Firebase Account:
+      </strong>
+      Ensure you have a Firebase account. If not, create one at
+      <a href="https://firebase.google.com/">
+       Firebase
+      </a>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="5700782e-c71d-44cb-a9d3-9bf61ae6dccf" start="2" type="1">
+     <li>
+      <strong>
+       Node.js and npm:
+      </strong>
+      Make sure you have Node.js and npm installed. You can download them from
+      <a href="https://nodejs.org/">
+       Node.js
+      </a>
+      .
+     </li>
+    </ol>
+    <h3 class="" id="87a41419-c669-4460-bee5-cc9a59ebda25">
+     Step 1: Set Up Firebase Project
+    </h3>
+    <ol class="numbered-list" id="82ee9b17-4094-47c2-80e8-2459dd1b5d14" start="1" type="1">
+     <li>
+      <strong>
+       Create a Firebase Project:
+      </strong>
+      <ul class="bulleted-list" id="2f17c2a2-f523-4926-9643-5b43ec3d335e">
+       <li style="list-style-type:disc">
+        Go to the Firebase Console.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="25b8eb33-7a81-4229-9b44-7a93f7721caf">
+       <li style="list-style-type:disc">
+        Click on "Add project" and follow the prompts to create a new project.
+       </li>
+      </ul>
+      <figure class="image" id="c82a54f5-5437-409a-a724-c5e6205b14d8">
+       <a href="Week 14 Interface and Application Programming/Untitled%202.png">
+        <img src="Week 14 Interface and Application Programming/Untitled%202.png" style="width:1918px"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="233228f1-d483-491e-b974-eaa89953a7cd" start="2" type="1">
+     <li>
+      <strong>
+       Enable Firebase Hosting:
+      </strong>
+      <ul class="bulleted-list" id="10fbd493-8f0a-440e-94e7-945676d57613">
+       <li style="list-style-type:disc">
+        In the Firebase Console, select your project.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="bc962e9b-24ff-40ad-b144-89de29be9796">
+       <li style="list-style-type:disc">
+        Click on "Hosting" in the left sidebar.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="20216352-8211-4150-80ed-16fd5e7c3b07">
+       <li style="list-style-type:disc">
+        Click "Get Started" and follow the setup instructions.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <h3 class="" id="274bded6-8052-47c2-9523-def0a85d5b74">
+     Step 2: Initialize Firebase in Your Project
+    </h3>
+    <ol class="numbered-list" id="b26d84a6-2d4f-48f5-ade6-5c12f279f97b" start="1" type="1">
+     <li>
+      <strong>
+       Install Firebase Tools:
+      </strong>
+      <br>
+       Open your terminal and install Firebase CLI tools if you haven't already:
+       <br>
+        <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+        </script>
+        <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+        <pre class="code" id="97a34f1b-146b-4bbd-8b2e-2d09e1c273e7"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+npm install -g firebase-tools
+
+</code></pre>
+       </br>
+      </br>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a3c439a1-5b0c-405d-9ede-18b1020f3291" start="2" type="1">
+     <li>
+      <strong>
+       Login to Firebase:
+      </strong>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="03ded62e-fb0a-4fbd-b3fc-0d0537267149"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+firebase login
+
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="5bd21891-f72f-48d3-9d88-d5755662f5d9" start="3" type="1">
+     <li>
+      <strong>
+       Initialize Firebase in Your Project:
+      </strong>
+      <br/>
+      Navigate to your project directory and run:
+      <br/>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="3a03117f-22a2-4b98-ae62-2ca5bf65d232"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+firebase init
+
+</code></pre>
+      <ul class="bulleted-list" id="3ce7aa6c-2c24-4dc2-825e-c24954c93118">
+       <li style="list-style-type:disc">
+        Select "Hosting" and press Enter.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="746a460f-1201-4c71-90ef-51ed53dc4280">
+       <li style="list-style-type:disc">
+        Select your Firebase project from the list.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="b296c5a2-e320-4a53-b612-300084826594">
+       <li style="list-style-type:disc">
+        Choose "public" as the directory for your public files.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="afb923a5-7352-46fc-baec-f1e1742bbe48">
+       <li style="list-style-type:disc">
+        Configure as a single-page app by selecting "Yes".
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="2b5187f8-818a-4487-8e8d-9136b0cc32f8">
+       <li style="list-style-type:disc">
+        Do not overwrite
+        <code>
+         index.html
+        </code>
+        if prompted.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <h3 class="" id="2e5dca34-32da-4f08-a782-74f74326809c">
+     Step 3: Prepare Your Project Files
+    </h3>
+    <ol class="numbered-list" id="206780e5-306e-440e-966f-0b4a13f02406" start="1" type="1">
+     <li>
+      <strong>
+       Project Structure:
+      </strong>
+      <br/>
+      Your project directory should have the following files from the extracted zip:
+      <br/>
+      <ul class="bulleted-list" id="34f88d3a-c001-4a0f-981f-6299343b5c10">
+       <li style="list-style-type:disc">
+        <code>
+         .firebaserc
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="bda77cfd-e37e-4eaa-85eb-2938981d1ea8">
+       <li style="list-style-type:disc">
+        <code>
+         firebase.json
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="b2a7a0a9-71d7-48bb-bf94-47e5249d8d6c">
+       <li style="list-style-type:disc">
+        <code>
+         functions.js
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="09d88920-4b9b-4171-81c3-a9745b491532">
+       <li style="list-style-type:disc">
+        <code>
+         index.html
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="c7812249-5558-424d-b3cb-6036ba81e77d">
+       <li style="list-style-type:disc">
+        <code>
+         main.js
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="e715a0ac-a482-4985-be37-a1b0a208c712">
+       <li style="list-style-type:disc">
+        <code>
+         style.css
+        </code>
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="0061ba39-c9ad-4c6d-9299-323b1beba25c">
+       <li style="list-style-type:disc">
+        <code>
+         package.json
+        </code>
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="63a50573-df0d-4e34-8540-f5ff60209869" start="2" type="1">
+     <li>
+      <strong>
+       Project Dependencies:
+      </strong>
+      <br/>
+      Install the necessary dependencies by running:
+      <br/>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="b1443e37-d47c-4adb-bbee-110813b96dda"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+npm install
+
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6e9994c8-f8cf-4c00-bab4-6c1a7e11e120" start="3" type="1">
+     <li>
+      <strong>
+       Firebase Configuration:
+      </strong>
+      <br/>
+      Make sure your
+      <br/>
+      <code>
+       firebase.json
+      </code>
+      file looks similar to this:
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="bc5bbc51-b365-465d-ac6d-335a60c29c56"><code class="language-JSON" style="white-space:pre-wrap;word-break:break-all">jsonCopy code
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+
+</code></pre>
+     </li>
+    </ol>
+    <h3 class="" id="193fc426-2d8c-4813-b0c0-415acb6b94ce">
+     Step 4: Write the Arduino Code
+    </h3>
+    <ol class="numbered-list" id="5a62152e-ded8-4b79-9c3a-eadd6f4bb70a" start="1" type="1">
+     <li>
+      <strong>
+       Arduino Code:
+      </strong>
+      <br/>
+      Write the code to read data from the photodiode and send it to Firebase. Example code for ESP8266:
+      <br/>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="d6cbdd41-8677-49e9-98c4-9ef8ce4f3ff9"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">cppCopy code
+#include &lt;ESP8266WiFi.h&gt;#include &lt;FirebaseESP8266.h&gt;#define FIREBASE_HOST "your-project-id.firebaseio.com"#define FIREBASE_AUTH "your-database-secret"#define WIFI_SSID "your-ssid"#define WIFI_PASSWORD "your-password"
+
+FirebaseData firebaseData;
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  Firebase.setInt(firebaseData, "/sensor/value", sensorValue);
+  delay(1000);
+}
+
+</code></pre>
+     </li>
+    </ol>
+    <h3 class="" id="9d2d4b57-e034-42f0-aa48-e6ff88826a2c">
+     Step 5: Deploy Your Web Application
+    </h3>
+    <ol class="numbered-list" id="e67d0ca3-31d8-4dbe-ba05-73d79f66b8d1" start="1" type="1">
+     <li>
+      <strong>
+       Build the Application:
+      </strong>
+      <br/>
+      If you are using any build tools (like Webpack, Vite, etc.), ensure your files are built and placed in the
+      <br/>
+      <code>
+       public
+      </code>
+      directory.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e5a508c1-e966-4a96-ab72-6179c2d5c093" start="2" type="1">
+     <li>
+      <strong>
+       Deploy to Firebase:
+      </strong>
+      <br/>
+      Deploy your application by running:
+      <br/>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="0e08bc7e-1197-4694-b756-bc2b1b07b7bd"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+firebase deploy
+
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="c8096f8b-d48c-4e50-95ef-79b093953f9c" start="3" type="1">
+     <li>
+      <strong>
+       Access Your Application:
+      </strong>
+      <br/>
+      After deployment, you will receive a URL where your application is hosted. You can now access your web application and view the real-time data collected from your Arduino device.
+      <br/>
+     </li>
+    </ol>
+    <br/>
+    <h3 class="" id="5fd6440a-ad03-46f4-984f-b151cb986497">
+     Step 6: Monitor and Maintain
+    </h3>
+    <ol class="numbered-list" id="4bcea429-ea7c-4a59-bee1-8e6c4a562171" start="1" type="1">
+     <li>
+      <strong>
+       Firebase Console:
+      </strong>
+      <br>
+       Use the Firebase Console to monitor your project's real-time database, hosting, and other services.
+       <br/>
+      </br>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="f0ad6e5d-d995-436f-b471-03647c550f5b" start="2" type="1">
+     <li>
+      <strong>
+       Update and Redeploy:
+      </strong>
+      <br/>
+      For any updates or changes, modify your code and redeploy using the
+      <br/>
+      <code>
+       firebase deploy
+      </code>
+      command.
+     </li>
+    </ol>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="786e4663-03de-43c8-9511-5ccb898c8db2"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">cppCopy code
+// Kavyas-breathing-library.ino
+// MQ135 DHT11 WS2812B XIAO_ESP32C3 Firebase Data monitoring
+#include &lt;TroykaMQ.h&gt;#include &lt;WiFi.h&gt;#include &lt;FirebaseESP32.h&gt;#include &lt;DHT.h&gt;#include &lt;FastLED.h&gt;#include "time.h"//Firebase config
+#define FIREBASE_HOST "https://kavyas-breathing-library-default-rtdb.firebaseio.com/"#define FIREBASE_AUTH "your-api-key"
+
+FirebaseData fbdo;
+FirebaseJson json;
+
+String parentPath;
+#define DATA_PATH "Live/data/"#define STATUS_PATH "Config/status/"// WiFi Configuration
+#define WIFI_SSID "your-ssid"#define WIFI_PASSWORD "your-password"// NTP Server config
+const char *ntpServer = "pool.ntp.org";
+const long gmtOffset_sec = 5 * 3600 + 30 * 60;  // UTC+5:30
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
+  configTime(gmtOffset_sec, 0, ntpServer);
+}
+
+void loop() {
+  int sensorValue = analogRead(A0);
+  Firebase.setInt(fbdo, DATA_PATH + "sensor", sensorValue);
+  delay(1000);
+}
+
+</code></pre>
+    <h3 class="" id="35123c3f-368e-41b9-b72b-756e1192efe5">
+     Step 5: Deploy Web Application
+    </h3>
+    <ol class="numbered-list" id="ae20d7c0-3d6d-486c-a51e-a588ac097a43" start="1" type="1">
+     <li>
+      <strong>
+       Build the Application:
+      </strong>
+      <br/>
+      Ensure your files are built and placed in the
+      <br/>
+      <code>
+       public
+      </code>
+      directory.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="af430578-fe39-411c-a73c-d3d72216b24c" start="2" type="1">
+     <li>
+      <strong>
+       Deploy to Firebase:
+      </strong>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="9f6dcf9d-69fd-42cc-bdb6-099ce96d80aa"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+firebase deploy
+
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ebf62f01-d343-496a-b443-67ea179292b1" start="3" type="1">
+     <li>
+      <strong>
+       Access the Application:
+      </strong>
+      <br/>
+      After deployment, access your application via the provided Firebase Hosting URL.
+      <br/>
+     </li>
+    </ol>
+    <figure class="image" id="3b097f1d-27f7-4cbd-bcea-88c749c31a0c">
+     <a href="Week 14 Interface and Application Programming/Untitled%203.png">
+      <img src="Week 14 Interface and Application Programming/Untitled%203.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="28348d5c-8d06-4cdc-929c-393c2139c507">
+     Step 6: Monitor and Maintain
+    </h3>
+    <ol class="numbered-list" id="f9cbaaa8-537c-4622-8659-81effab7c60f" start="1" type="1">
+     <li>
+      <strong>
+       Firebase Console:
+      </strong>
+      <br/>
+      Use it to monitor your project's database and hosting.
+      <br/>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="7c5a97e6-ab5b-4b53-a166-325af208e709" start="2" type="1">
+     <li>
+      <strong>
+       Update and Redeploy:
+      </strong>
+      <br/>
+      Modify your code as needed and redeploy using:
+      <br/>
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="fb49825e-2b0e-4974-b5f6-8b9894807367"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">bashCopy code
+firebase deploy
+
+</code></pre>
+     </li>
+    </ol>
+    <figure class="image" id="eb0c2980-14d7-497c-9aeb-293a57c8dc2f">
+     <a href="Week 14 Interface and Application Programming/Untitled%204.png">
+      <img src="Week 14 Interface and Application Programming/Untitled%204.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="ed74d1da-9534-40ef-942b-0318bdd100dc">
+     Output of my Interface:
+    </p>
+    <figure class="image" id="ebdef59c-7fc5-4015-9202-3a8f69e3122a">
+     <a href="Week 14 Interface and Application Programming/Untitled%205.png">
+      <img src="Week 14 Interface and Application Programming/Untitled%205.png" style="width:1680px"/>
+     </a>
+    </figure>
+    <h1 class="" id="151a3011-3228-4700-a0fc-ce3b22612610">
+     Video: Interface of my Final Project:
+    </h1>
+    <figure id="4510c1f9-75a3-4a99-b81a-360ce7b5e467">
+     <br/>
+     <div style="position: relative; display: flex; justify-content: center; align-items: center;">
+      <video controls="" playsinline="" preload="metadata" src="./Week 14 Interface and Application Programming/Interface.mp4" style="display: block; width: 80%; background-color: rgba(255, 255, 255, 0.03);">
+      </video>
+    </p><a href="kavya-interface.zip">Week 14 - App Files</a> 
+     </div>
+     <br/>
+    </figure>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
