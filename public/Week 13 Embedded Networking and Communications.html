@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 13: Embedded Networking and Communications
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="95b83d8f-516b-470d-94bd-8e27240a6a33">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 13: Embedded Networking and Communications
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <br/>
+    <h3 class="" id="12f853b4-0272-4ec7-8d58-99d532c2fe57">
+     <strong>
+      Networking and Communication
+     </strong>
+    </h3>
+    <p class="" id="97451f56-5287-4fc6-aebf-61c08eb4df6a">
+     Networking and communication enable electronic devices to interact and exchange information, such as sending messages. This can be done using wired or wireless connections and can involve various types of data, including sounds, images, and computer data.
+    </p>
+    <h2 class="" id="9be42459-28e5-4f59-a3e8-25d4d5dbb2e6">
+     <strong>
+      Idea
+     </strong>
+    </h2>
+    <p class="" id="bb25c488-a59e-4705-8d92-72032db37b6d">
+     My idea is to create a network using a custom board with the
+     <em>
+      <strong>
+       ESP WROOM-02 D
+      </strong>
+     </em>
+     module. For this assignment, I will implement
+     <strong>
+      Client-Server Wi-Fi Communication
+     </strong>
+     using the
+     <em>
+      <strong>
+       HTTP protocol
+      </strong>
+     </em>
+     .
+    </p>
+    <p class="" id="72446906-7bc7-49f5-bb9f-fa6a463d8934">
+     A
+     <em>
+      <strong>
+       client-server Wi-Fi communication
+      </strong>
+     </em>
+     setup allows communication between a client device (like my ESP32) and a server device (such as a web server or database server) over a Wi-Fi network. In this setup, the client device initiates communication by requesting data from the server device, which then responds by sending the requested information back to the client.
+    </p>
+    <h3 class="" id="641347ac-bd15-4667-ab0a-cd313ebc946a">
+     <strong>
+      HTTP Protocol
+     </strong>
+    </h3>
+    <p class="" id="21eacb9e-fca5-4cf2-9b08-69248ce241b4">
+     The
+     <em>
+      <strong>
+       Hypertext Transfer Protocol (HTTP)
+      </strong>
+     </em>
+     is a client-server protocol used for transmitting data over the internet.
+    </p>
+    <ul class="bulleted-list" id="dee92ece-2d33-4c1f-9934-8dea7b73af31">
+     <li style="list-style-type:disc">
+      HTTP messages consist of a request message from the
+      <em>
+       <strong>
+        client
+       </strong>
+      </em>
+      to the
+      <em>
+       <strong>
+        server
+       </strong>
+      </em>
+      , and a response message from the server to the client.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4b696f68-dd8e-4df2-8e43-bceca04a0277">
+     <li style="list-style-type:disc">
+      The request message includes a method (such as GET or POST) that specifies the action to be performed, as well as a URL that identifies the resource to be accessed.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ac475fa0-d040-4703-9ace-7510b00e495e">
+     <li style="list-style-type:disc">
+      The response message includes a status code that indicates the success or failure of the request, along with any data or resources returned by the server.
+     </li>
+    </ul>
+    <h2 class="" id="a5fb718a-8d3f-4580-97bd-0a141358c8de">
+     <strong>
+      Designing the board
+     </strong>
+    </h2>
+    <p class="" id="47534d02-92f6-4281-83fa-eec360b04fa6">
+     This week I’m using an
+     <strong>
+      ESP-WROOM-02
+     </strong>
+     to build my custom board
+    </p>
+    <figure class="image" id="681b26f5-e3c9-450e-8bbd-60dea8520ec9">
+     <a href="https://fabacademy.org/2023/labs/kochi/students/mufeed-mohamed/assets/week13/Untitled.png">
+      <img src="https://fabacademy.org/2023/labs/kochi/students/mufeed-mohamed/assets/week13/Untitled.png" style="width:700px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="5bb736f1-2cd7-4cde-b102-13ed93a1935a">
+     <li style="list-style-type:disc">
+      This is the PIN mapping of
+      <em>
+       <strong>
+        ESP-WROOM-02
+       </strong>
+      </em>
+     </li>
+    </ul>
+    <h3 class="" id="82203186-138b-4742-8107-c9b8889d0302">
+     <strong>
+      The Circuit Design
+     </strong>
+    </h3>
+    <p class="" id="e0da9a05-dcaf-4be1-af03-9879d6744d6a">
+     Schematic Design
+    </p>
+    <figure class="image" id="39578850-6b60-467a-913a-aebb6ab33036">
+     <a href="Week 13 Embedded Networking and Communications/Untitled.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled.png" style="width:1114px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="19c625f4-9319-4f29-aaee-4cb5f8caa609">
+     <li style="list-style-type:disc">
+      PCB Design
+     </li>
+    </ul>
+    <figure class="image" id="da2dcac5-3b7f-4c34-b4f7-de23d179b4c4">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%201.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%201.png" style="width:1919px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="9b023d51-169b-4ec1-b4a5-39302c525af7">
+     <li style="list-style-type:disc">
+      Top cut and trace design for milling the board
+     </li>
+    </ul>
+    <figure class="image" id="00cef562-c264-44b6-a928-7a2d961d41b9">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%202.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%202.png" style="width:577px"/>
+     </a>
+    </figure>
+    <figure class="image" id="55d1c49a-5578-4af3-b2f6-b51d1e258dc2">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%203.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%203.png" style="width:564px"/>
+     </a>
+    </figure>
+    <p class="" id="e5171d13-39fc-474a-90b4-70b8cc578902">
+     <strong>
+      PCB with Soldered Components:
+     </strong>
+    </p>
+    <figure class="image" id="8a4a43d6-0602-4dba-a17c-f125392eb9f6">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%204.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%204.png" style="width:899px"/>
+     </a>
+    </figure>
+    <br/>
+    <h2 class="" id="227a8858-6095-4617-aeb8-69ea56498e1f">
+     <strong>
+      Connecting the board i made to the WIFI
+     </strong>
+    </h2>
+    <p class="" id="4c9fccc7-778c-445b-b3ab-fba57765dce8">
+     So for the first step i am creating a web server in with my esp8266 board
+    </p>
+    <ul class="bulleted-list" id="40e2e04b-479d-4f55-b54f-3ec8f6f2fc0a">
+     <li style="list-style-type:disc">
+      In Arduino IDE open
+      <p class="" id="0564eec3-eb70-4966-8f7c-d82d554308bd">
+       <em>
+        <strong>
+         File&gt;Examples&gt;Esp8266WebServer&gt;HelloServer
+        </strong>
+       </em>
+      </p>
+     </li>
+    </ul>
+    <figure class="image" id="578b9e0a-a0e0-4662-879c-54168c2bbcb9">
+     <a href="https://fabacademy.org/2023/labs/kochi/students/mufeed-mohamed/assets/week13/Untitled%204.png">
+      <img src="https://fabacademy.org/2023/labs/kochi/students/mufeed-mohamed/assets/week13/Untitled%204.png" style="width:700px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="e480b75c-035e-4ff5-80cc-b4a3d44d02fb">
+     <li style="list-style-type:disc">
+      use this code to connect to wifi
+     </li>
+    </ul>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="c12254bc-332d-43f0-9094-c9b609dc7b0c"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#include &lt;ESP8266WiFi.h&gt;
+#include &lt;WiFiClient.h&gt;
+#include &lt;ESP8266WebServer.h&gt;
+#include &lt;ESP8266mDNS.h&gt;
+
+#ifndef STASSID
+#define STASSID "Vinci"
+#define STAPSK "Vinci2017!"
+#endif
+
+const char* ssid = STASSID;
+const char* password = STAPSK;
+
+ESP8266WebServer server(80);
+
+const int led = 13;
+
+void handleRoot() {
+  digitalWrite(led, 1);
+  server.send(200, "text/plain", "hello from esp8266!\r\n");
+  digitalWrite(led, 0);
+}
+
+void handleNotFound() {
+  digitalWrite(led, 1);
+  String message = "File Not Found\n\n";
+  message += "URI: ";
+  message += server.uri();
+  message += "\nMethod: ";
+  message += (server.method() == HTTP_GET) ? "GET" : "POST";
+  message += "\nArguments: ";
+  message += server.args();
+  message += "\n";
+  for (uint8_t i = 0; i &lt; server.args(); i++) { message += " " + server.argName(i) + ": " + server.arg(i) + "\n"; }
+  server.send(404, "text/plain", message);
+  digitalWrite(led, 0);
+}
+
+void setup(void) {
+  pinMode(led, OUTPUT);
+  digitalWrite(led, 0);
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+  Serial.println("");
+
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.print("Connected to ");
+  Serial.println(ssid);
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  if (MDNS.begin("esp8266")) { Serial.println("MDNS responder started"); }
+
+  server.on("/", handleRoot);
+
+  server.on("/inline", []() {
+    server.send(200, "text/plain", "this works as well");
+  });
+
+  server.on("/gif", []() {
+    static const uint8_t gif[] PROGMEM = {
+      0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x10, 0x00, 0x10, 0x00, 0x80, 0x01,
+      0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0x2c, 0x00, 0x00, 0x00, 0x00,
+      0x10, 0x00, 0x10, 0x00, 0x00, 0x02, 0x19, 0x8c, 0x8f, 0xa9, 0xcb, 0x9d,
+      0x00, 0x5f, 0x74, 0xb4, 0x56, 0xb0, 0xb0, 0xd2, 0xf2, 0x35, 0x1e, 0x4c,
+      0x0c, 0x24, 0x5a, 0xe6, 0x89, 0xa6, 0x4d, 0x01, 0x00, 0x3b
+    };
+    char gif_colored[sizeof(gif)];
+    memcpy_P(gif_colored, gif, sizeof(gif));
+    // Set the background to a random set of colors
+    gif_colored[16] = millis() % 256;
+    gif_colored[17] = millis() % 256;
+    gif_colored[18] = millis() % 256;
+    server.send(200, "image/gif", gif_colored, sizeof(gif_colored));
+  });
+
+  server.onNotFound(handleNotFound);
+
+  /////////////////////////////////////////////////////////
+  // Hook examples
+
+  server.addHook([](const String&amp; method, const String&amp; url, WiFiClient* client, ESP8266WebServer::ContentTypeFunction contentType) {
+    (void)method;       // GET, PUT, ...
+    (void)url;          // example: /root/myfile.html
+    (void)client;       // the webserver tcp client connection
+    (void)contentType;  // contentType(".html") =&gt; "text/html"
+    Serial.printf("A useless web hook has passed\n");
+    Serial.printf("(this hook is in 0x%08x area (401x=IRAM 402x=FLASH))\n", esp_get_program_counter());
+    return ESP8266WebServer::CLIENT_REQUEST_CAN_CONTINUE;
+  });
+
+  server.addHook([](const String&amp;, const String&amp; url, WiFiClient*, ESP8266WebServer::ContentTypeFunction) {
+    if (url.startsWith("/fail")) {
+      Serial.printf("An always failing web hook has been triggered\n");
+      return ESP8266WebServer::CLIENT_MUST_STOP;
+    }
+    return ESP8266WebServer::CLIENT_REQUEST_CAN_CONTINUE;
+  });
+
+  server.addHook([](const String&amp;, const String&amp; url, WiFiClient* client, ESP8266WebServer::ContentTypeFunction) {
+    if (url.startsWith("/dump")) {
+      Serial.printf("The dumper web hook is on the run\n");
+
+      // Here the request is not interpreted, so we cannot for sure
+      // swallow the exact amount matching the full request+content,
+      // hence the tcp connection cannot be handled anymore by the
+      // webserver.
+#ifdef STREAMSEND_API
+      // we are lucky
+      client-&gt;sendAll(Serial, 500);
+#else
+      auto last = millis();
+      while ((millis() - last) &lt; 500) {
+        char buf[32];
+        size_t len = client-&gt;read((uint8_t*)buf, sizeof(buf));
+        if (len &gt; 0) {
+          Serial.printf("(&lt;%d&gt; chars)", (int)len);
+          Serial.write(buf, len);
+          last = millis();
+        }
+      }
+#endif
+      // Two choices: return MUST STOP and webserver will close it
+      //                       (we already have the example with '/fail' hook)
+      // or                  IS GIVEN and webserver will forget it
+      // trying with IS GIVEN and storing it on a dumb WiFiClient.
+      // check the client connection: it should not immediately be closed
+      // (make another '/dump' one to close the first)
+      Serial.printf("\nTelling server to forget this connection\n");
+      static WiFiClient forgetme = *client;  // stop previous one if present and transfer client refcounter
+      return ESP8266WebServer::CLIENT_IS_GIVEN;
+    }
+    return ESP8266WebServer::CLIENT_REQUEST_CAN_CONTINUE;
+  });
+
+  // Hook examples
+  /////////////////////////////////////////////////////////
+
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void loop(void) {
+  server.handleClient();
+  MDNS.update();
+}</code></pre>
+    <ul class="bulleted-list" id="c49deb32-b337-4e73-86d4-45759f760fea">
+     <li style="list-style-type:disc">
+      I got the IP Address from the serial Monitor.
+     </li>
+    </ul>
+    <figure class="image" id="8093ea74-3706-4cca-8c80-6f7b84316886">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%205.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%205.png" style="width:1254px"/>
+     </a>
+    </figure>
+    <p class="" id="50b4976d-70cc-4530-837d-612ff833c397">
+     I had opened my web server using the IP Address and the message that I had added in my code got displayed in my web UI.
+    </p>
+    <figure class="image" id="336bc96a-1992-4f64-b82b-79b045ee9fa8">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%206.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%206.png" style="width:1918px"/>
+     </a>
+    </figure>
+    <h3 class="" id="40134537-939c-4efd-8cd1-85eb6fb4831a">
+     Connecting the ESP8266 to webserver and displaying photodiode’s value using web UI
+    </h3>
+    <p class="" id="9bb48a67-7d5f-469d-9bb0-0919471d878a">
+     To extend the previous code to include converting the analog value from the photodiode to a percentage and displaying it on a web interface hosted by the ESP8266, you can follow this approach. We'll use the ESP8266WebServer library to create a simple web server that shows the percentage value:
+    </p>
+    <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+    </script>
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <pre class="code" id="622b0a2f-e493-4cfe-8f81-8c6dcb0a1cad"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">#include &lt;ESP8266WiFi.h&gt;
+#include &lt;ESP8266WebServer.h&gt;
+
+const char* ssid = "Vinci";
+const char* password = "Vinci2017!";
+
+const int analogPin = A0;
+const int maxAnalogValue = 1023; // Maximum value from ADC (10-bit resolution)
+const int referenceVoltage = 3.3; // Reference voltage for ADC
+
+ESP8266WebServer server(80);
+
+void setup() {
+  Serial.begin(115200);
+  delay(100);
+
+  // Connect to Wi-Fi
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+
+  // Print the IP address
+  Serial.println(WiFi.localIP());
+
+  // Setup web server routes
+  server.on("/", handleRoot);
+
+  // Start web server
+  server.begin();
+  Serial.println("HTTP server started");
+}
+
+void loop() {
+  // Handle client requests
+  server.handleClient();
+
+  // Read analog value from photodiode
+  int sensorValue = analogRead(analogPin);
+
+  // Convert analog value to percentage
+  float percentage = (sensorValue / float(maxAnalogValue)) * 100.0;
+
+  // Print the sensor value and percentage to serial monitor
+  Serial.print("Sensor value: ");
+  Serial.print(sensorValue);
+  Serial.print(", Percentage: ");
+  Serial.println(percentage);
+
+  // Wait for a second
+  delay(1000);
+}
+
+void handleRoot() {
+  // Create HTML page with the percentage value
+  String html = "&lt;html&gt;&lt;body&gt;";
+  html += "&lt;h1&gt;Photodiode Reading&lt;/h1&gt;";
+  html += "&lt;p&gt;Percentage: ";
+  html += getPercentage();
+  html += "%&lt;/p&gt;";
+  html += "&lt;/body&gt;&lt;/html&gt;";
+
+  // Send HTML response to client
+  server.send(200, "text/html", html);
+}
+
+String getPercentage() {
+  // Read analog value from photodiode
+  int sensorValue = analogRead(analogPin);
+
+  // Convert analog value to percentage
+  float percentage = (sensorValue / float(maxAnalogValue)) * 100.0;
+
+  // Format percentage as string
+  return String(percentage, 2); // Round to 2 decimal places
+}
+</code></pre>
+    <ul class="bulleted-list" id="4be86971-77ea-45a5-9ba5-ad076f2e68b6">
+     <li style="list-style-type:disc">
+      After opening the serial monitor, i got this message
+     </li>
+    </ul>
+    <figure class="image" id="c6c940d3-6b2c-4c79-a89d-a250d63158d7">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%207.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%207.png" style="width:708px"/>
+     </a>
+    </figure>
+    <ul class="bulleted-list" id="05704b1f-353e-442e-a9be-0bb28490cca3">
+     <li style="list-style-type:disc">
+      Copied this IP and opened it in a browser
+     </li>
+    </ul>
+    <figure class="image" id="7ac1fa58-4fb3-43cb-b840-09a434891d00">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%208.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%208.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="d965a643-e6e7-47b4-b1be-cb31bd334f49">
+     <strong>
+      Networking
+     </strong>
+    </h3>
+    <h2 class="" id="647b007e-a625-4fd8-97de-b837d498f7f7">
+     <strong>
+      Connecting the Esp32 and the Esp wroom-02d
+     </strong>
+    </h2>
+    <p class="" id="f84a7c30-5724-41f1-b7fa-83162c7a6f2a">
+     Their are two methods through which we can send data  between 2 esp modules or through which the esp8266 WiFi modules can  talk with each other. In both cases one esp8266 module is in client mode and the other one in server mode.
+    </p>
+    <ul class="bulleted-list" id="59c05d82-f500-4113-b97f-afc11a628e2c">
+     <li style="list-style-type:disc">
+      Send a HTTP request from client to server and the server
+      <br>
+       upon receiving the particular request will perform the desired action,
+       <br>
+        manipulate its Inputs Outputs etc. Consider this method as you are
+        <br/>
+        sending an HTTP request
+        <br/>
+       </br>
+      </br>
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="3eeffbb0-bd96-4e27-aad2-c25e9e3c4fe9">
+     <li style="list-style-type:disc">
+      Send a HTTP request from client to server. Up on receiving the request the server replies client with some useful information.
+     </li>
+    </ul>
+    <p class="" id="76f0bbe9-4edc-4cef-ab2b-011cd7246c8b">
+     <strong>
+      PROGRAMMING
+     </strong>
+    </p>
+    <p class="" id="17840f56-06e4-4779-a5d1-6c64edfca44a">
+     <strong>
+      Code for creating the server
+     </strong>
+     <br/>
+     <br/>
+     <br/>
+     <code>
+      //code for creating hot spot server
+      <br/>
+      #include &lt;ESP8266WiFi.h&gt;
+      <br/>
+      <br/>
+      const char* ssid = "MyHotspot";
+      <br/>
+      const char* password = "MyPassword";
+      <br/>
+      <br/>
+      const uint16_t serverPort = 80;
+      <br/>
+      <br/>
+      WiFiServer server(serverPort);
+      <br/>
+      <br/>
+      void setup() {
+      <br/>
+      Serial.begin(115200);
+      <br/>
+      <br/>
+      // Create an access point
+      <br/>
+      WiFi.softAP(ssid, password);
+      <br/>
+      IPAddress apIP = WiFi.softAPIP();
+      <br/>
+      Serial.print("Access point IP address: ");
+      <br/>
+      Serial.println(apIP);
+      <br/>
+      <br/>
+      // Start the server
+      <br/>
+      server.begin();
+      <br/>
+      Serial.println("Server started");
+      <br/>
+      }
+      <br/>
+      <br/>
+      void loop() {
+      <br/>
+      // Check for client connection
+      <br/>
+      WiFiClient client = server.available();
+      <br/>
+      if (client) {
+      <br/>
+      Serial.println("New client connected");
+      <br/>
+      <br/>
+      // Wait for client to send data
+      <br/>
+      unsigned long timeout = millis();
+      <br/>
+      while (client.connected() &amp;&amp; !client.available()) {
+      <br/>
+      if (millis() - timeout &gt; 5000) {
+      <br/>
+      Serial.println("Timeout waiting for client data");
+      <br/>
+      client.stop();
+      <br/>
+      return;
+      <br/>
+      }
+      <br/>
+      delay(100);
+      <br/>
+      }
+      <br/>
+      <br/>
+      // Read client data
+      <br/>
+      String request = client.readStringUntil('\r');
+      <br/>
+      Serial.print("Received message from client: ");
+      <br/>
+      Serial.println(request);
+      <br/>
+      <br/>
+      // Send response to client
+      <br/>
+      client.println("Hello from ESP8266");
+      <br/>
+      <br/>
+      // Disconnect client
+      <br/>
+      client.stop();
+      <br/>
+      Serial.println("Client disconnected");
+      <br/>
+      }
+      <br/>
+      }
+      <br/>
+     </code>
+    </p>
+    <figure class="image" id="c8729541-ec98-4cdf-ba76-cc09f53f6d2e">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%209.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%209.png" style="width:1251px"/>
+     </a>
+    </figure>
+    <figure class="image" id="ce75f03e-1691-4ec6-a675-4d9ade4438f1">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%2010.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%2010.png" style="width:395px"/>
+     </a>
+    </figure>
+    <p class="" id="0d0532fb-db66-4a08-b82a-3f8e9d7de9f1">
+     <strong>
+      Code for the client
+     </strong>
+     <br/>
+     <br/>
+     <br/>
+     <code>
+      //code for client
+      <br/>
+      #include &lt;ESP8266WiFi.h&gt;
+      <br/>
+      <br/>
+      const char* ssid = "MyHotspot";
+      <br/>
+      const char* password = "MyPassword";
+      <br/>
+      <br/>
+      const IPAddress serverIP(192, 168, 4, 1);
+      <br/>
+      const uint16_t serverPort = 80;
+      <br/>
+      <br/>
+      void setup() {
+      <br/>
+      Serial.begin(115200);
+      <br/>
+      <br/>
+      // Connect to WiFi
+      <br/>
+      WiFi.begin(ssid, password);
+      <br/>
+      while (WiFi.status() != WL_CONNECTED) {
+      <br/>
+      delay(1000);
+      <br/>
+      Serial.println("Connecting to WiFi...");
+      <br/>
+      }
+      <br/>
+      Serial.println("Connected to WiFi");
+      <br/>
+      }
+      <br/>
+      <br/>
+      void loop() {
+      <br/>
+      // Connect to server
+      <br/>
+      WiFiClient client;
+      <br/>
+      if (!client.connect(serverIP, serverPort)) {
+      <br/>
+      Serial.println("Failed to connect to server");
+      <br/>
+      return;
+      <br/>
+      }
+      <br/>
+      <br/>
+      // Send message to server
+      <br/>
+      client.println("Hello from ESP8266");
+      <br/>
+      <br/>
+      // Wait for response from server
+      <br/>
+      unsigned long timeout = millis();
+      <br/>
+      while (client.connected() &amp;&amp; !client.available()) {
+      <br/>
+      if (millis() - timeout &gt; 5000) {
+      <br/>
+      Serial.println("Timeout waiting for server response");
+      <br/>
+      client.stop();
+      <br/>
+      return;
+      <br/>
+      }
+      <br/>
+      delay(100);
+      <br/>
+      }
+      <br/>
+      <br/>
+      // Read response from server
+      <br/>
+      String response = client.readStringUntil('\r');
+      <br/>
+      Serial.print("Received response from server: ");
+      <br/>
+      Serial.println(response);
+      <br/>
+      <br/>
+      // Disconnect from server
+      <br/>
+      client.stop();
+      <br/>
+      <br/>
+      delay(5000);
+      <br/>
+      }
+      <br/>
+     </code>
+    </p>
+    <figure class="image" id="e56a3125-15fd-4540-b01b-2b96b4817662">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%2011.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%2011.png" style="width:1247px"/>
+     </a>
+    </figure>
+    <figure class="image" id="15eb0755-bca5-4ce3-acff-33652e4a1867">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%2012.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%2012.png" style="width:494px"/>
+     </a>
+    </figure>
+    <br/>
+    <figure class="image" id="86e1beb8-9caa-4236-9135-c667f6949a26">
+     <a href="Week 13 Embedded Networking and Communications/Untitled%2013.png">
+      <img src="Week 13 Embedded Networking and Communications/Untitled%2013.png" style="width:1252px"/>
+     </a>
+    </figure>
+    <p class="" id="31a6012c-06e8-412b-a89c-4e43edd53eb1">
+     In the first code, within the
+     <code>
+      loop
+     </code>
+     function, the code utilizes the
+     <code>
+      server.available()
+     </code>
+     method to check for incoming client connections. Upon detecting a client connection, the code proceeds to wait for data from the client, employing a timeout mechanism of 5 seconds. If no data is received within this timeout period, the client is automatically disconnected.
+     <br>
+      <br/>
+      <br/>
+     </br>
+    </p>
+    <hr id="46bfe0e0-29f9-4d96-b9d8-ae6e1e78e0e5"/>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
