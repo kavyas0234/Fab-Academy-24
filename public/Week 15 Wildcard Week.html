@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 15: Wildcard Week
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="3e3a67dc-5b9b-4666-b367-e9a3ef4eb843">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1597566833495-e4ad471783ec?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 15: Wildcard Week
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h2 class="" id="a44edc8f-1baf-4c39-bc44-74c7135d9f0d">
+     Assignment
+    </h2>
+    <p class="" id="535acbac-74b2-4c2e-b346-4625b48e5d32">
+     Design and produce an object using a digital fabrication process that incorporates computer-aided design (CAD) and manufacturing (CAM) techniques not previously covered in other assignments. Document the process and requirements clearly, including all necessary steps for reproduction. Potential projects could range widely within the scope of digital fabrication.
+    </p>
+    <h3 class="" id="b27bb33c-e7b2-4746-91a1-869d8b3c7559">
+     My Plans
+    </h3>
+    <ul class="bulleted-list" id="51ec2d00-a4a1-4504-a7c2-7d4638fd1bb1">
+     <li style="list-style-type:disc">
+      Design Origami using CAD software.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="cb2a7077-b3a6-463c-b709-da8ab3d30c59">
+     <li style="list-style-type:disc">
+      Create a crease pattern with Zund cutting technology.
+     </li>
+    </ul>
+    <h3 class="" id="db4c7731-a968-4661-b412-3f3e5a865430">
+     Origami
+    </h3>
+    <p class="" id="95a12973-e3b2-4b2b-9ac4-f24e881c3594">
+     Origami is the traditional Japanese art of paper folding to create both two-dimensional and three-dimensional objects.
+    </p>
+    <h3 class="" id="3ad74cf2-99b2-46e7-9582-7b097371ff96">
+     What is a Crease Pattern?
+    </h3>
+    <p class="" id="eb94e83f-e36c-4dcc-aba3-bd58c3029acd">
+     A crease pattern is an origami diagram that shows all or most of the folds required to create the final model, represented in a single image.
+    </p>
+    <h3 class="" id="3ed09b9d-7b3c-4f06-bf79-beb290f78d26">
+     Valley and Mountain Folds
+    </h3>
+    <p class="" id="c19a9ae0-13a9-4924-a8e7-45d2b9bc0841">
+     These are fundamental folds in origami:
+    </p>
+    <ul class="bulleted-list" id="36b4c419-410d-4467-865e-a75a72da506a">
+     <li style="list-style-type:disc">
+      <strong>
+       Valley Fold
+      </strong>
+      : A fold that forms a trench-like shape.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a6d889ab-3501-4e6c-a12c-10063093a2db">
+     <li style="list-style-type:disc">
+      <strong>
+       Mountain Fold
+      </strong>
+      : A fold that forms a ridge-like shape.
+     </li>
+    </ul>
+    <figure class="image" id="faf87c4f-f05a-4b10-8c0c-8c47ef4a51bc">
+     <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/crease.jpg">
+      <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/crease.jpg"/>
+     </a>
+    </figure>
+    <h3 class="" id="a32e254a-efbc-49a7-9ed7-8200a0aaaf30">
+     Mathematics Behind Origami Folding
+    </h3>
+    <h3 class="" id="ba744e17-96d8-47e2-bc18-6d69674b8527">
+     Axioms of Origami
+    </h3>
+    <p class="" id="2c7664f2-0b63-4a10-9150-bc9f8418ed3a">
+     Origami involves various types of folds, some of which are illustrated below.
+    </p>
+    <figure class="image" id="4fc6df57-c729-48e8-81ac-3785306c4198">
+     <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/folds.jpg">
+      <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/folds.jpg"/>
+     </a>
+    </figure>
+    <h3 class="" id="112b2988-49a4-40c5-a5b5-f7ad332c1b02">
+     Create a New Origami
+    </h3>
+    <p class="" id="50b42abe-4ca1-4400-86d4-d97d32265062">
+     I aimed to learn how to design origami by researching online origami tools.
+    </p>
+    <h3 class="" id="3c00d553-204a-4ccc-b200-b9a7389d6794">
+     d-origami.com
+    </h3>
+    <p class="" id="99c33da5-5f6a-493b-b01d-43f14ef93b85">
+     <a href="https://d-origami.com/">
+      d-origami.com
+     </a>
+     is an online platform for creating simple origami designs. You can download the crease pattern of your design. I attempted to design a paper airplane, but the tool became unresponsive after a few folds.
+    </p>
+    <h3 class="" id="582efb68-453b-4ca5-b0d3-85b5022b7b07">
+     TreeMaker
+    </h3>
+    <p class="" id="c35a4e54-bf09-410e-b030-9621b685feae">
+     TreeMaker is a program designed for creating origami bases. By drawing a stick figure of the base on the screen, each stick represents a flap on the base. Here are the steps I followed to create a dinosaur model and a tortoise using the same base:
+    </p>
+    <ol class="numbered-list" id="4b207391-1e9d-4c35-8b2b-a39152a68ef8" start="1" type="1">
+     <li>
+      <strong>
+       Make a Stick Figure
+      </strong>
+      : Draw a simplified representation of the base of the origami model. This includes flaps and rivers, showing their relationships and dimensions.
+      <figure class="image" id="7072fc4d-6adb-4cd5-a126-51f8916c2783">
+       <a href="Week 15 Wildcard Week/Untitled.png">
+        <img src="Week 15 Wildcard Week/Untitled.png" style="width:324px"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6d93460c-864f-41ee-a4e3-b3d3d9b2d069" start="2" type="1">
+     <li>
+      <strong>
+       Nodes in TreeMaker
+      </strong>
+      :
+      <ul class="bulleted-list" id="320a9dab-cccb-409a-b609-e1446bce681a">
+       <li style="list-style-type:disc">
+        <strong>
+         Leaf Nodes
+        </strong>
+        : Edge nodes represented by circles.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="923c9500-25b1-4c13-946f-0fd68ed841d5">
+       <li style="list-style-type:disc">
+        <strong>
+         Branch Nodes
+        </strong>
+        : Nodes with two or more edges, represented by dots.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <h2 class="" id="ed505915-e89d-4a5c-adab-4213cfbcb80b">
+     Designing Origami in TreeMaker
+    </h2>
+    <ol class="numbered-list" id="7571cbc1-e0bb-4301-bd77-63941e6c31f3" start="1" type="1">
+     <li>
+      Download and install TreeMaker.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="53f3772d-063c-4152-9b13-1201992bafa8" start="2" type="1">
+     <li>
+      Use the simple UI to draw the origami model, starting with a symmetry line.
+      <figure class="image" id="efb34e0f-8646-45fa-891e-eb1dc211b398">
+       <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-1.jpg">
+        <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-1.jpg"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d66c265f-54a9-4548-8a70-ec84394c097f" start="3" type="1">
+     <li>
+      Create nodes and edges by clicking points on the screen.
+      <figure class="image" id="591f064f-2658-464d-931f-5b2d6bdfa077">
+       <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-2.jpg">
+        <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-2.jpg"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6b8e0342-db9e-4b38-a2ce-e608e66e635b" start="4" type="1">
+     <li>
+      Define the properties of each node and edge, such as symmetry and fold type.
+      <figure class="image" id="d4636ef1-7c9b-4f63-92e2-868a518b9a2d">
+       <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-7.jpg">
+        <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-7.jpg"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a3c858ba-b8f5-4d5a-8447-07c513c8342c" start="5" type="1">
+     <li>
+      Generate the crease pattern and view the folded form.
+      <figure class="image" id="66f5f52e-41f3-4cf9-a158-c3bf360a1299">
+       <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-10.jpg">
+        <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/tree-10.jpg"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b28dba5f-f6c2-4fbc-86f6-642132150044" start="6" type="1">
+     <li>
+      Save and print the file.
+     </li>
+    </ol>
+    <h3 class="" id="cc6ec8e5-fe2e-4f9b-9ae6-4de5f34e3002">
+     Creasing on Zund
+    </h3>
+    <p class="" id="8f13573a-4d08-49fd-b9a2-2899af254560">
+     I used the Zund cutter to crease the patterns. The machine has edge-detecting features and allows for different tool assignments for various fold types.
+    </p>
+    <ol class="numbered-list" id="fbaf28bf-a3a8-4fb3-8803-8b3f7263e929" start="1" type="1">
+     <li>
+      <strong>
+       Defining Machine Steps
+      </strong>
+      :
+      <ul class="bulleted-list" id="268b6a0d-ab77-4fb9-b74f-71700ba9a89f">
+       <li style="list-style-type:disc">
+        Import the crease pattern.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="a3445ed5-3ec0-4a03-b830-4a682a9e6858">
+       <li style="list-style-type:disc">
+        Assign tools for different types of folds and cuts.
+       </li>
+      </ul>
+      <figure class="image" id="b6bc7b98-820c-4c41-8928-c0ad775be182">
+       <a href="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/Screenshot_%28104%29.png">
+        <img src="https://fabacademy.org/2022/labs/kochi/students/muhammed-fahiz/images/week16/Screenshot_%28104%29.png"/>
+       </a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="8b18706d-e29c-4f9f-a688-f0b5d9ae4589" start="2" type="1">
+     <li>
+      <strong>
+       Crease Settings
+      </strong>
+      : Adjust the method, tool, crease depth, and speed.
+     </li>
+    </ol>
+    <figure class="image" id="ca091406-9a5a-4c6f-9ab3-6767e7c58653">
+     <a href="Week 15 Wildcard Week/Untitled%201.png">
+      <img src="Week 15 Wildcard Week/Untitled%201.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="d09973c4-b611-46c1-8bb3-8d141a5ca33f">
+     <strong>
+      Executing the Job
+     </strong>
+     : Start the job and adjust settings as needed for optimal results. Selecting the edges for the cut.
+    </p>
+    <figure class="image" id="4a38d4aa-ce2a-47c3-a7cb-f2c3c5b13b83">
+     <a href="Week 15 Wildcard Week/Untitled%202.png">
+      <img src="Week 15 Wildcard Week/Untitled%202.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="cb5ec2c0-185c-412d-a813-f3b5d83eb3a4">
+     For the origami sphere, the creases had to be made on eahc of the sides of the paper. Hence the creases were categorised according to the colours. One of the sides were first creased followed by the next side.
+    </p>
+    <figure class="image" id="a37db1f9-ff16-438e-a88c-24f0243cf037">
+     <a href="Week 15 Wildcard Week/Untitled%203.png">
+      <img src="Week 15 Wildcard Week/Untitled%203.png" style="width:1186px"/>
+     </a>
+    </figure>
+    <p class="" id="d5b30861-b8f5-45a2-aeac-a1d8f9592bdf">
+     The following creases were done on the other side of the paper.
+    </p>
+    <figure class="image" id="5c5d96c2-3afa-4429-82d9-c0d77a07e063">
+     <a href="Week 15 Wildcard Week/Untitled%204.png">
+      <img src="Week 15 Wildcard Week/Untitled%204.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="3213cc10-1fcd-46b8-9937-19f3aca3b76d">
+     Folding Creases
+    </h3>
+    <h2 class="" id="02b8d5d7-071f-4c23-82a6-a02a919dc254">
+     Origami Sphere
+    </h2>
+    <p class="" id="388c2aa9-a178-4214-bbbe-9f4d0b012df5">
+     The origami sphere was folded and obtained as follows:
+    </p>
+    <figure class="image" id="24c4017f-fd4c-4d86-9599-3e0c4024bc43">
+     <a href="Week 15 Wildcard Week/Untitled%205.png">
+      <img src="Week 15 Wildcard Week/Untitled%205.png" style="width:460px"/>
+     </a>
+    </figure>
+    <p class="" id="841bd20e-a2e6-4969-aeec-7a9bfafa9754">
+     The folded origami sphere looked like this.
+    </p>
+    <figure class="image" id="ff208882-450d-4901-ae6c-9c13156fde10">
+     <a href="Week 15 Wildcard Week/Untitled%206.png">
+      <img src="Week 15 Wildcard Week/Untitled%206.png" style="width:808px"/>
+     </a>
+    </figure>
+    <h2 class="" id="710e72ce-e98e-4cfb-b6b3-45fc1db2b8e7">
+     Flapping Bird:
+    </h2>
+    <figure class="image" id="3eca0b00-c28d-4518-afaa-773181b40ca9">
+     <a href="Week 15 Wildcard Week/Untitled%207.png">
+      <img src="Week 15 Wildcard Week/Untitled%207.png" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="828e4ceb-eb75-4baf-a5d9-a45e1e09ab7e">
+     Creased paper looked as follows:
+    </p>
+    <figure class="image" id="dfdf6ca3-eeb7-4aec-99da-3766faab85f6">
+     <a href="Week 15 Wildcard Week/Untitled%208.png">
+      <img src="Week 15 Wildcard Week/Untitled%208.png" style="width:463px"/>
+     </a>
+    </figure>
+    <p class="" id="15b26ecf-d408-4aba-a2ce-1d5c67d2b310">
+     Folded flapping bird looked as follows:
+    </p>
+    <figure class="image" id="77818c41-359d-4eeb-9351-e579788b210a">
+     <a href="Week 15 Wildcard Week/Untitled%209.png">
+      <img src="Week 15 Wildcard Week/Untitled%209.png" style="width:466px"/>
+     </a>
+    </figure>
+    <h3 class="" id="03aa18a1-03a2-48fa-bfe2-184c7585e71e">
+     Kirigami: The Art of Paper Cutting
+    </h3>
+    <p class="" id="d4c7a6ee-1031-4279-a765-cd13e02ed68e">
+     Kirigami, a variation of origami, is the art of paper cutting to create intricate designs and structures. Unlike origami, which primarily involves folding, kirigami combines both cutting and folding to achieve its results. This art form allows for a wider range of creative expressions, producing both decorative and functional objects.
+    </p>
+    <h3 class="" id="a31baaff-4004-42c7-847c-6e319ca96b5e">
+     Origins and Techniques
+    </h3>
+    <p class="" id="39a723ae-330b-4721-9132-aff4f4897888">
+     Kirigami originated in Japan, similar to origami, and has been practiced for centuries. The term "kirigami" comes from the Japanese words "kiri" (to cut) and "kami" (paper). The basic techniques involve making precise cuts in paper and then folding or unfolding along those cuts to create patterns or three-dimensional forms.
+    </p>
+    <h3 class="" id="23e38619-c669-4d70-a991-51c43db91465">
+     Basic Kirigami Techniques
+    </h3>
+    <ol class="numbered-list" id="1b32450c-5298-46f8-8d25-2f13fc104531" start="1" type="1">
+     <li>
+      <strong>
+       Basic Cuts
+      </strong>
+      : Simple cuts that can be made to create symmetrical designs, such as snowflakes or flowers.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6bf7e2f1-dbdf-4277-8842-a8a90ea47a4b" start="2" type="1">
+     <li>
+      <strong>
+       Pop-Up
+      </strong>
+      : Techniques that involve cutting and folding paper to create pop-up structures, often used in greeting cards and books.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="2387717c-fe79-4d36-bf66-8bf1d2433169" start="3" type="1">
+     <li>
+      <strong>
+       Modular Designs
+      </strong>
+      : Combining multiple cut and folded pieces to create larger, more complex structures.
+     </li>
+    </ol>
+    <p class="" id="b84ef96d-f3af-4111-91b0-d18cc591499e">
+     Auxetic Triangle Tessellation in Kirigami
+    </p>
+    <p class="" id="7e912dee-044f-4ea6-8115-ec761f0b23d0">
+     Auxetic materials are fascinating because they expand perpendicularly when stretched, contrary to most materials that thin out. This unique property is utilized in various applications, including advanced kirigami designs.
+    </p>
+    <h3 class="" id="16d8fd10-b604-49e6-b1ed-845258196f31">
+     Characteristics of Auxetic Triangle Tessellation
+    </h3>
+    <ol class="numbered-list" id="925f5115-85d2-46e4-9415-a7796d333084" start="1" type="1">
+     <li>
+      <strong>
+       Geometric Pattern
+      </strong>
+      : The auxetic triangle tessellation consists of repeating triangular units. When these units are cut and folded in a specific manner, they exhibit auxetic behavior.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e1ee2c7d-828c-47f1-861d-6b100d406d47" start="2" type="1">
+     <li>
+      <strong>
+       Material Properties
+      </strong>
+      : This type of tessellation can change its surface area and volume significantly when stretched or compressed.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="622c388f-bb95-4d38-a107-6aa2d0094ba9" start="3" type="1">
+     <li>
+      <strong>
+       Applications
+      </strong>
+      : Auxetic structures are used in developing flexible electronics, medical devices, and adaptable architectural materials.
+     </li>
+    </ol>
+    <h3 class="" id="e96374b7-71ba-4996-9db5-fcc62970cb09">
+     Steps to Create Auxetic Triangle Tessellation in Kirigami
+    </h3>
+    <p class="" id="85198ca2-cb2d-4197-9f7a-560d1bcc8598">
+     <strong>
+      Design the Pattern
+     </strong>
+     : Start by designing a triangular grid on paper.
+    </p>
+    <figure class="image" id="e532d1ed-0e0e-4aa0-9122-d0fb4f4231bc">
+     <a href="Week 15 Wildcard Week/Untitled%2010.png">
+      <img src="Week 15 Wildcard Week/Untitled%2010.png" style="width:848px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="e5530555-ae45-458a-8e65-11668c489dc7">
+     <strong>
+      Cutting
+     </strong>
+     : Make precise cuts along the edges of the triangles. The cuts should be designed to allow the triangles to move relative to each other.
+    </p>
+    <figure class="image" id="37a86050-97ed-48fa-98eb-d0fb889c4cdb">
+     <a href="Week 15 Wildcard Week/Untitled%2011.png">
+      <img src="Week 15 Wildcard Week/Untitled%2011.png" style="width:1149px"/>
+     </a>
+    </figure>
+    <figure class="image" id="9b7ef9cd-1f30-4a8e-8f0b-9237cb026faf">
+     <a href="Week 15 Wildcard Week/Untitled%2012.png">
+      <img src="Week 15 Wildcard Week/Untitled%2012.png" style="width:457px"/>
+     </a>
+    </figure>
+    <p class="" id="0f25a244-076c-4b85-9a7d-22ce9f293eb7">
+     <strong>
+      Folding
+     </strong>
+     : Fold the paper along the edges of the triangles to create a three-dimensional structure.
+    </p>
+    <figure class="image" id="a184fd22-250b-4c27-b934-6f77cd1c1b52">
+     <a href="Week 15 Wildcard Week/Untitled%2013.png">
+      <img src="Week 15 Wildcard Week/Untitled%2013.png" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="12f797e0-34a4-4e47-94df-34f6116dfdca">
+     <a href="Week 15 Wildcard Week/Untitled%2014.png">
+      <img src="Week 15 Wildcard Week/Untitled%2014.png" style="width:450px"/>
+     </a>
+    </figure>
+    <figure class="image" id="91d6fec7-6ae1-43fa-9333-7b85644e255f">
+     <a href="Week 15 Wildcard Week/Untitled%2015.png">
+      <img src="Week 15 Wildcard Week/Untitled%2015.png" style="width:459px"/>
+     </a>
+    </figure>
+    <h3 class="" id="a886c0bf-ce95-4c1e-a49a-ea96ec69e771">
+     Applications of Auxetic Kirigami
+    </h3>
+    <ol class="numbered-list" id="d287374f-4d59-40f6-b01b-6a470cd272f8" start="1" type="1">
+     <li>
+      <strong>
+       Flexible Electronics
+      </strong>
+      : Creating circuits and devices that can stretch without breaking.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b88a48aa-1db0-48a0-aa07-b7b4827e07d8" start="2" type="1">
+     <li>
+      <strong>
+       Medical Devices
+      </strong>
+      : Designing stents, bandages, and other devices that need to expand and contract without losing structural integrity.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="305f0df7-ae22-459e-93af-514ddfeb3e2a" start="3" type="1">
+     <li>
+      <strong>
+       Architectural Design
+      </strong>
+      : Developing adaptive structures that can change shape and size in response to environmental conditions.
+     </li>
+    </ol>
+    <br/>
+    <br/>
+    <br/>
+   </div>
+   <p><a href="Week15-Wildcard.zip">Week 15 - Origami SVG Files</a></p>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
