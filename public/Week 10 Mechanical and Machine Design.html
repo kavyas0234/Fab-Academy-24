@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 10: Mechanical and Machine Design
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="36916e44-26e6-4fea-880b-a81bca45bfa9">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1624880403473-4244deee045a?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 10: Mechanical and Machine Design
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h1 class="" id="211124ca-e567-4ed4-9db0-ed27731baa11">
+     <strong>
+      Overview of the Project
+     </strong>
+    </h1>
+    <p class="" id="6bb11263-f7c4-4193-963e-3b50b302900c">
+     The Cakerator 2000 is a machine that takes cake decorating to the next level. It utilizes user-provided SVG files to automate cake decorating, drawing, and writing, allowing for precise and creative designs.
+    </p>
+    <p class="" id="7ba97a4b-21aa-4aeb-8ce9-18fbaf60443b">
+     <strong>
+      <span style="border-bottom:0.05em solid">
+       Features
+      </span>
+     </strong>
+    </p>
+    <p class="" id="b996b915-cb40-478b-a38e-8c37626ce8b1">
+     <strong>
+      SVG Input:
+     </strong>
+     The machine accepts SVG (Scalable Vector Graphics) files, a common design format that ensures precise translation of intricate details from the digital world to the cake.
+    </p>
+    <p class="" id="0aec98fa-bdea-40a6-aae6-52df293aed3c">
+     <strong>
+      Icing Dispenser:
+     </strong>
+     This attachment acts like a high-precision piping bag, controlled by the machine to create smooth and even frosting layers, borders, and decorative elements based on the SVG design.
+    </p>
+    <p class="" id="0e455241-f064-452c-b5a3-ea566f545257">
+     <strong>
+      Food-grade Extruder:
+     </strong>
+     This interchangeable attachment acts like a pen, using edible ink cartridges to draw intricate details, write messages, or create artistic flourishes directly onto the cake's surface.
+    </p>
+    <ul class="bulleted-list" id="cd4d4ff1-d92a-4a7c-8a63-f3b10bef25e6">
+     <li style="list-style-type:disc">
+      <strong>
+       Automated Turn Table Cake Platform:
+      </strong>
+      The cake sits on a motorized platform that rotates and tilts according to the SVG instructions. This allows the toolhead to access all areas of the cake for a seamless and consistent decoration process.
+     </li>
+    </ul>
+    <p class="" id="2d75ea2b-b777-470b-96af-9deb04fdb2d9">
+     <strong>
+      Software Control:
+     </strong>
+     The Cakerator 2000 is controlled by user-friendly software to upload SVG files, choose frosting and pen colors, and initiate the decoration process. The software translates the design into G-code, which is then sent to GRBL for machine control.
+    </p>
+    <h1 class="block-color-red" id="dfc51a93-c458-4aec-9a0b-fced80cea1f2">
+     <strong>
+      Presentation Poster
+     </strong>
+    </h1>
+    <figure class="image" id="cbc25019-b393-477c-8a4a-5bf277ada4b8">
+     <a href="Week 10 Mechanical and Machine Design/Poster.jpeg">
+      <img src="Week 10 Mechanical and Machine Design/Poster.jpeg" style="width:708px"/>
+     </a>
+    </figure>
+    <h1 class="block-color-red" id="11b41e27-eb3c-4af7-9d04-f54cc445dd35">
+     <strong>
+      Our Machine Week Journey
+     </strong>
+    </h1>
+    <h2 class="block-color-blue" id="89a47623-aacf-4d2d-950e-62cd4c63d752">
+     <strong>
+      Concept and Story
+     </strong>
+    </h2>
+    <p class="" id="493bf4ac-e73c-4eac-a072-356139ea1d52">
+     As a dedicated home baker our friend Ansu always strived to create cakes that not only taste delicious but also look visually appealing. However, the process of decorating cakes has often posed challenges in terms of time and precision. Recognizing this common struggle, the team joined forces to develop a solution: the Cakerator2000.
+    </p>
+    <p class="" id="8973944d-513a-44bb-b5e4-c17d43272247">
+     <strong>
+      Shared Interest:
+     </strong>
+     While her passion lies in baking, we as a team share a keen interest in engineering and machine building. Combining our skills and expertise, we saw an opportunity to collaborate on a project that would integrate both disciplines and address a real-world need within the baking community.
+    </p>
+    <p class="" id="c4dcffbd-7a38-4e08-a370-de03522ee942">
+     <strong>
+      Learning Opportunity:
+     </strong>
+     Developing the Cake Decorating Machine provided us with a valuable opportunity to gain practical experience in designing, building, and testing a machine from concept to completion.
+    </p>
+    <p class="" id="58d405a7-d350-478f-ad00-84068c893e04">
+     <strong>
+      Problem Solving:
+     </strong>
+     Identifying the challenges faced by home bakers, particularly in the realm of cake decoration, sparked our collective problem-solving drive. We saw the opportunity to leverage automation and technology to streamline the cake decorating process and alleviate some of the burdens associated with manual decoration.
+    </p>
+    <p class="" id="4f6b47a1-3087-4af4-b19f-93c3063f3d57">
+     <strong>
+      Innovation:
+     </strong>
+     As a team, we're driven by a curiosity to explore new ideas and push the boundaries of what's possible. The Cakerator2000 represents our commitment to innovation and our belief in the power of technology to enhance everyday experiences, even in the kitchen.
+    </p>
+    <p class="" id="713c8af8-18f8-40ba-9020-e033768cff17">
+     <strong>
+      Collaboration:
+     </strong>
+     Working as a team has been an enriching experience, allowing us to leverage each other's strengths and perspectives. Through collaboration and communication, we've been able to overcome challenges, iterate on ideas, and ultimately bring our vision for the Cakerator2000 to life.
+    </p>
+    <p class="" id="42e51ed2-147d-451b-8357-95d5de580e5d">
+     The decision to develop the Cakerator2000 was driven by our shared interests, desire for hands-on learning, problem-solving mindset, passion for innovation, and collaborative spirit as students. We're excited to showcase the results of our hard work and creativity, and we hope that the Cakerator2000 will not only benefit home bakers but also inspire others to explore the intersection of baking and technology.
+    </p>
+    <h1 class="block-color-red" id="3d6d42c4-da94-4586-a70e-c79ad0048cd6">
+     <strong>
+      Project Management
+     </strong>
+    </h1>
+    <p class="" id="d34adf71-c12b-478e-8174-81eec2b0b365">
+     Integrating project management into the development of the Cakerator 2000 involves meticulous planning, organizing, and execution to ensure the successful realization of this innovative machine. Here's how project management principles can be applied to each aspect of the project:
+    </p>
+    <ol class="numbered-list" id="7e690318-02e6-4f7d-8e7c-a8099b4f5842" start="1" type="1">
+     <li>
+      <strong>
+       Initiation:
+      </strong>
+      The project begins with the identification of the need for a cake decorating machine and the formation of the team. Clear objectives are established, including creating a precise, user-friendly, and automated device that enhances cake decoration.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="bc13e2b4-2576-4295-bef0-52f8fa98ac69" start="2" type="1">
+     <li>
+      <strong>
+       Planning:
+      </strong>
+      Detailed planning involves defining project scope, setting milestones, allocating resources, and scheduling tasks. The team outlines the functionalities of the Cakerator 2000, such as SVG input, icing dispenser, extruder, and turntable cake platform. A timeline is established to guide the development process, ensuring adherence to deadlines.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="11ce539f-51ca-41d5-8a00-5028c7d8b0f1" start="3" type="1">
+     <li>
+      <strong>
+       Execution:
+      </strong>
+      During this phase, the team implements the planned activities to construct the Cakerator 2000. Tasks include designing the machine components, sourcing materials, assembling the device, and developing the software interface. Regular communication and coordination among team members are crucial to maintaining progress and addressing any challenges promptly.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6bd385ee-9dc8-4d93-aff7-56655ada196e" start="4" type="1">
+     <li>
+      <strong>
+       Monitoring and Control:
+      </strong>
+      Project progress is monitored closely to track milestones, identify deviations from the plan, and address any issues that arise. Quality control measures are implemented to ensure that the Cakerator 2000 meets performance standards. Adjustments are made as necessary to stay within budget and schedule constraints.
+     </li>
+    </ol>
+    <p class="" id="007e5b9c-34c8-455b-84d9-1a6426b3ee86">
+     By applying project management principles, the we can effectively coordinate their efforts, minimize risks, and deliver a high-quality product that meets the needs of home bakers. The Cakerator 2000 project exemplifies how project management practices can facilitate innovation and collaboration in interdisciplinary ventures.
+    </p>
+    <p class="" id="c2090221-524e-4571-8683-5b1f6d1c9c5a">
+     Integrating project management into the development of the Cakerator 2000 involves meticulous planning, organizing, and execution to ensure the successful realization of this innovative machine. Here’s how project management principles can be applied to each aspect of the project:
+    </p>
+    <ol class="numbered-list" id="3dc55b22-e8e3-4fe9-b337-5df8c8ab70d0" start="1" type="1">
+     <li>
+      <strong>
+       Initiation:
+      </strong>
+      The project begins with the identification of the need for a cake decorating machine and the formation of the team. Clear objectives are established, including creating a precise, user-friendly, and automated device that enhances cake decoration.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="f3691922-3b4c-4395-9766-dfa12d13068b" start="2" type="1">
+     <li>
+      <strong>
+       Planning:
+      </strong>
+      Detailed planning involves defining project scope, setting milestones, allocating resources, and scheduling tasks. The team outlines the functionalities of the Cakerator 2000, such as SVG input, icing dispenser, extruder, and turntable cake platform. A timeline is established to guide the development process, ensuring adherence to deadlines.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="905b682b-19d6-409c-aa19-1190f9f0bdf5" start="3" type="1">
+     <li>
+      <strong>
+       Execution:
+      </strong>
+      During this phase, the team implements the planned activities to construct the Cakerator 2000. Tasks include designing the machine components, sourcing materials, assembling the device, and developing the software interface. Regular communication and coordination among team members are crucial to maintaining progress and addressing any challenges promptly.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6905df19-c13e-4d39-878f-6f6ba5b20b11" start="4" type="1">
+     <li>
+      <strong>
+       Monitoring and Control:
+      </strong>
+      Project progress is monitored closely to track milestones, identify deviations from the plan, and address any issues that arise. Quality control measures are implemented to ensure that the Cakerator 2000 meets performance standards. Adjustments are made as necessary to stay within budget and schedule constraints.
+     </li>
+    </ol>
+    <p class="" id="35ab2af5-b895-4a1c-854a-d9e080706167">
+     By applying project management principles, the we can effectively coordinate their efforts, minimize risks, and deliver a high-quality product that meets the needs of home bakers. The Cakerator 2000 project exemplifies how project management practices can facilitate innovation and collaboration in interdisciplinary ventures.
+    </p>
+    <h2 class="" id="1c5b33bf-1046-454b-87b0-416b62c490ef">
+     <mark class="highlight-blue">
+      <strong>
+       Timeline
+      </strong>
+     </mark>
+    </h2>
+    <figure class="image" id="43a9242f-4ca0-434d-bd5d-9f4629c4d765">
+     <a href="Week 10 Mechanical and Machine Design/Untitled.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled.png" style="width:1785px"/>
+     </a>
+    </figure>
+    <h2 class="" id="33ec0cda-8e82-474e-9eae-b6101d94d568">
+     <mark class="highlight-blue">
+      <strong>
+       Work Schedule
+      </strong>
+     </mark>
+    </h2>
+    <figure class="image" id="de195908-cf0d-4d49-8770-f5600ec5fb6e">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%201.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%201.png" style="width:736px"/>
+     </a>
+    </figure>
+    <h2 class="" id="e32482eb-c902-40ac-a3a0-4ccd82225365">
+     <mark class="highlight-blue">
+      <strong>
+       Mind Mapping Using Miro
+      </strong>
+     </mark>
+    </h2>
+    <p class="" id="b9d31bd0-31e2-4166-81af-896ac7edb56c">
+     Utilizing
+     <a href="http://miro.com">
+      miro.com
+     </a>
+     for mind mapping proved to be instrumental in orchestrating the project management process for the development of the Cakerator 2000. Through this dynamic digital platform, the team seamlessly visualized and organized various project elements, from initial brainstorming sessions to detailed planning and execution phases. Miro's collaborative features enabled real-time collaboration, allowing team members to contribute ideas, outline project objectives, and delineate tasks efficiently. The platform's flexibility facilitated the creation of comprehensive project timelines, task lists, and resource allocations, ensuring clarity and alignment throughout the project lifecycle. Additionally, miro.com served as a centralized repository for project documentation, enabling easy access to essential files, updates, and communication threads. Overall, leveraging miro.com for mind mapping enhanced team collaboration, streamlined project management workflows, and contributed to the successful realization of the innovative Cakerator 2000.
+    </p>
+    <figure class="image" id="a97d90f3-bc8c-4ce0-a806-156dc9eedd27">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%202.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%202.png" style="width:708px"/>
+     </a>
+    </figure>
+    <h1 class="block-color-red" id="c38224e9-d0ff-487c-8dd0-723a4c494caf">
+     <strong>
+      Research &amp; Brainstorming
+     </strong>
+    </h1>
+    <figure class="image" id="3fec57b1-f2bb-458b-a9df-0743dc589a09">
+     <a href="Week 10 Mechanical and Machine Design/whiteboard_pic_01.jpg">
+      <img src="Week 10 Mechanical and Machine Design/whiteboard_pic_01.jpg" style="width:708px"/>
+     </a>
+    </figure>
+    <h1 class="block-color-red" id="4c08ea1b-aa0f-4bda-8426-29d1c0c200dc">
+     <strong>
+      Initial Sketch
+     </strong>
+    </h1>
+    <figure class="image" id="41968067-bd93-4c4a-8653-fda6b1e0ad39">
+     <a href="Week 10 Mechanical and Machine Design/Initial_Sketch_pic_002.jpg">
+      <img src="Week 10 Mechanical and Machine Design/Initial_Sketch_pic_002.jpg" style="width:708px"/>
+     </a>
+    </figure>
+    <p class="" id="056990ce-3806-400a-8c02-b02b426ede29">
+     Then we had to draw a basic sketch in Fusion 360, this helps to uderstand the foam factor of the machine.
+    </p>
+    <br/>
+    <div class="column-list" id="d7c3e6b3-8d4b-4960-8467-b449a22dc4e3">
+     <div class="column" id="7b8e226b-60c4-4132-85bf-f5998c30a80d" style="width:50%">
+      <figure class="image" id="28d61175-ff76-4772-adad-140d68c83392">
+       <a href="Week 10 Mechanical and Machine Design/WhatsApp_Image_2024-03-29_at_10.04.02_AM.jpeg">
+        <img src="Week 10 Mechanical and Machine Design/WhatsApp_Image_2024-03-29_at_10.04.02_AM.jpeg" style="width:800px"/>
+       </a>
+      </figure>
+     </div>
+     <div class="column" id="16cd494d-3f7d-4824-818e-b2fe8a73f962" style="width:50%">
+      <figure class="image" id="98bc120f-318c-4f79-aa1a-c4e0d77b6b37">
+       <a href="Week 10 Mechanical and Machine Design/WhatsApp_Image_2024-03-29_at_10.04.01_AM.jpeg">
+        <img src="Week 10 Mechanical and Machine Design/WhatsApp_Image_2024-03-29_at_10.04.01_AM.jpeg" style="width:331px"/>
+       </a>
+      </figure>
+     </div>
+    </div>
+    <br/>
+    <p class="" id="a8df51eb-f6b2-46da-819d-aa8177cd2331">
+     Then we have divided the team to design the individual parts.
+    </p>
+    <h1 class="" id="202c4ced-5ab5-4bd7-a63c-ad04efc4c50d">
+     Individual Assignment - Cakerator 2000 - Electronics and Firmware
+    </h1>
+    <figure class="image" id="65fc643c-706a-4d7a-ba9c-908648f0ef65">
+     <a href="Week 10 Mechanical and Machine Design/NeoPI-W-v1.0.jpg">
+      <img src="Week 10 Mechanical and Machine Design/NeoPI-W-v1.0.jpg" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="block-color-gray_background callout" id="cf860e71-f6a5-4f9a-852b-62824ba4b889" style="white-space:pre-wrap;display:flex">
+     <div style="font-size:1.5em">
+      <span class="icon">
+       ➡️
+      </span>
+     </div>
+     <div style="width:100%">
+      We used the board which was already made for the MTM project. For the detailed documentation, follow the link below.
+     </div>
+    </figure>
+    <figure id="12b1ee91-cd94-4dae-8f12-4cd33664b4fe">
+     <div class="source">
+      https://github.com/saheenpalayi/NeoPI_Wireless
+     </div>
+    </figure>
+    <br/>
+    <br/>
+    <p class="" id="b510aa89-0068-474e-b953-90299445a9a7">
+     The project “Cakerator 2000” has been developed using the repo at
+     <code>
+      https://github.com/bdring/Grbl_Esp32/tree/main/Grbl_Esp32
+     </code>
+     , which is a specialized project that utilizes the ESP32 microcontroller to run GRBL, an open-source control software designed for CNC (Computer Numerical Control) machines. This project essentially adapts GRBL to leverage the advanced features of the ESP32 chip, such as Wi-Fi and Bluetooth connectivity, increased processing power, and more GPIO pins, which can be extremely beneficial for a wide range of CNC applications, from milling machines to laser cutters and beyond.
+    </p>
+    <figure class="image" id="8c380eee-8b1d-49a1-af45-18103dad74c6">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%203.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%203.png" style="width:1914px"/>
+     </a>
+    </figure>
+    <p class="" id="96754a28-1b5c-4019-aa55-5607d96ffe22">
+     The specific files you've mentioned,
+     <code>
+      Machine.h
+     </code>
+     and
+     <code>
+      Polar_coaster.h
+     </code>
+     , play crucial roles in configuring the GRBL software for specific hardware setups. Here's how they fit into the customization of your "Cakerator 2000" automatic icing machine:
+    </p>
+    <h3 class="" id="306586be-0c30-4299-a256-3fc36df7d4d1">
+     <code>
+      Machine.h
+     </code>
+    </h3>
+    <ul class="bulleted-list" id="7ab35db9-5a86-43ac-87b9-b78f9c0195b0">
+     <li style="list-style-type:disc">
+      <strong>
+       Purpose:
+      </strong>
+      This header file is essential for defining the general hardware configuration for a CNC machine running GRBL on an ESP32. It acts as a template where you can specify various parameters such as motor settings, axis configurations, limit switch behavior, and more.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="49127a26-01ad-48f1-8920-d1d60ba72857">
+     <li style="list-style-type:disc">
+      <strong>
+       Customization:
+      </strong>
+      For the Cakerator 2000, you would modify this file to match the mechanical and electronic specifics of your icing machine. This could include setting up the stepper motor parameters that drive the icing dispenser, configuring the axes to match the cake decorating area, and defining the limits and safety features to prevent the machine from moving beyond its operational boundaries.
+     </li>
+    </ul>
+    <figure class="image" id="177c4ae1-0348-47b5-99f9-bf3a9dd0848f">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%204.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%204.png" style="width:1436px"/>
+     </a>
+    </figure>
+    <h3 class="" id="248eac8d-8a77-44f7-81c8-0da979788e04">
+     <code>
+      Polar_coaster.h
+     </code>
+    </h3>
+    <ul class="bulleted-list" id="b660895f-1d86-4d62-973a-4cccda9219ec">
+     <li style="list-style-type:disc">
+      <strong>
+       Purpose:
+      </strong>
+      This file is an example of a specific machine configuration that demonstrates how to set up a CNC machine with a polar (rotary) axis, which is somewhat akin to the movements needed for cake decoration. It's tailored for projects where circular or radial patterns are essential, making it a potentially good starting point for the Cakerator 2000.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4dbba4af-3bf4-4ee8-a286-584720e53320">
+     <li style="list-style-type:disc">
+      <strong>
+       Customization:
+      </strong>
+      You would use
+      <code>
+       Polar_coaster.h
+      </code>
+      as a reference or a starting point for defining how the Cakerator 2000 moves the icing nozzle in circular patterns around a cake. Adjustments might include configuring the rotary axis to match the dimensions of the cakes you're decorating, tuning the speed for precise icing application, and setting up patterns specific to your decoration needs.
+     </li>
+    </ul>
+    <figure class="image" id="706a8bc6-c66d-4688-8aa4-e4a39534a6da">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%205.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%205.png" style="width:1455px"/>
+     </a>
+    </figure>
+    <h3 class="" id="a737aff6-61b7-42da-94b7-9ab11ea96e26">
+     Steps to Customize and Use
+     <code>
+      Machine.h
+     </code>
+     and
+     <code>
+      Polar_coaster.h
+     </code>
+     for the Cakerator 2000
+    </h3>
+    <ol class="numbered-list" id="8668daf5-00e0-4f24-beb1-8b03086671ae" start="1" type="1">
+     <li>
+      <strong>
+       Clone the Repository:
+      </strong>
+      First, you need to clone the GRBL_ESP32 repository to your local development environment to access the files.
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="a688b87e-b0c1-4f43-bbca-819c706f23d7"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">git clone &lt;https://github.com/bdring/Grbl_Esp32.git&gt;
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="09bcf9b7-7826-4c0b-ac7a-7ac00006208b" start="2" type="1">
+     <li>
+      <strong>
+       Understand the Default Configurations:
+      </strong>
+      Spend some time understanding how the default
+      <code>
+       Machine.h
+      </code>
+      and the example
+      <code>
+       Polar_coaster.h
+      </code>
+      are set up. This understanding will guide you in customizing these files for your specific hardware.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="15a5b9a4-e298-4676-9e96-fdef5e7793b4" start="3" type="1">
+     <li>
+      <strong>
+       Customize
+      </strong>
+      <code>
+       <strong>
+        Machine.h
+       </strong>
+      </code>
+      <strong>
+       :
+      </strong>
+      Based on your hardware's specifications (e.g., motors, axis layout, size), start modifying
+      <code>
+       Machine.h
+      </code>
+      to reflect the Cakerator 2000's setup. This will include setting up motor drivers, defining axis properties, and configuring limit switches.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0f9053a6-365c-4152-9041-1d7857d9dcf2" start="4" type="1">
+     <li>
+      <strong>
+       Adapt
+      </strong>
+      <code>
+       <strong>
+        Polar_coaster.h
+       </strong>
+      </code>
+      <strong>
+       for Circular Movements:
+      </strong>
+      Use
+      <code>
+       Polar_coaster.h
+      </code>
+      as a base to create a configuration that matches the rotational and linear movements needed for cake decorating. Adjust parameters for the rotary table that holds the cake and the linear axis that moves the icing nozzle.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="fc4997ef-45aa-48f7-95c2-3e8081475756" start="5" type="1">
+     <li>
+      <strong>
+       Test and Refine:
+      </strong>
+      After configuring the files, compile and upload the firmware to your ESP32 controller. Begin with simple test patterns to ensure that the machine moves as expected. Adjust the configurations as necessary to fine-tune the machine's performance.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="dd5f3a65-276c-4b0a-b964-794c367413f9" start="6" type="1">
+     <li>
+      <strong>
+       Develop Decoration Patterns:
+      </strong>
+      Finally, develop G-code patterns or software interfaces to design and implement the decoration patterns you wish to apply with the Cakerator 2000.
+     </li>
+    </ol>
+    <p class="" id="1f507102-5149-4655-99a4-632bcccaae23">
+     Using PlatformIO, an open-source ecosystem for IoT development, to work with the GRBL_Esp32 GitHub repository and to identify and configure pins as per a specific file in another repository involves several steps. PlatformIO simplifies the process of compiling and uploading firmware to microcontrollers. Here's how you can proceed:
+    </p>
+    <figure class="image" id="8ad2c1dc-a390-4b60-87cf-0f6df45fa2e5">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%206.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%206.png" style="width:1456px"/>
+     </a>
+    </figure>
+    <h3 class="" id="9c2a489e-359a-4042-aa54-fc9b2ced1e02">
+     Working with the GRBL_Esp32 Repository
+    </h3>
+    <ol class="numbered-list" id="5a0172a1-ef9b-4a9d-ad7b-32a6b1eee702" start="1" type="1">
+     <li>
+      <strong>
+       Install PlatformIO
+      </strong>
+      : If you haven't already, download and install PlatformIO IDE or PlatformIO Core. The IDE can be used as a plugin for VSCode or Atom, offering a graphical interface and easier project management.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b50ee4c4-86f8-44c8-9727-364177db764a" start="2" type="1">
+     <li>
+      <strong>
+       Clone the GRBL_Esp32 Repository
+      </strong>
+      : Use git to clone the GRBL_Esp32 repository to your local machine.
+      <script crossorigin="anonymous" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js">
+      </script>
+      <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" referrerpolicy="no-referrer" rel="stylesheet"/>
+      <pre class="code" id="6af96636-346f-4ca5-9f2b-0effa9144445"><code class="language-Shell" style="white-space:pre-wrap;word-break:break-all">git clone &lt;https://github.com/bdring/Grbl_Esp32.git&gt;
+</code></pre>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="f7a00b51-c183-47e1-b7cc-11c11f9068e7" start="3" type="1">
+     <li>
+      <strong>
+       Create a New Project in PlatformIO
+      </strong>
+      : Open PlatformIO and start a new project. Select the ESP32 as your board and specify the location of the cloned repository as the project directory.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e6cb3839-4a53-4cd9-905c-800c14a30dec" start="4" type="1">
+     <li>
+      <strong>
+       Configure the Project for GRBL_Esp32
+      </strong>
+      :
+      <ul class="bulleted-list" id="b66b09af-0fff-4cbd-b440-aaf9b6def229">
+       <li style="list-style-type:disc">
+        Copy the necessary files from the GRBL_Esp32 repository into your PlatformIO project folder.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="a4b3bb2d-21c3-4c69-a921-de525488fe89">
+       <li style="list-style-type:disc">
+        Ensure
+        <code>
+         Machine.h
+        </code>
+        and any other files you plan to customize are included in the src folder of your PlatformIO project.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="1f996661-8c1a-4ee4-b82f-f06d433babe5" start="5" type="1">
+     <li>
+      <strong>
+       Customization
+      </strong>
+      :
+      <ul class="bulleted-list" id="851cfbf0-f5e5-430b-9314-bf0fb956edaf">
+       <li style="list-style-type:disc">
+        Modify
+        <code>
+         Machine.h
+        </code>
+        and/or create a new configuration header file based on
+        <code>
+         Polar_coaster.h
+        </code>
+        or any other template file you're using from the GRBL_Esp32 repository, tailored for your Cakerator 2000.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6792e14a-65a0-4d88-9070-4622c25fddf0" start="6" type="1">
+     <li>
+      <strong>
+       Compile and Upload
+      </strong>
+      :
+      <ul class="bulleted-list" id="9348d79f-f3e7-4085-a089-54e432b15ae1">
+       <li style="list-style-type:disc">
+        Use PlatformIO's build system to compile your project.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="bf86293f-b57c-4f49-a912-4b15b8af4a54">
+       <li style="list-style-type:disc">
+        Upload the firmware to your ESP32 board using PlatformIO's upload tool.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <h3 class="" id="ae051984-f091-4604-844e-2664bd1b7f07">
+     Identifying and Configuring Pins Using the NeoPI_Wireless Repository
+    </h3>
+    <ol class="numbered-list" id="09504e75-06b6-4c18-a08f-07cc05063950" start="1" type="1">
+     <li>
+      <strong>
+       Review the Pin Configuration
+      </strong>
+      :
+      <ul class="bulleted-list" id="f3ee22e7-0147-45b3-991b-d9a5114d7897">
+       <li style="list-style-type:disc">
+        Open the
+        <code>
+         NeoPI_W_v1.h
+        </code>
+        file from the
+        <a href="https://github.com/saheenpalayi/NeoPI_Wireless/blob/main/Firmware/NeoPI_W_v1.h">
+         NeoPI_Wireless repository
+        </a>
+        .
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="d2f862c6-1a43-4548-beff-f104cc22659e">
+       <li style="list-style-type:disc">
+        This file contains definitions for various pins and their roles in the project. It's critical to understand these roles to properly map them onto your hardware.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="38c9e893-459c-4691-ac49-9cbe73fe44a8" start="2" type="1">
+     <li>
+      <strong>
+       Adapt Pin Configuration for Your Project
+      </strong>
+      :
+      <ul class="bulleted-list" id="07bf19c7-dfe1-42c6-868f-99bdf3f303d4">
+       <li style="list-style-type:disc">
+        Based on the pin definitions in
+        <code>
+         NeoPI_W_v1.h
+        </code>
+        , you'll need to adjust the pin assignments in your GRBL_Esp32 project (likely within
+        <code>
+         Machine.h
+        </code>
+        or your specific machine configuration file) to match the physical hardware connections of the Cakerator 2000.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="59610c59-64eb-4f22-ab13-8e7f787183df" start="3" type="1">
+     <li>
+      <strong>
+       PlatformIO Project Update
+      </strong>
+      :
+      <ul class="bulleted-list" id="8ad957f9-5734-4f5c-b96f-d1b9181a2161">
+       <li style="list-style-type:disc">
+        After identifying the necessary pin configurations and making adjustments, update your PlatformIO project files accordingly. This may involve editing the
+        <code>
+         platformio.ini
+        </code>
+        file for any specific library dependencies or environment configurations, in addition to your source code changes.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b2859f74-8ece-4cf8-b0a5-f80619e940ce" start="4" type="1">
+     <li>
+      <strong>
+       Compile and Upload Again
+      </strong>
+      :
+      <ul class="bulleted-list" id="8ac99d2f-f51b-453f-8530-6915c9f3c2d1">
+       <li style="list-style-type:disc">
+        With the new pin configurations in place, compile your project again using PlatformIO.
+       </li>
+      </ul>
+      <ul class="bulleted-list" id="d3b36486-03e0-4937-860f-6f9b36623d79">
+       <li style="list-style-type:disc">
+        Upload the firmware to your hardware and conduct tests to ensure the pin mappings are correctly implemented and functional.
+       </li>
+      </ul>
+     </li>
+    </ol>
+    <p class="" id="22cf9845-3159-4285-a784-9f346a350826">
+     Throughout this process, it's vital to thoroughly test each change to ensure compatibility with your hardware setup and desired functionality. PlatformIO's serial monitor and debugging tools can be very helpful for troubleshooting any issues that arise during development.
+    </p>
+    <br/>
+    <figure class="image" id="fad703c5-08ac-491b-baab-f5be6cbb6861">
+     <a href="Week 10 Mechanical and Machine Design/Untitled%207.png">
+      <img src="Week 10 Mechanical and Machine Design/Untitled%207.png" style="width:708px"/>
+     </a>
+    </figure>
+    <br/>
+    <p class="" id="4a98e4bb-bf5d-4a30-8a10-d5f402d530bb">
+     The GRBL_Esp32 repository is a notable fork of the original GRBL project, tailored for the ESP32 microcontroller, which offers a significant upgrade in terms of processing power, memory, and connectivity options compared to the microcontrollers traditionally used with GRBL. One of the standout features of this adaptation is its support for a Web UI (Web User Interface), enabling users to interact with the CNC machine over a network. This feature is especially useful for projects like the Cakerator 2000, where ease of use and flexibility in design and operation can greatly enhance the user experience.
+    </p>
+    <h3 class="" id="22e70dd8-1559-48d3-b83e-099163be766c">
+     Use of Web UI in GRBL_Esp32
+    </h3>
+    <p class="" id="1d6bd623-cf3b-4c4c-999c-527abba89d8a">
+     The Web UI allows users to perform a wide range of actions remotely and wirelessly, which includes, but is not limited to, uploading G-code files, monitoring the machine's status, and controlling its operations in real-time. Here's how you can leverage the Web UI for developing and uploading G-codes for making designs:
+    </p>
+    <h3 class="" id="cd8d7df4-ba05-4b08-8b8b-96e807b184f1">
+     Setting Up the Web UI
+    </h3>
+    <ol class="numbered-list" id="2b984acf-88ae-4d8c-8612-2365f4ce6fdc" start="1" type="1">
+     <li>
+      <strong>
+       Connect the ESP32 to Your Network
+      </strong>
+      : After flashing the GRBL_Esp32 firmware to your ESP32, configure it to connect to your Wi-Fi network. This is usually done through a one-time setup over a serial connection, where you provide your network's SSID and password.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b4ade11f-13d4-40b1-aaac-bc616023c3e6" start="2" type="1">
+     <li>
+      <strong>
+       Access the Web UI
+      </strong>
+      : Once the ESP32 is connected to your network, it will be accessible via a web browser. You can find its IP address either from your router's DHCP client list or it might be displayed on the console (serial monitor) of the ESP32 upon startup.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3cd3f747-1a60-46c5-8813-c7f177467cb0" start="3" type="1">
+     <li>
+      <strong>
+       Navigate the Web Interface
+      </strong>
+      : The Web UI is typically straightforward, offering sections for machine control, job status, file management, and system settings. Its responsive design should work well on both desktop and mobile browsers.
+     </li>
+    </ol>
+    <h3 class="" id="5a3e0521-3b92-4cb7-8536-105e7647a9e9">
+     Developing and Uploading G-Codes
+    </h3>
+    <ol class="numbered-list" id="11f5aefb-42e9-47c9-ab58-535bdf279719" start="1" type="1">
+     <li>
+      <strong>
+       Design Your Cake Decorations
+      </strong>
+      : Using any G-code generating software, design the patterns or text you want to decorate your cake with. Ensure the designs are compatible with the motion capabilities of the Cakerator 2000.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="3f154c38-cdf6-4842-b0df-5564aaafec6b" start="2" type="1">
+     <li>
+      <strong>
+       Upload G-Code Files
+      </strong>
+      : Within the Web UI, navigate to the file management or G-code upload section. Here, you can select and upload the G-code files from your computer to the ESP32's onboard storage or an attached SD card, depending on the setup.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="40f2b91e-7a54-4384-ab32-c659c6b4f96c" start="3" type="1">
+     <li>
+      <strong>
+       Select and Run Your Design
+      </strong>
+      : After uploading, you can select the G-code file you wish to execute from the file list in the Web UI. Initiating the job typically involves clicking a "start" or "run" button within the interface.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="72ce6a01-c536-4052-b5ee-2e057593ab39" start="4" type="1">
+     <li>
+      <strong>
+       Monitor and Control the Job
+      </strong>
+      : While the Cakerator 2000 is operating, you can use the Web UI to monitor its progress, pause or stop the job if necessary, and even adjust certain parameters like feed rate and spindle speed in real-time, as your setup and firmware configuration allow.
+     </li>
+    </ol>
+    <h2 class="" id="1758481d-662c-46a6-adfc-4cf1dd85b5d5">
+     <mark class="highlight-blue">
+      <strong>
+       GRBL
+      </strong>
+     </mark>
+    </h2>
+    <figure class="image" id="c1a0cabb-f491-4117-a366-16f054d94f02">
+     <a href="Week 10 Mechanical and Machine Design/GRBL_PIC_02.jpg">
+      <img src="Week 10 Mechanical and Machine Design/GRBL_PIC_02.jpg" style="width:708px"/>
+     </a>
+    </figure>
+    <figure class="image" id="aed6f9e0-585f-44a4-8d5e-ce7cbfe521c2">
+     <a href="Week 10 Mechanical and Machine Design/GRBL_PIC_01.jpg">
+      <img src="Week 10 Mechanical and Machine Design/GRBL_PIC_01.jpg" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="be145d73-f391-46f2-b8a9-446b63f23f67">
+     Benefits of Using the Web UI for Cakerator 2000
+    </h3>
+    <ul class="bulleted-list" id="9000c957-2119-46d4-a913-36642b070d24">
+     <li style="list-style-type:disc">
+      <strong>
+       Wireless Operation
+      </strong>
+      : Eliminates the need for a direct physical connection between the computer and the machine, allowing for more flexibility in the setup.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="882ddbe0-6f2d-47d7-8275-ee5406d217f5">
+     <li style="list-style-type:disc">
+      <strong>
+       Ease of Use
+      </strong>
+      : Offers a user-friendly interface for uploading and managing G-code files, making it accessible even for users with limited CNC experience.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="9a944247-01e3-49ed-9815-ca8f2710e03b">
+     <li style="list-style-type:disc">
+      <strong>
+       Real-Time Control and Monitoring
+      </strong>
+      : Provides immediate feedback on the machine's status and allows for on-the-fly adjustments, which is crucial for fine-tuning the cake decorating process.
+     </li>
+    </ul>
+    <br/>
+    <h2 class="" id="3149443b-edf6-439b-974a-8416ecd1fb19">
+     <mark class="highlight-blue">
+      <strong>
+       Testing
+      </strong>
+     </mark>
+    </h2>
+    <p class="" id="f04956e4-4919-4920-8fa5-71194949d08c">
+     After the GRBL configuration, we tested our machine with Tomato sauce, which was easily available at nearby store and it has some viscosity, just like chocolate Ganache
+    </p>
+    <figure id="9d54c3d8-0835-44ce-b5b1-62f3ee0627fc">
+     <br/>
+     <div style="position: relative; display: flex; justify-content: center; align-items: center;">
+      <video controls="" playsinline="" preload="metadata" src="./Week 10 Mechanical and Machine Design/WhatsApp_Video_2024-04-10_at_11.41.07_AM.mp4" style="display: block; width: 80%; background-color: rgba(255, 255, 255, 0.03);">
+      </video>
+     </div>
+     <br/>
+    </figure>
+    <p class="" id="d58a6b5b-ca88-4592-b7bc-9c53db8b61e5">
+     Playback speed 4x  👆
+    </p>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
