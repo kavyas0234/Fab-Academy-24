@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 18: Inventions, Intellectual Property and Rights
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="9301c705-0d21-4734-9ab9-f727a1e03162">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1598520106830-8c45c2035460?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 18: Inventions, Intellectual Property and Rights
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h1 class="" id="882402e1-834d-43fa-a2dc-386d0f4c5efd">
+     Assignments for This Week
+    </h1>
+    <ol class="numbered-list" id="67cca372-f172-4768-b346-8dd6311f4579" start="1" type="1">
+     <li>
+      Develop a plan for the dissemination of your final project.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="d6b3a632-0cf3-45ed-bf5e-e58c343104d6" start="2" type="1">
+     <li>
+      Prepare drafts of your summary slide (presentation.png, 1920x1080) and video clip (presentation.mp4, 1080p HTML5, &lt;1 minute, &lt;10 MB) and put them in your root directory.
+     </li>
+    </ol>
+    <h2 class="" id="63478853-51e4-4d10-8f33-10d0b706b73d">
+     Invention
+    </h2>
+    <p class="" id="d9f33496-c579-4af3-946a-ca1e3a3796d6">
+     An invention is the outcome of research that has the potential for commercial use. For an invention to be granted a patent, it must meet certain criteria set by patent law. A patent is a legal document that confers ownership rights to the inventor or patent holder. It serves to protect the invention from being exploited by others without permission. Typically, a patent grants exclusive rights to the inventor for a limited period, commonly 20 years, during which they can decide how the invention is used or licensed to others. This legal protection encourages innovation by providing inventors with incentives to invest in research and development.
+    </p>
+    <h2 class="" id="b25f4807-14cd-4eac-93fc-e491d39e7007">
+     Intellectual Property (IP)
+    </h2>
+    <p class="" id="386af642-2d23-483c-9182-24984e01eceb">
+     Intellectual property (IP) refers to a category of property that includes intangible creations of the human intellect. These creations are products of the mind and can include inventions, literary and artistic works, designs, and symbols used in commerce. IP is protected by legal mechanisms such as patents, copyrights, trademarks, and trade secrets. These protections enable creators and innovators to benefit financially or otherwise from their creations.
+    </p>
+    <h3 class="" id="49c67618-d8a8-4106-93a4-2ca6fadf88f4">
+     There Are Two Main Types of Intellectual Property Rights
+    </h3>
+    <p class="" id="009ec9cd-a7de-44d0-827c-df81577433b1">
+     <strong>
+      a) Industrial Property Rights:
+     </strong>
+    </p>
+    <p class="" id="24b34e05-8d26-41c2-9f7f-57efc127c0f8">
+     These rights include patents for inventions, trademarks for goods and services, industrial designs, and geographical indications. Industrial property rights protect innovations and distinctive signs used in commerce.
+    </p>
+    <p class="" id="4f06ca96-1794-4f35-9d86-f2de7684ba39">
+     <strong>
+      The two most commonly used industrial property rights are:
+     </strong>
+    </p>
+    <ul class="bulleted-list" id="b1a3efea-9401-43fc-b27a-5e67c2fbbc43">
+     <li style="list-style-type:disc">
+      <strong>
+       Patents:
+      </strong>
+      Patents grant their owners the exclusive legal right to prevent others from making, using, selling, and importing an invention for a limited period of time. In exchange for this exclusive right, the inventor discloses the details of the invention publicly. Patents are crucial in industries where innovation is a competitive advantage.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8fbd012a-1c8f-43ac-baa9-49fb6acdbabd">
+     <li style="list-style-type:disc">
+      <strong>
+       Trademarks:
+      </strong>
+      A trademark is a distinctive sign, symbol, or expression that identifies products or services of a particular source from those of others. It helps consumers distinguish between products in the market and protects the brand identity of businesses. Trademarks can be displayed on packaging, labels, or the products themselves, and they are legally recognized as intellectual property.
+     </li>
+    </ul>
+    <p class="" id="e4ec2036-c0f8-4169-882d-0a1a8ba9d42e">
+     <strong>
+      Other forms of intellectual property include:
+     </strong>
+    </p>
+    <ul class="bulleted-list" id="fe60ff13-d31c-4a3b-a20e-f1ac6dd4a266">
+     <li style="list-style-type:disc">
+      <strong>
+       Trade Secrets:
+      </strong>
+      Trade secrets are confidential practices, processes, designs, formulas, or other proprietary information that give a business a competitive advantage. Unlike patents, trade secrets are not disclosed publicly; they are kept confidential to maintain their economic value.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="873ff9a2-2af5-44d4-9707-6c1cbea78267">
+     <li style="list-style-type:disc">
+      <strong>
+       Contracts/Nondisclosure Agreements (NDAs):
+      </strong>
+      A nondisclosure agreement is a legal contract between at least two parties that outlines confidential information shared between them. It restricts access to or disclosure of the confidential information to third parties. NDAs are commonly used to protect sensitive information in various contexts, such as business partnerships, employment agreements, and research collaborations.
+     </li>
+    </ul>
+    <p class="" id="c1cf0c69-3760-44d9-acf5-c54229a3b31e">
+     These intellectual property rights, including patents, trademarks, trade secrets, and NDAs, play crucial roles in protecting innovation, fostering creativity, and providing incentives for businesses and individuals to invest in research and development.
+    </p>
+    <p class="" id="fa2c6b5f-934f-4aef-a818-838ff1cb142b">
+     <strong>
+      b) Copyright:
+     </strong>
+    </p>
+    <p class="" id="bffd5a15-e668-4619-87d5-6b0c7aff3f2a">
+     Copyright protects literary and artistic works, such as books, music, paintings, films, and computer programs. It grants creators exclusive rights to control the use of their works, including reproduction, distribution, and adaptation.
+    </p>
+    <p class="" id="2f91ee89-6be1-4e8e-83b0-4879a6c6dc3d">
+     The IP system aims to strike a balance between protecting the rights of innovators and creators and promoting the public interest. By providing legal frameworks for IP protection, countries encourage innovation, creativity, and economic growth while ensuring that society benefits from new ideas and cultural works.
+    </p>
+    <h2 class="" id="63cbdccb-996e-4afa-bd1c-12db81904fc0">
+     Open Source License
+    </h2>
+    <p class="" id="d7cf547c-e9f1-4225-9161-9fc658044ce2">
+     Open-source licenses enable the use, modification, and sharing of software and other products under specified terms. Users and companies can freely access and adapt the source code, blueprint, or design for customization, troubleshooting, or curiosity. While open-source software is often available at no cost, this isn't a requirement.
+    </p>
+    <p class="" id="d3e70f9d-ff49-4c6c-a73c-a869f622aab5">
+     Not all licenses permitting non-commercial use are considered open-source. Many open-source licenses impose conditions like maintaining authorship credits and redistributing software under the same terms (copyleft). The Open Source Initiative (OSI) approves licenses based on their Open Source Definition (OSD).
+    </p>
+    <p class="" id="2197759b-6c93-46f2-8206-d3aee7d3528b">
+     For details on specific types of open-source licenses, you can refer to the OSI's list here: Open Source Licenses.
+    </p>
+    <h2 class="" id="b85ad97c-a1e1-49bb-9b54-b7b44d512e43">
+     Creative Commons
+    </h2>
+    <p class="" id="5d631d00-9205-4f9a-9e1b-48ebd55fe911">
+     Creative Commons licenses offer a flexible way for creators to share their work under specific terms. Here's a step-by-step guide to obtaining a Creative Commons license:
+    </p>
+    <ol class="numbered-list" id="ac170997-8e56-4e4f-9c0b-c4ccdd05a25f" start="1" type="1">
+     <li>
+      Visit
+      <a href="https://creativecommons.org/">
+       Creative Commons
+      </a>
+      .
+     </li>
+    </ol>
+    <ol class="numbered-list" id="8eab0137-28d0-4319-9eeb-d3a5178779d7" start="2" type="1">
+     <li>
+      Navigate to "Share Your Work."
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b0f51202-99a4-4e25-94f7-d9e6f57d0331" start="3" type="1">
+     <li>
+      Scroll down to "Choose a License" and click "Get Started."
+     </li>
+    </ol>
+    <ol class="numbered-list" id="f0643df2-9802-4383-b537-56e6c0f86a24" start="4" type="1">
+     <li>
+      Select the specifications you want for your license (e.g., Attribution, NonCommercial, ShareAlike).
+     </li>
+    </ol>
+    <ol class="numbered-list" id="b38b4616-2217-4cfa-83e4-543a493e5883" start="5" type="1">
+     <li>
+      Copy the generated license code and paste it onto your website, code, or any digital media where you want to apply the license.
+     </li>
+    </ol>
+    <p class="" id="c77da222-c266-453b-90dd-c1456ca6f3f3">
+     This license allows others to use, share, and build upon your work under the conditions you specify. For more details and to explore additional features, visit
+     <a href="https://creativecommons.org/">
+      Creative Commons
+     </a>
+     .
+    </p>
+    <h3 class="" id="5a4184d8-041f-4df2-9f4b-38c6e4b092df">
+     User Rights
+    </h3>
+    <p class="" id="f6cf7172-5366-41aa-9af9-3580ea5017e3">
+     Creative Commons licenses provide several fundamental permissions that apply to all types of content licensed under them. Here are the core user rights granted by every CC license:
+    </p>
+    <ul class="bulleted-list" id="3bc6719d-0d33-4688-adf7-e4135cc3edd9">
+     <li style="list-style-type:disc">
+      <strong>
+       Copy the Work:
+      </strong>
+      This includes downloading, uploading, photocopying, and scanning the work.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="02dca67d-f632-4109-bd52-5b9fc742f4ef">
+     <li style="list-style-type:disc">
+      <strong>
+       Distribute the Work:
+      </strong>
+      Users can distribute copies of the work to others, such as teachers, students, parents, or the community.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="bea933e6-72f2-49c8-b2b3-ea6ee42c2bcb">
+     <li style="list-style-type:disc">
+      <strong>
+       Display or Perform the Work:
+      </strong>
+      This allows for displaying or performing the work publicly, such as playing a sound recording or film in class or staging a play.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1b1ef2c1-6892-456d-8082-e567d9752f86">
+     <li style="list-style-type:disc">
+      <strong>
+       Communicate the Work:
+      </strong>
+      Users can make the work available online, whether on a school intranet, learning management system, or a class blog.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8f943ed2-d1ee-43cf-917a-416466103bab">
+     <li style="list-style-type:disc">
+      <strong>
+       Format Shift Verbatim Copies:
+      </strong>
+      This allows users to convert the work into different formats for personal use, such as copying music onto a CD or a film onto a DVD.
+     </li>
+    </ul>
+    <p class="" id="617ba38d-851c-47b3-9c24-72bf55ad6bb8">
+     Additionally, some CC licenses may include other specific permissions depending on the particular license chosen by the creator. These fundamental user rights form the basis for how CC-licensed material can be used by others under the terms specified by the license.
+    </p>
+    <h3 class="" id="fa12d276-7a4c-4f7d-b979-b8b085b9e5a9">
+     User Obligations
+    </h3>
+    <p class="" id="4a4315b4-a843-4fe9-b689-b03014f1c23b">
+     When using any Creative Commons (CC) licensed material, it's important to adhere to certain requirements and restrictions:
+    </p>
+    <p class="" id="3ebcc4ce-370d-4624-bcb1-9189c2b6caf6">
+     <strong>
+      Requirements:
+     </strong>
+    </p>
+    <ul class="bulleted-list" id="7127b627-a76d-4ab2-b252-2ad7e0b24df4">
+     <li style="list-style-type:disc">
+      <strong>
+       Attribute the Creator:
+      </strong>
+      Always give credit to the creator of the work. This involves providing appropriate attribution according to the guidelines specified in the license.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8f5238de-a972-4304-af21-a74b575dab1d">
+     <li style="list-style-type:disc">
+      <strong>
+       Obtain Permission for Beyond-License Uses:
+      </strong>
+      If you intend to use the work in ways not permitted by the CC license (e.g., for commercial purposes or creating derivative works when not allowed), you must obtain explicit permission from the creator.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="b43274a3-1a2c-4b18-93a4-b714ba3c0446">
+     <li style="list-style-type:disc">
+      <strong>
+       Maintain Copyright Notices:
+      </strong>
+      Ensure that any copyright notices provided by the creator are retained on all copies of the work.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="cfc01f84-d809-4658-ace5-b71b10e55229">
+     <li style="list-style-type:disc">
+      <strong>
+       Link to the License:
+      </strong>
+      Include a link to the specific CC license under which the work is licensed, indicating the terms under which the work is used.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6bc012f9-0b8e-43d8-b90f-7a5f7112ff0c">
+     <li style="list-style-type:disc">
+      <strong>
+       Acknowledge Changes:
+      </strong>
+      If you modify the work, acknowledge the original source and indicate that changes have been made.
+     </li>
+    </ul>
+    <p class="" id="caf3cf5d-4e20-41e3-9348-5a4af1ed0ee6">
+     <strong>
+      Restrictions:
+     </strong>
+    </p>
+    <ul class="bulleted-list" id="aaaf9bd8-25a7-4482-b816-b85c48116983">
+     <li style="list-style-type:disc">
+      <strong>
+       Do Not Alter License Terms:
+      </strong>
+      You are not allowed to change the terms of the CC license that applies to the work.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="f9aada09-fa90-425c-8c13-cb2a0663f7f0">
+     <li style="list-style-type:disc">
+      <strong>
+       Do Not Damage Creator's Reputation:
+      </strong>
+      Avoid using the work in a way that could harm the reputation of the creator.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a127815b-dd15-4864-9b1c-d357396df135">
+     <li style="list-style-type:disc">
+      <strong>
+       No Endorsement Implication:
+      </strong>
+      Do not imply that the creator endorses or supports you or your use of the work unless explicitly stated by the creator.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="36924f42-d9fc-48eb-a9b5-7c7ffa8cb070">
+     <li style="list-style-type:disc">
+      <strong>
+       No Technological Restrictions:
+      </strong>
+      Do not add any digital rights management (DRM) or other technologies that would restrict others from using the work according to the terms of the CC license.
+     </li>
+    </ul>
+    <h2 class="" id="c86ca329-bfec-4ce9-913c-05c448bf43a1">
+     Choosing the Right License
+    </h2>
+    <p class="" id="14616267-a0a1-4a0b-ac6b-e76a60fb6604">
+     I've decided to opt for a Creative Commons license for my project because it's inspired. My goal is for people to use the information and project files for educational purposes rather than commercial gain.
+    </p>
+    <h3 class="" id="1669e190-e12b-4bc3-99ff-0218142bce99">
+     For DIS-CARD
+    </h3>
+    <p class="" id="f4163ea2-b06b-402d-a787-278a93b2a525">
+     I have added the following Creative Commons licenses:
+    </p>
+    <ul class="bulleted-list" id="778f5b7f-1252-4ccc-92f1-0e4580a161bd">
+     <li style="list-style-type:disc">
+      <strong>
+       Attribution (BY):
+      </strong>
+      You must credit the creator, the title, and the license the work is under. This is compulsory for all Creative Commons licenses.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="bb8fd42e-ae5c-40e3-b3d6-951effc1cd35">
+     <li style="list-style-type:disc">
+      <strong>
+       Non-commercial (NC):
+      </strong>
+      Any use of the work must be for non-commercial purposes only. For example, file sharing, educational use, and film festivals are all allowed, but advertising and for-profit uses are not.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="78be69c3-3a88-4e02-abbd-93183c61d043">
+     <li style="list-style-type:disc">
+      <strong>
+       Share Alike (SA):
+      </strong>
+      Any new work produced using this material must be made available under the same license as the original work. For example, if you remix a work under an Attribution-Share Alike license, you have to release the new work you create under an Attribution-Share Alike license.
+     </li>
+    </ul>
+    <h3 class="" id="19417891-f8ee-4dc0-bad2-27cd8ec4a357">
+     For Creating the License
+    </h3>
+    <p class="" id="3971cc9b-935e-455a-82ec-93d1e22302d4">
+     Visit
+     <a href="https://chooser-beta.creativecommons.org/">
+      Creative Commons License Chooser
+     </a>
+     .
+    </p>
+    <p class="" id="64bc1176-bd8b-45a0-8a22-bc72b2f73bca">
+     Choose the right license for your work. I am choosing CC BY-NC-SA 4.0.
+    </p>
+    <p class="" id="f0090f24-7aab-409e-9709-f31e7335c58e">
+     Add your work details and get your license.
+    </p>
+    <p class="" id="9501fd9d-2a65-413b-8167-73b76cd4e775">
+     You will get your license mentioned below:
+    </p>
+    <p class="" id="9bb28444-be81-4d04-942a-d1978e419e6a">
+     <strong>
+      Choosing Right License
+     </strong>
+    </p>
+    <p class="" id="d4a62ffb-0fc1-4fd7-bfa2-3ea82be998eb">
+     I've decided to opt for a Creative Commons license for my project because it's inspired. My goal is for people to use the information and project files for educational purposes rather than commercial gain.
+    </p>
+    <figure class="image" id="fe3342ec-bf4a-4b8b-9fd3-6b9fa9de4e93">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/Untitled.png">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/Untitled.png"/>
+     </a>
+    </figure>
+    <h3 class="" id="dea3016c-ac52-4cf3-a94d-8813b9bd0da9">
+     <strong>
+      For Breathing Library - Swasa
+     </strong>
+    </h3>
+    <p class="" id="ee833cc2-5f67-4014-8201-7914e584de51">
+     i have added the following creative commons:
+    </p>
+    <figure class="image" id="e5038fbd-3d8c-4e54-919a-66df1dbf8c79">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/b1f63cb2-b6a9-410f-9dae-02961204559e.png">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/b1f63cb2-b6a9-410f-9dae-02961204559e.png" style="width:700px"/>
+     </a>
+    </figure>
+    <p class="" id="b330cd7e-d8ff-4061-98cd-afe972d19d8c">
+     <strong>
+      Attribution (BY)
+     </strong>
+    </p>
+    <p class="" id="75ff3c4f-fd98-4762-9896-f4aa0f724486">
+     You must credit the creator, the title, and the license the work is under. This is compulsory for all Creative Commons licenses.
+    </p>
+    <figure class="image" id="655818cd-2e59-47f4-b599-9366f07052d6">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/f1d7a8bd-230a-4b21-bc16-35b71897f225.png">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/f1d7a8bd-230a-4b21-bc16-35b71897f225.png"/>
+     </a>
+    </figure>
+    <p class="" id="b1870888-f148-4fe8-801c-73127b65d1f3">
+     <strong>
+      Non-commercial (NC)
+     </strong>
+    </p>
+    <p class="" id="80f6c804-9fbf-4f54-a4b0-0c332c07a23c">
+     Any use of the work must be for non-commercial purposes only. For example, file sharing, educational use and film festivals are all allowed, but advertising and for-profit uses are not.
+    </p>
+    <figure class="image" id="c2a5f75b-8783-42ac-8e3d-c731af3734a9">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/28806bcd-3423-4849-8806-88f72b00c7fb.png">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/28806bcd-3423-4849-8806-88f72b00c7fb.png"/>
+     </a>
+    </figure>
+    <p class="" id="b84e6559-fc99-4ecb-845c-05f9fbfbf5a8">
+     <strong>
+      Share Alike (SA)
+     </strong>
+    </p>
+    <p class="" id="20f842eb-a40b-4521-b18e-7e83415ee827">
+     Any new work produced using this material must be made available under the same license as the original work. For example, if you remix a work under an Attribution-Share Alike license, you have to release the new work you create under an Attribution-Share Alike license.
+    </p>
+    <figure class="image" id="4580fa1e-545b-4d01-91c1-4453782d7b83">
+     <a href="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/adeb8679-ab2a-44c1-bb38-c85154f87fc6.png">
+      <img src="https://fabacademy.org/2024/labs/kochi/students/midhun-joseph/assignments/week18/Invention%20Intellectual%20Property%20and%20Income/adeb8679-ab2a-44c1-bb38-c85154f87fc6.png"/>
+     </a>
+    </figure>
+    <h3 class="" id="eae57988-0bcf-4aff-9742-fbcca179f657">
+     <strong>
+      For creating the license
+     </strong>
+    </h3>
+    <ol class="numbered-list" id="8da2b282-b43d-4468-81e4-3fe2501bdb72" start="1" type="1">
+     <li>
+      visit
+      <p class="" id="7d686d87-48f2-42af-acdb-d37190ecdc7a">
+       <a href="https://chooser-beta.creativecommons.org/">
+        https://chooser-beta.creativecommons.org/
+       </a>
+      </p>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="62d384eb-6e41-49a2-a8e4-735f4f782f45" start="2" type="1">
+     <li>
+      Choose the right licence for my work
+      <strong>
+       CC BY-NC-SA 4.0
+      </strong>
+      <a href="#" class="image"><img src="Week 18 Inventions, Intellectual Property and Righ/p1.png" alt="" /></a></a>
+      </figure>
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6b5dafe6-3bbb-48ab-b888-1eb4343c9649" start="3" type="1">
+     <li>
+      Add your work details and get your licence
+     </li>
+    </ol>
+    <a href="#" class="image"><img src="Week 18 Inventions, Intellectual Property and Righ/p2.png" alt="" /></a></a>
+    </figure>
+    <p class="" id="7d3e6634-6d00-40fd-a914-2deafad8a496">
+     You will get your license
+    </p>
+    <a href="#" class="image"><img src="Week 18 Inventions, Intellectual Property and Righ/p3.png" alt="" /></a>
+    </a>
+    </figure>
+    <p class="" id="c71bee71-a2b7-472d-a158-c3c9a88a4635">
+     this license is mentioned below
+    </p><p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://fabacademy.org/2024/labs/kochi/students/kavya-s/final.html">Breathing Library - Swasa</a> by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://www.linkedin.com/in/kavya-sreekanth-ph-d-35b9a1201/">Kavya Sreekanth</a> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+     </div>
+     <br/>
+    </figure>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
