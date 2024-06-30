@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 16: APPLICATIONS AND IMPLICATIONS
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="94eb7c0e-0f43-4aab-be59-b5e18188dec5">
+   <header>
+    <h1 class="page-title">
+     Week 16:
+     <strong>
+      APPLICATIONS AND IMPLICATIONS
+     </strong>
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h3 class="" id="929c2c62-e8f3-4e8e-9317-f93de759b95f">
+     1. What will it do?
+    </h3>
+    <p class="" id="d793c373-251b-4633-b2d0-46e3029d5679">
+     The "Breathing Library - Swasa" project is designed to be a multifunctional, sustainable installation that integrates various features beneficial to a library environment. It will act as a bookshelf, provide a relaxing reading light, purify the air, facilitate CO2 removal, offer a community reading spot, and produce algal protein feed. Additionally, it will incorporate advanced manufacturing and monitoring techniques such as 3D printing, CNC machining, laser cutting, electronics production, Web UI, and real-time monitoring.
+    </p>
+    <figure class="image" id="6abb2bfa-c76f-4683-8122-fef333d08d60">
+     <a href="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled.png">
+      <img src="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled.png" style="width:529px"/>
+     </a>
+    </figure>
+    <h3 class="" id="eb1f28e2-2edc-43dd-923a-db368136041f">
+     2. Who's done what beforehand?
+    </h3>
+    <p class="" id="d4e1cac9-eb0b-4eb2-ab0e-be922363e420">
+     There have been various initiatives and projects focusing on integrating sustainable technologies into community spaces. Examples include:
+    </p>
+    <ul class="bulleted-list" id="7f4b6b15-7e8a-4eac-95c5-94ecf71d45e8">
+     <li style="list-style-type:disc">
+      Urban vertical gardens for air purification and CO2 removal.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="e3e33808-e2c6-4734-a597-634231e11b16">
+     <li style="list-style-type:disc">
+      Multifunctional furniture designs for public spaces.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="57c3c043-31e6-4d03-a971-ea70df75ed8d">
+     <li style="list-style-type:disc">
+      Community-focused projects that combine technology and sustainability, such as smart libraries and green buildings.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="3599a979-5a83-4ebd-936e-546298914eb2">
+     <li style="list-style-type:disc">
+      Fab lab projects incorporating 3D printing, CNC machining, and electronics production for educational and practical applications.
+     </li>
+    </ul>
+    <p class="" id="6b1ebabf-0bcb-43ab-a89b-6a946cbf4e8e">
+     Specific example that inspired me to work on this project is Liquid tree from Serbia.
+    </p>
+    <figure class="image" id="d6d480e9-1335-4747-9f67-fd52ea26d08b">
+     <a href="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled%201.png">
+      <img src="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled%201.png" style="width:400px"/>
+     </a>
+    </figure>
+    <p class="" id="b63d788d-6d7d-4722-aa1b-4a04e04f2f67">
+     It’s a living product design that becomes an oxygen source for the environment and a community installation that can be utilized by people. I wanted to create a community installation that’s good for the environment and a living product design.
+    </p>
+    <h3 class="" id="f38e237c-b799-469e-8533-2f3fe4d009a8">
+     3. What will I design?
+    </h3>
+    <p class="" id="9e7359af-80ef-4520-a972-65ff9e4a5ec9">
+     The design will include:
+    </p>
+    <ul class="bulleted-list" id="797dc211-8e97-48d9-8e3d-d5d803afe668">
+     <li style="list-style-type:disc">
+      A bookshelf structure that also acts as a reading light.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="0f1ff9a2-09a3-4fde-ad13-0f61ccb5c007">
+     <li style="list-style-type:disc">
+      An air purifier integrated with CO2 removal capabilities.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="92a37e39-434c-4c06-a4b1-859806a1e01a">
+     <li style="list-style-type:disc">
+      A structure to grow algae for protein feed.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="191cc471-1325-4e01-afa3-c9ebb3f615f9">
+     <li style="list-style-type:disc">
+      A community reading spot with embedded electronics for monitoring air quality and other parameters.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5a9af68c-69ae-43b3-a786-8665564016e6">
+     <li style="list-style-type:disc">
+      Aesthetic and functional design elements using 3D printing and CNC machining.
+     </li>
+    </ul>
+    <figure class="image" id="1ac14df6-c48a-4960-8917-85773624eaf7">
+     <a href="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled.jpeg">
+      <img src="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled.jpeg" style="width:708px"/>
+     </a>
+    </figure>
+    <h3 class="" id="e1f6fdeb-1dbc-43db-ad16-ad8b685d567c">
+     4. What materials and components will be used?
+    </h3>
+    <p class="" id="d3c54262-5346-41bb-b301-827829b124c9">
+     Materials and components will include:
+    </p>
+    <ul class="bulleted-list" id="e4c41801-9f05-4b23-a895-c219ff1fb8af">
+     <li style="list-style-type:disc">
+      Biodegradable and recycled materials for 3D printing (e.g., PLA filament).
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="26edef3f-6e7b-4e9a-8bed-12483d8e7054">
+     <li style="list-style-type:disc">
+      Wood and acrylic for CNC machining and laser cutting.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d64e7aee-5844-4a3f-b5c7-6127d879bed2">
+     <li style="list-style-type:disc">
+      Electronic components such as sensors, microcontrollers (e.g., ESP32), and LEDs.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="bc01ffde-0927-4558-ac54-b6991164a6bc">
+     <li style="list-style-type:disc">
+      Algal growth medium and containers.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="17008e9a-c68c-4a20-b30a-e272c06024dd">
+     <li style="list-style-type:disc">
+      Components for air purification (e.g., activated carbon filters).
+     </li>
+    </ul>
+    <figure class="image" id="c909f941-7287-42f1-93c5-b28d91e849c6">
+     <a href="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled%201.jpeg">
+      <img src="Week 16 APPLICATIONS AND IMPLICATIONS/Untitled%201.jpeg" style="width:1280px"/>
+     </a>
+    </figure>
+    <h3 class="" id="9edbeaa4-8de9-4bce-9fc9-7d0c81ec0b00">
+     5. Where will they come from?
+    </h3>
+    <ul class="bulleted-list" id="19842aec-0253-47ef-9599-011e57a23838">
+     <li style="list-style-type:disc">
+      Filament for 3D printing can be sourced from local suppliers or online stores.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5aab3630-1bdc-45e0-ba82-d3d0a2b77710">
+     <li style="list-style-type:disc">
+      Wood and acrylic sheets can be purchased from hardware stores or specialized suppliers.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="bcabd64b-c493-4177-81b3-615d8c80419f">
+     <li style="list-style-type:disc">
+      Electronic components can be sourced from electronics stores or online platforms like Mouser, Digikey, or Seeed Studio.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8f08bf14-5100-4c5a-ae69-ea1c800fa01d">
+     <li style="list-style-type:disc">
+      Algal growth materials can be sourced from scientific supply companies.
+     </li>
+    </ul>
+    <table class="simple-table" id="bae4ae82-cb21-405a-bd63-44e845657360">
+     <tbody>
+      <tr id="d278f80e-37f1-4bba-acd5-3fde3723f006">
+       <td class="" id="Wgjm">
+        <strong>
+         Material/Component
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        <strong>
+         Source
+        </strong>
+       </td>
+       <td class="" id="O&gt;t~">
+        <strong>
+         Example Suppliers
+        </strong>
+       </td>
+      </tr>
+      <tr id="085627ef-a40d-4bdc-876a-ae78cea9cd50">
+       <td class="" id="Wgjm">
+        <strong>
+         Filament for 3D Printing
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        Local suppliers, online stores
+       </td>
+       <td class="" id="O&gt;t~">
+        Amazon, MatterHackers, 3D Prima
+       </td>
+      </tr>
+      <tr id="f64f15da-5b20-42f4-8e1d-041500e4264c">
+       <td class="" id="Wgjm">
+        <strong>
+         Wood Sheets
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        Hardware stores, specialized suppliers
+       </td>
+       <td class="" id="O&gt;t~">
+        Home Depot, Lowe's, Woodcraft
+       </td>
+      </tr>
+      <tr id="7a47edd2-4178-4f4e-9003-65da84930ebc">
+       <td class="" id="Wgjm">
+        <strong>
+         Acrylic Sheets
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        Hardware stores, specialized suppliers
+       </td>
+       <td class="" id="O&gt;t~">
+        TAP Plastics, Delvie's Plastics, Acme Plastics
+       </td>
+      </tr>
+      <tr id="d63442ba-dc21-4074-b56d-6a6bcce30990">
+       <td class="" id="Wgjm">
+        <strong>
+         Electronic Components
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        Electronics stores, online platforms
+       </td>
+       <td class="" id="O&gt;t~">
+        Mouser, Digikey, Seeed Studio, SparkFun, Adafruit
+       </td>
+      </tr>
+      <tr id="d7d7601b-e3fe-4a77-ba26-c0fd90ec0cc5">
+       <td class="" id="Wgjm">
+        <strong>
+         Algal Growth Materials
+        </strong>
+       </td>
+       <td class="" id="UeW:">
+        Scientific supply companies
+       </td>
+       <td class="" id="O&gt;t~">
+        Carolina Biological Supply, Fisher Scientific, Sigma-Aldrich
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <br/>
+    <h3 class="" id="cceff1d7-385a-4cb5-a023-cdc56a51a990">
+     6. How much will they cost?
+    </h3>
+    <p class="" id="260f7e3f-4706-4da9-b6b1-99d292bbd034">
+     A rough estimate of costs:
+    </p>
+    <ul class="bulleted-list" id="0b7fe071-b6ca-4672-87a6-4603b2c90bb2">
+     <li style="list-style-type:disc">
+      3D printing filament: INR 400
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="3dfe0fda-c22a-4af7-a1aa-b5fa056bf032">
+     <li style="list-style-type:disc">
+      Beaker - INR 600
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ceab2fe2-0808-4b34-8c8a-5622f23c4e56">
+     <li style="list-style-type:disc">
+      Wood and acrylic sheets: INR 1600
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="bb9c6d90-4ef6-484a-aef5-a1de10000048">
+     <li style="list-style-type:disc">
+      Electronic components: INR 200
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="7b67f94f-8375-45b7-9d04-55776ae76327">
+     <li style="list-style-type:disc">
+      Air purification materials: INR 300
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5ffa1269-6a98-4e73-83a2-41771a88ac56">
+     <li style="list-style-type:disc">
+      Algal growth materials: INR 2000
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="61bf9d91-aab5-42db-96d3-fae051f0ecae">
+     <li style="list-style-type:disc">
+      Miscellaneous (connectors, wires, adhesives): $50
+      <br>
+       <br/>
+       <strong>
+        Total estimated cost:
+       </strong>
+       INR 700
+      </br>
+     </li>
+    </ul>
+    <h3 class="" id="5cb1a04b-1f12-4c6a-af56-546cb3ded454">
+     7. What parts and systems will be made?
+    </h3>
+    <ul class="bulleted-list" id="331d516b-99e2-42db-b516-ceb1daf075c0">
+     <li style="list-style-type:disc">
+      The bookshelf structure with integrated reading light.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="1ffbafc3-b1f4-4cab-a639-9b2785879d43">
+     <li style="list-style-type:disc">
+      The air purifier unit.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="32713148-5261-4d79-aab8-ecf77d6f602e">
+     <li style="list-style-type:disc">
+      The CO2 removal system with algae growth setup.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="383603df-99d1-46b5-a454-9e6a43e70ae2">
+     <li style="list-style-type:disc">
+      The electronic system for monitoring and control (including Web UI).
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="d9c275a9-93ab-4243-89b4-0ff16e0e9c11">
+     <li style="list-style-type:disc">
+      The structural components for the community reading spot.
+     </li>
+    </ul>
+    <h3 class="" id="d0cfe9a0-d434-474e-ad99-c1cd1a98aa95">
+     8. What processes will be used?
+    </h3>
+    <ul class="bulleted-list" id="eff2ed03-a0b3-4809-9bf9-4054f59bd261">
+     <li style="list-style-type:disc">
+      2D and 3D design using CAD software.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="a4cbec6e-bb40-4258-8024-f0b7314ac4c5">
+     <li style="list-style-type:disc">
+      3D printing for structural components.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="44f46b00-3bbf-45c1-b6c8-24c46b860af9">
+     <li style="list-style-type:disc">
+      CNC machining and laser cutting for parts.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="631d5c0d-fdc7-45b9-a7f6-af11480d86da">
+     <li style="list-style-type:disc">
+      Electronics design and production for sensors and microcontroller interfacing.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="8bbeaa29-86bb-4c8f-bb28-a4dbcba7c2f2">
+     <li style="list-style-type:disc">
+      Programming for embedded systems and Web UI development.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="b0165335-864b-4188-990a-1cc8447539e9">
+     <li style="list-style-type:disc">
+      System integration and packaging to combine all components.
+     </li>
+    </ul>
+    <h3 class="" id="bbc5089c-241d-4394-aaab-de99f110a87e">
+     9. What questions need to be answered?
+    </h3>
+    <ul class="bulleted-list" id="a04db02d-ac19-471e-9082-bb95416162b9">
+     <li style="list-style-type:disc">
+      How effective will the air purification and CO2 removal systems be?
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="29a85671-77b4-478c-9348-87ba68887067">
+     <li style="list-style-type:disc">
+      What is the optimal design for integrating all features without compromising functionality or aesthetics?
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="53cdebb2-2d08-4145-a202-aa28cab58777">
+     <li style="list-style-type:disc">
+      How will the electronics system handle real-time data monitoring and user interface?
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="c3c37abe-7bb6-45eb-8bd2-838be8f700b5">
+     <li style="list-style-type:disc">
+      What are the best materials to use for durability and sustainability?
+     </li>
+    </ul>
+    <h3 class="" id="506748b5-fbe0-4537-8589-130824f9a889">
+     10. How will it be evaluated?
+    </h3>
+    <ul class="bulleted-list" id="6184d3bd-3c4c-4d2d-b9d1-8de35c6552de">
+     <li style="list-style-type:disc">
+      Functionality: The project should perform all intended functions effectively.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6196c0a6-06f2-477f-bb91-12519e0402a7">
+     <li style="list-style-type:disc">
+      Integration: All components and systems should be seamlessly integrated.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="ba81f72c-12dc-4413-a028-22a11a109dce">
+     <li style="list-style-type:disc">
+      Sustainability: The project should use sustainable materials and processes.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="5ff79f22-58d7-49e0-8e1f-d382632f6716">
+     <li style="list-style-type:disc">
+      User Experience: The design should be user-friendly and enhance the library environment.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="daa2cfab-6d10-4bfc-ae80-994d40520176">
+     <li style="list-style-type:disc">
+      Innovation: The project should demonstrate innovative use of technology and design.
+     </li>
+    </ul>
+    <h3 class="" id="bd4cf968-c141-407d-b514-3c49d4b5084f">
+     Project Requirements Compliance
+    </h3>
+    <ul class="bulleted-list" id="8d399418-b995-4a94-bf28-16cf2484edf0">
+     <li style="list-style-type:disc">
+      <strong>
+       2D and 3D Design:
+      </strong>
+      Both will be utilized in the design of structural and aesthetic components.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="4db4a380-e5bc-4b9d-bb8f-5a1717b70b82">
+     <li style="list-style-type:disc">
+      <strong>
+       Additive and Subtractive Fabrication Processes:
+      </strong>
+      3D printing (additive) and CNC machining/laser cutting (subtractive) will be used.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="6aacf783-6780-47e6-8de5-d767591afbed">
+     <li style="list-style-type:disc">
+      <strong>
+       Electronics Design and Production:
+      </strong>
+      Sensors and microcontroller interfacing will be incorporated.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="c246e010-4360-4448-9484-8c20251cf565">
+     <li style="list-style-type:disc">
+      <strong>
+       Embedded Microcontroller Interfacing and Programming:
+      </strong>
+      ESP32 microcontroller will be programmed for various functions.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="de616689-161d-4154-97c4-ed206c7b025d">
+     <li style="list-style-type:disc">
+      <strong>
+       System Integration and Packaging:
+      </strong>
+      All systems will be integrated into a cohesive, functional unit.
+     </li>
+    </ul>
+    <ul class="bulleted-list" id="57af6178-c60d-4260-9997-9728196ffa4f">
+     <li style="list-style-type:disc">
+      <strong>
+       Make Rather Than Buy:
+      </strong>
+      Emphasis will be on making as many parts as possible in-house using available fab lab resources.
+     </li>
+    </ul>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
