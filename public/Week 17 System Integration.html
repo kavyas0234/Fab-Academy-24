@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+   <title>
+    Week 17: System Integration
+   </title>
+   <style>
+    /* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	/*white-space: pre-wrap;*/
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	/*white-space: pre-wrap;*/
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+   </style>
+  </meta>
+ </head>
+ <body>
+  <article class="page sans" id="b54e0924-d87c-455a-8b12-b0a4d4a1086a">
+   <header>
+    <img class="page-cover-image" src="https://images.unsplash.com/photo-1598209494655-b8e249540dfc?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/>
+    <h1 class="page-title">
+     Week 17: System Integration
+    </h1>
+    <p class="page-description">
+    </p>
+   </header>
+   <div class="page-body">
+    <h2 class="" id="f34553e1-196c-47c3-a767-a4a90d5482b6">
+     <strong>
+      Breathing Library Swasa System Integration
+     </strong>
+    </h2>
+    <h3 class="" id="ad7aed42-b6da-4914-976b-cee5a4067bed">
+     <strong>
+      Project Description:
+     </strong>
+    </h3>
+    <p class="" id="6d6a4025-7f7a-4349-bdb5-c5e796c0412a">
+     The Breathing Library - Swasa project integrates sustainable and multifunctional features into a library setting. It includes air purification, CO2 removal, a relaxing reading light, and a community reading spot, along with advanced manufacturing techniques such as 3D printing, CNC machining, and electronics production.
+    </p>
+    <figure class="image" id="2becba30-c4ef-461f-a5d7-24158a1a1443">
+     <a href="Week 17 System Integration/Untitled.png">
+      <img src="Week 17 System Integration/Untitled.png" style="width:602px"/>
+     </a>
+    </figure>
+    <h3 class="" id="f0a51460-0827-41c7-9aeb-23fa3d3f40e9">
+     <strong>
+      Features of Breathing Library Swasa:
+     </strong>
+    </h3>
+    <ol class="numbered-list" id="ff9427c6-a9f7-4b1f-a9da-dfa6c11b7d60" start="1" type="1">
+     <li>
+      <strong>
+       Automated Air Purification:
+      </strong>
+      Efficient air purification system to enhance indoor air quality.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="5d9d34cb-0d1c-4191-80ba-877fd4fda57b" start="2" type="1">
+     <li>
+      <strong>
+       CO2 Removal:
+      </strong>
+      Uses algae to remove CO2 from the air.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="1d503500-882e-42a1-a345-a45615051ba7" start="3" type="1">
+     <li>
+      <strong>
+       User-Friendly Interface:
+      </strong>
+      Easy-to-use interface for monitoring and controlling the system.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="13c62ae7-e76e-4857-bf20-38e949caaa78" start="4" type="1">
+     <li>
+      <strong>
+       Cost-Effective:
+      </strong>
+      Designed to be affordable with a focus on using locally sourced and sustainable materials.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="ac8fafbc-85ed-4a51-b72a-c6f9ca6681da" start="5" type="1">
+     <li>
+      <strong>
+       Customizable:
+      </strong>
+      Can be tailored to fit various library sizes and needs.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0308084f-fc01-4d50-bc94-44d2e338673b" start="6" type="1">
+     <li>
+      <strong>
+       Efficient Mechanisms:
+      </strong>
+      Mechanisms designed for optimal performance and energy efficiency.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="77a1af4a-c33a-40a7-8f0a-55357f4d4241" start="7" type="1">
+     <li>
+      <strong>
+       Adaptability:
+      </strong>
+      Adaptable to different environments and requirements.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="93eacf5e-3604-4165-8867-013720dfb1a9" start="8" type="1">
+     <li>
+      <strong>
+       Easy Assembly and Maintenance:
+      </strong>
+      Designed for straightforward assembly and minimal maintenance.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="e117493e-0f1b-4f51-a640-2d47397424b0" start="9" type="1">
+     <li>
+      <strong>
+       Future Expandability:
+      </strong>
+      Modular design allows for future upgrades and enhancements.
+     </li>
+    </ol>
+    <h3 class="" id="25bd760c-7c42-41c2-9e37-28e9ebdb47cb">
+     <strong>
+      Production Methods:
+     </strong>
+    </h3>
+    <ol class="numbered-list" id="d6d52188-29d1-4b53-9849-97c1409edd4b" start="1" type="1">
+     <li>
+      <strong>
+       Laser Cutting:
+      </strong>
+      For precise cutting of acrylic and wood components.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="a02b6e4e-798b-4310-b754-f35b537dc0fe" start="2" type="1">
+     <li>
+      <strong>
+       3D Printing:
+      </strong>
+      For creating custom parts and housing.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="0bd23f10-3193-403d-acad-723d3b39686c" start="3" type="1">
+     <li>
+      <strong>
+       Circuit Designing:
+      </strong>
+      Creating electronic circuit layouts.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="67ed4ba9-5e38-4338-8ab3-a4b6aeb9704e" start="4" type="1">
+     <li>
+      <strong>
+       PCB Milling:
+      </strong>
+      Manufacturing printed circuit boards.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="6b51d74a-e814-4fc0-8adb-0526d79515f1" start="5" type="1">
+     <li>
+      <strong>
+       Soldering and Assembling:
+      </strong>
+      Integrating electronic components.
+     </li>
+    </ol>
+    <ol class="numbered-list" id="159656ce-3dac-476d-a120-9ac06742584a" start="6" type="1">
+     <li>
+      <strong>
+       Embedded Programming:
+      </strong>
+      Programming the microcontroller to control the system.
+     </li>
+    </ol>
+    <h3 class="" id="c324c8d8-b917-4021-b244-5ba4bdc97b7c">
+     <strong>
+      Sourcing Table:
+     </strong>
+    </h3>
+    <table class="simple-table" id="51c35b00-f7cb-446f-8b61-57a90bc4a76c">
+     <tbody>
+      <tr id="3fcdfcc6-cafa-4f6c-8b92-414c4ac57cb1">
+       <td class="" id="qguB">
+        <strong>
+         Material/Component
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        <strong>
+         Source
+        </strong>
+       </td>
+       <td class="" id="YhvO">
+        <strong>
+         Example Suppliers
+        </strong>
+       </td>
+      </tr>
+      <tr id="62fe8c96-bc85-48d2-b425-b984a068e9e6">
+       <td class="" id="qguB">
+        <strong>
+         Filament for 3D Printing
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        Fab Inventory
+       </td>
+       <td class="" id="YhvO">
+        Fablab
+       </td>
+      </tr>
+      <tr id="f94b9f4a-65c0-4a9e-8b84-a251810325d9">
+       <td class="" id="qguB">
+        <strong>
+         Wood Sheets
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        Fab Inventory
+       </td>
+       <td class="" id="YhvO">
+        Fablab
+       </td>
+      </tr>
+      <tr id="02889c8c-afcf-4523-b011-1a50d19c02dc">
+       <td class="" id="qguB">
+        <strong>
+         Acrylic Sheets, Cardboard
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        Fab Inventory
+       </td>
+       <td class="" id="YhvO">
+        Fablab
+       </td>
+      </tr>
+      <tr id="4ce50497-2e66-4661-b5a8-06354b52f1f9">
+       <td class="" id="qguB">
+        <strong>
+         Electronic Components
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        Electronics stores, online platforms, Fab Inventory
+       </td>
+       <td class="" id="YhvO">
+        Thomson Electronics, Amazon, Fablab
+       </td>
+      </tr>
+      <tr id="19351eae-36ff-43b3-99f6-55565b9b3c4d">
+       <td class="" id="qguB">
+        <strong>
+         Algal Growth Materials
+        </strong>
+       </td>
+       <td class="" id="F|=G">
+        Amazon
+       </td>
+       <td class="" id="YhvO">
+        Amazon
+       </td>
+      </tr>
+      <tr id="fe8ca8e6-3ebc-4f4a-be27-a42151d76b8c">
+       <td class="" id="qguB">
+        Beaker
+       </td>
+       <td class="" id="F|=G">
+        King’s Aquarium
+       </td>
+       <td class="" id="YhvO">
+        King’s Aquarium
+       </td>
+      </tr>
+      <tr id="234f373c-5961-43c3-97f3-c2ab5d363199">
+       <td class="" id="qguB">
+        Aerator pump
+       </td>
+       <td class="" id="F|=G">
+        King’s Aquarium
+       </td>
+       <td class="" id="YhvO">
+        King’s Aquarium
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <h3 class="" id="7b00169f-b073-466b-afae-b4152a712a93">
+     <strong>
+      Electronics BOM:
+     </strong>
+    </h3>
+    <table class="simple-table" id="a039195d-4223-42f5-9b42-352b01ba1480">
+     <tbody>
+      <tr id="9a802b8b-9b6b-4d0d-ac6c-54d4affe7ebf">
+       <td class="" id="GTv:">
+        Reference
+       </td>
+       <td class="" id="WcXF">
+        Value
+       </td>
+       <td class="" id=":UQO">
+        Datasheet
+       </td>
+       <td class="" id="C&lt;=P">
+        Footprint
+       </td>
+       <td class="" id="GDkO">
+        Qty
+       </td>
+      </tr>
+      <tr id="123545f2-f62c-491c-a263-36fa7f5da106">
+       <td class="" id="GTv:">
+        C1
+       </td>
+       <td class="" id="WcXF">
+        CP_Elec_D6.3mm_H6.1mm
+       </td>
+       <td class="" id=":UQO">
+        https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/19782
+       </td>
+       <td class="" id="C&lt;=P">
+        fab:CP_Elec_D6.3mm_H6.1mm
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="c9d34c66-a31e-4790-8eb6-a3c30e860d61">
+       <td class="" id="GTv:">
+        J1,J4
+       </td>
+       <td class="" id="WcXF">
+        Conn_PinSocket_1x03_P2.54mm_Vertical_SMD
+       </td>
+       <td class="" id=":UQO">
+        ~
+       </td>
+       <td class="" id="C&lt;=P">
+        -- mixed values --
+       </td>
+       <td class="" id="GDkO">
+        2
+       </td>
+      </tr>
+      <tr id="306e6413-26db-4275-a711-8125bbb83480">
+       <td class="" id="GTv:">
+        J2,J3
+       </td>
+       <td class="" id="WcXF">
+        Conn_PinSocket_1x04_P2.54mm_Vertical_SMD
+       </td>
+       <td class="" id=":UQO">
+        https://media.digikey.com/pdf/Data%20Sheets/Sullins%20PDFs/NPxCxx1KFXx-RC%2010487-D.pdf
+       </td>
+       <td class="" id="C&lt;=P">
+        fab:PinSocket_1x04_P2.54mm_Vertical_SMD
+       </td>
+       <td class="" id="GDkO">
+        2
+       </td>
+      </tr>
+      <tr id="2e809bf5-2a08-4fa1-b335-28ccb755c492">
+       <td class="" id="GTv:">
+        J5
+       </td>
+       <td class="" id="WcXF">
+        Screw_Terminal_01x03_P3.5mm
+       </td>
+       <td class="" id=":UQO">
+        www.on-shore.com/wp-content/uploads/ED555XDS.pdf
+       </td>
+       <td class="" id="C&lt;=P">
+        fab:TerminalBlock_OnShore_1x03_P3.50mm_Horizontal
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="e4a4bb47-7c90-4e20-a3df-8f75e3ac0db1">
+       <td class="" id="GTv:">
+        J6
+       </td>
+       <td class="" id="WcXF">
+        Screw_Terminal_01x02_P5mm
+       </td>
+       <td class="" id=":UQO">
+        https://www.on-shore.com/wp-content/uploads/OSTTAXX0161.pdf
+       </td>
+       <td class="" id="C&lt;=P">
+        fab:TerminalBlock_OnShore_1x02_P5.00mm_Horizontal
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="f5059fd9-05c6-4cd3-b48f-6356c008ea55">
+       <td class="" id="GTv:">
+        M1
+       </td>
+       <td class="" id="WcXF">
+        Module_XIAO-ESP32C3
+       </td>
+       <td class="" id=":UQO">
+        https://wiki.seeedstudio.com/XIAO_ESP32C3_Getting_Started/
+       </td>
+       <td class="" id="C&lt;=P">
+        fab:SeeedStudio_XIAO_ESP32C3
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="e894149d-2d43-4fe8-ab26-f5d6774fcfab">
+       <td class="" id="GTv:">
+        LED
+       </td>
+       <td class="" id="WcXF">
+        Neopixel String Lights
+       </td>
+       <td class="" id=":UQO">
+       </td>
+       <td class="" id="C&lt;=P">
+       </td>
+       <td class="" id="GDkO">
+        1 (41 units)
+       </td>
+      </tr>
+      <tr id="6284b67d-9cb3-4374-9192-ec360456347c">
+       <td class="" id="GTv:">
+        S1
+       </td>
+       <td class="" id="WcXF">
+        MQ 135
+       </td>
+       <td class="" id=":UQO">
+       </td>
+       <td class="" id="C&lt;=P">
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="333ab55b-6337-4af3-b579-caed2dacab8b">
+       <td class="" id="GTv:">
+        S2
+       </td>
+       <td class="" id="WcXF">
+        DHT Sensor
+       </td>
+       <td class="" id=":UQO">
+       </td>
+       <td class="" id="C&lt;=P">
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+      <tr id="ac81fbc1-a4bd-4082-a04d-db0d290068ea">
+       <td class="" id="GTv:">
+        Power Module
+       </td>
+       <td class="" id="WcXF">
+        Adapter
+       </td>
+       <td class="" id=":UQO">
+       </td>
+       <td class="" id="C&lt;=P">
+       </td>
+       <td class="" id="GDkO">
+        1
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <h3 class="" id="1d1b0233-ca59-4c0d-962e-f88d301b47ab">
+     <strong>
+      Material and Machining BOM:
+     </strong>
+    </h3>
+    <table class="simple-table" id="5d9bdf8f-f0e2-4dd8-a7ae-30e20ec2d400">
+     <tbody>
+      <tr id="71755556-1d9d-4048-9cdc-2afdde38dca2">
+       <td class="" id="hBU&lt;">
+        <strong>
+         SL NO
+        </strong>
+       </td>
+       <td class="" id="eNWS">
+        <strong>
+         PART NAME
+        </strong>
+       </td>
+       <td class="" id="H:XQ">
+        <strong>
+         SOURCE
+        </strong>
+       </td>
+       <td class="" id="{bKF">
+        <strong>
+         QUANTITY
+        </strong>
+       </td>
+       <td class="" id="SmZu">
+        <strong>
+         PRICE
+        </strong>
+       </td>
+       <td class="" id="KwCQ">
+        <strong>
+         TOTAL
+        </strong>
+       </td>
+      </tr>
+      <tr id="419ab4d4-8097-462f-8f9b-6f02d5773e16">
+       <td class="" id="hBU&lt;">
+        1
+       </td>
+       <td class="" id="eNWS">
+        3D PRINTING
+       </td>
+       <td class="" id="H:XQ">
+        FABLAB INVENTORY
+       </td>
+       <td class="" id="{bKF">
+        18 hrs
+       </td>
+       <td class="" id="SmZu">
+        ₹200
+       </td>
+       <td class="" id="KwCQ">
+        ₹3600
+       </td>
+      </tr>
+      <tr id="6e019bbb-769c-4a67-9830-8c9b7c587c90">
+       <td class="" id="hBU&lt;">
+        2
+       </td>
+       <td class="" id="eNWS">
+        M3 NUTS AND BOLTS
+       </td>
+       <td class="" id="H:XQ">
+        FABLAB INVENTORY
+       </td>
+       <td class="" id="{bKF">
+        15
+       </td>
+       <td class="" id="SmZu">
+        ₹5
+       </td>
+       <td class="" id="KwCQ">
+        ₹125
+       </td>
+      </tr>
+      <tr id="8d53d44c-d295-4bea-b4c3-cc09f95e8bd3">
+       <td class="" id="hBU&lt;">
+        3
+       </td>
+       <td class="" id="eNWS">
+        M4 NUTS AND BOLTS
+       </td>
+       <td class="" id="H:XQ">
+        FABLAB INVENTORY
+       </td>
+       <td class="" id="{bKF">
+        5
+       </td>
+       <td class="" id="SmZu">
+        ₹5
+       </td>
+       <td class="" id="KwCQ">
+        ₹25
+       </td>
+      </tr>
+      <tr id="696bf124-06b5-41ad-b8b8-c90449511aeb">
+       <td class="" id="hBU&lt;">
+        4
+       </td>
+       <td class="" id="eNWS">
+        PCB MILLING
+       </td>
+       <td class="" id="H:XQ">
+        FABLAB INVENTORY
+       </td>
+       <td class="" id="{bKF">
+        .5 hrs
+       </td>
+       <td class="" id="SmZu">
+        ₹150
+       </td>
+       <td class="" id="KwCQ">
+        ₹75
+       </td>
+      </tr>
+      <tr id="a9c8ea1e-c89a-42fc-adaf-1de0f7e288cc">
+       <td class="" id="hBU&lt;">
+        5
+       </td>
+       <td class="" id="eNWS">
+        Card Board
+       </td>
+       <td class="" id="H:XQ">
+        Fablab
+       </td>
+       <td class="" id="{bKF">
+        1
+       </td>
+       <td class="" id="SmZu">
+        ₹.5
+       </td>
+       <td class="" id="KwCQ">
+        ₹10
+       </td>
+      </tr>
+      <tr id="5611d8e0-5654-4a62-a183-400f736f6e75">
+       <td class="" id="hBU&lt;">
+        6
+       </td>
+       <td class="" id="eNWS">
+        Aquarium Cost (beaker)
+       </td>
+       <td class="" id="H:XQ">
+        Fablab
+       </td>
+       <td class="" id="{bKF">
+        2
+       </td>
+       <td class="" id="SmZu">
+        300
+       </td>
+       <td class="" id="KwCQ">
+        600
+       </td>
+      </tr>
+      <tr id="e4f0b71c-f9b9-4160-a35b-acd9a32fc5df">
+       <td class="" id="hBU&lt;">
+        <strong>
+         TOTAL
+        </strong>
+       </td>
+       <td class="" id="eNWS">
+       </td>
+       <td class="" id="H:XQ">
+       </td>
+       <td class="" id="{bKF">
+       </td>
+       <td class="" id="SmZu">
+       </td>
+       <td class="" id="KwCQ">
+        ₹4435
+       </td>
+      </tr>
+     </tbody>
+    </table>
+    <h3 class="" id="14a0ed3c-c199-4cc0-9a51-ca55f724f778">
+     <strong>
+      Total Project Cost:
+     </strong>
+    </h3>
+    <p class="" id="5bbc6eff-633f-4b6d-af90-6a0b28ec84bf">
+     <strong>
+      Electronics BOM Total:
+     </strong>
+     ₹2000
+     <br/>
+     <br/>
+     <strong>
+      Material and Machining BOM Total:
+     </strong>
+     ₹4435
+     <br/>
+     <br/>
+     <strong>
+      Overall Total:
+     </strong>
+     ₹6435 INR
+    </p>
+    <br/>
+   </div>
+  </article>
+  <span class="sans" style="font-size:14px;padding-top:2em">
+  </span>
+ </body>
+</html>
