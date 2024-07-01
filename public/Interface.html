@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Kavya's Breathing Library</title>
+    <script type="module" crossorigin src="/assets/index-Be0CIjaS.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BN5LU_nZ.css">
+  </head>
+  <body>
+    <navbar class="relative z-50">
+      <div class="flex items-center justify-between px-12 py-6 shadow-sm">
+        <h1 class="font-sans font-semibold text-2xl text-gray-700"><i class="fa-solid fa-droplet"></i> Breathing Library</h1>
+        <a href="https://fabacademy.org/2024/labs/kochi/students/kavya-s/">
+          <i class="fa-solid fa-globe fa-xl hover:text-blue-800 transition-all duration-300 ease-linear cursor-pointer"></i>
+        </a>
+      </div>
+    </navbar>
+
+    <div id="loader">
+      <span class="loader"></span>
+    </div>
+    <section class=" grid grid-cols-1 gap-6 px-32 py-6 sm:grid-cols-2 md:grid-cols-3 mt-8">
+      <div class="p-4 flex justify-start">
+        <div class="w-full max-w-sm min-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Estimated CO2</h5>
+          <div class="flex items-baseline text-gray-900 dark:text-white">
+            <span class="text-5xl font-extrabold tracking-tight" id="co2">49</span>
+            <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">PPM</span>
+          </div>
+          <span class="timeStamp dark:text-gray-400 text-gray-600"></span>
+        </div>
+      </div>
+
+      <div class="p-4 flex justify-center">
+        <div class="w-full max-w-sm min-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Temperature</h5>
+          <div class="flex items-baseline text-gray-900 dark:text-white">
+          <span class="text-5xl font-extrabold tracking-tight" id="temp">49</span>
+          <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">&deg;C</span>
+          </div>
+          <span class="timeStamp dark:text-gray-400 text-gray-600"></span>
+        </div>
+      </div>
+
+      <div class="p-4 flex justify-end">
+        <div class="w-full max-w-sm min-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">Humidity</h5>
+          <div class="flex items-baseline text-gray-900 dark:text-white">
+          <span class="text-5xl font-extrabold tracking-tight" id="humidity">49</span>
+          <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">%</span>
+          </div>
+          <span class="timeStamp dark:text-gray-400 text-gray-600"></span>
+        </div>
+      </div>
+    </section>
+    
+    <section class="mx-36 py-2 flex gap-4 items-center sm:flex-col lg:flex-row">
+      <div class="lg:w-1/2 sm:w-full px-8 py-4 flex justify-between gap-x-6 border border-gray-100 rounded-full shadow-sm" >
+        <label class="flex items-center relative w-max cursor-pointer select-none">
+          <span class="text-lg font-semibold text-gray-700 mr-3">Turn On The Lights</span>
+          <input type="checkbox" id="switch" class="appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-red-500" />
+          <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
+          <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span>
+          <span class="w-6 h-6 right-[1.85rem] absolute rounded-full transform transition-transform bg-gray-200" />
+        </label>
+
+        <div class="flex items-center">
+          <!-- <span class="text-lg font-medium mr-3 text-gray-700">Change Light Mode </span> -->
+          <div class="border rounded-full py-1 px-3">
+            <span id="modeValue">Wavy <i class="ml-2 fa-solid fa-water"></i></span>
+          </div>
+          <button id="changeMode" class="ml-3 border rounded-lg py-1 px-4 bg-indigo-600 text-white"> Change Mode<i class="ml-2 fa-solid fa-repeat"></i></button>
+        </div>
+      </div>
+      <div class="lg:w-1/2 sm:w-full flex gap-x-8">
+        <label class="flex items-center relative w-max cursor-pointer select-none ml-auto">
+          <span class="text-lg font-semibold text-gray-700 mr-3">Airator Status</span>
+          <input type="checkbox" id="airatorSwitch" class="appearance-none transition-colors cursor-pointer w-14 h-7 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-red-500" />
+          <span class="absolute font-medium text-xs uppercase right-1 text-white"> OFF </span>
+          <span class="absolute font-medium text-xs uppercase right-8 text-white"> ON </span>
+          <span class="w-6 h-6 right-[1.85rem] absolute rounded-full transform transition-transform bg-gray-200" />
+        </label>
+        <div class="border px-4 py-2 rounded-full">
+          <span class="text-sm font-medium">Status: &nbsp; </span>
+          <i class="fa-solid fa-power-off" id="airatorStatus"></i>
+        </div>
+      </div>
+    </section>
+
+    <div class="mt-8 px-36 py-6 flex gap-x-4 gap-y-4 justify-center sm:flex-col lg:flex-row">
+      <div class="flex items-center gap-x-4 lg:w-1/2 sm:w-full">
+        <!-- <img class="w-64 h-64" src="./vite.svg" alt="">
+        <div class="px-8">
+          <h1 class="text-4xl font-bold">Breathing Library</h1>
+          <p class="max-w-3xl mt-4 mb-8 text-gray-500">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap 
+            into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+          </p>
+          <a class="w-48  border rounded-lg py-2 px-4 bg-indigo-600 text-white"> Learn More<i class="ml-2 fa-solid fa-arrow-right"></i></a>
+        </div> -->
+        <canvas id="co2Chart"></canvas>
+      </div>
+      <div class="lg:w-1/2 sm:w-full">
+        <canvas id="chart"></canvas>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  </body>
+</html>
